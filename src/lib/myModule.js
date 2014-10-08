@@ -58,7 +58,7 @@ function detectLanguage(inp_txt){
     return "English"; // default
 }
 
-function convert2IndicScript(inp_txt, is_IAST, indicScript, modeStrict, reverse, excludeNumbers)
+function convert2IndicScript(inp_txt, is_IAST, indicScript, modeStrict, reverse, preferASCIIDigits)
 {
     var indx=0;
     var out = "";
@@ -114,7 +114,7 @@ function convert2IndicScript(inp_txt, is_IAST, indicScript, modeStrict, reverse,
             continue;
         }	
         
-        [blk, blkLen, Type, vovel_needed_p, insideTag_p] = getNxtIndicChr(lang_dict, inp_txt.substring(indx), modeStrict, word_start_p, vovel_needed_p, insideTag_p, reverse, excludeNumbers);
+        [blk, blkLen, Type, vovel_needed_p, insideTag_p] = getNxtIndicChr(lang_dict, inp_txt.substring(indx), modeStrict, word_start_p, vovel_needed_p, insideTag_p, reverse, preferASCIIDigits);
 		out += blk;
 		if(Type == "NoMatch"){
 			//document.write( inp_txt.substring(indx, indx+blkLen)+": ***** NoMatch (blkLen)<br>");
@@ -201,7 +201,7 @@ function convertNextBlk2ITRANS(trans_dict, inp_txt, insideTag_p){
 	return [out, blkLen, Type, insideTag];
 };
 
-function getNxtIndicChr(lang_dict, inp_txt, modeStrict, word_start_p, vovel_needed_p, insideTag_p, reverse, excludeNumbers){
+function getNxtIndicChr(lang_dict, inp_txt, modeStrict, word_start_p, vovel_needed_p, insideTag_p, reverse, preferASCIIDigits){
 	var MAX=4; // *** set this
 	var debug=0;
 	var out = "";
@@ -282,8 +282,8 @@ function getNxtIndicChr(lang_dict, inp_txt, modeStrict, word_start_p, vovel_need
 			//if(debug){document.write( "8: "+blk+" "+lang_dict["Consonants"][blk]);}
 			break;
 		}
-		// Others [Exclude Numbers/Digits if option is selected]
-		else if( !((isNumber(blk) == true) && (excludeNumbers == true)) 
+		// Others [Do not convert ASCII Digits if option is selected]
+		else if( !((isASCIIDigit(blk) == true) && (preferASCIIDigits == true)) 
                 && array_key_exists(blk, lang_dict["Others"])){
 			if(vovel_needed){
 				out += lang_dict["VIRAMA"];
@@ -409,7 +409,7 @@ function cloneRevDict(dict) {
     return new_dict;
 }
 
-function isNumber(n) {
+function isASCIIDigit(n) {
   return ((n>=0) && (n<=9));
 }
 

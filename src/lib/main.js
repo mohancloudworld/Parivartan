@@ -32,13 +32,13 @@ exports.main= function() {
                         var inpLang = myMod.detectLanguage(subselection.text);
                         if(inpLang != outLang){
                             // convert to English (ITRANS) [if selection is from a text-box, 'html' will be empty so, 'text' is used to convert]
-                            var resultITRANS = myMod.convert2IndicScript(subselection.html||subselection.text, 0, inpLang, 1, 1, preferences.prefs.excludeNumbers);
+                            var resultITRANS = myMod.convert2IndicScript(subselection.html||subselection.text, 0, inpLang, 1, 1, preferences.prefs.preferASCIIDigits);
                             if(outLang == "English"){
                                 subselection.html = resultITRANS;
                             }
                             else{
                                 // convert to the desired output language
-            			        subselection.html = myMod.convert2IndicScript(resultITRANS, 0, outLang, 1, 0, preferences.prefs.excludeNumbers);
+            			        subselection.html = myMod.convert2IndicScript(resultITRANS, 0, outLang, 1, 0, preferences.prefs.preferASCIIDigits);
                             }
                         }
 					}
@@ -59,7 +59,7 @@ exports.main= function() {
 				],
 				onMessage: function (indicScript) {
 					for (var subselection in selection) {
-                        subselection.html = myMod.convert2IndicScript(subselection.html||subselection.text, 1, indicScript, 0, 0, preferences.prefs.excludeNumbers);
+                        subselection.html = myMod.convert2IndicScript(subselection.html||subselection.text, 1, indicScript, 0, 0, preferences.prefs.preferASCIIDigits);
   					}
 				}
 			}),
@@ -78,7 +78,7 @@ exports.main= function() {
 				],
 				onMessage: function (indicScript) {
 					for (var subselection in selection) {
-						subselection.html = myMod.convert2IndicScript(subselection.html||subselection.text, 1, indicScript, 1, 0, preferences.prefs.excludeNumbers);
+						subselection.html = myMod.convert2IndicScript(subselection.html||subselection.text, 1, indicScript, 1, 0, preferences.prefs.preferASCIIDigits);
 					}
 				}
 			}),
