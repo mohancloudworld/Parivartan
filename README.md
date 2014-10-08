@@ -2,6 +2,8 @@ Parivartan
 ==========
 A Mozilla Firefox Extension to converter text from Indian language to English and vice versa.
 
+This can be installed/downloaded from <a href="https://addons.mozilla.org/en-US/firefox/addon/parivartan/" target="_blank">Firefox addons page</a>.
+
 Supported Indian formats: Devanagari (Sanskrit/Hindi/Marathi), Telugu, Kannada, Gujarati, Tamil and Bengali.<br>
 Supported English formats: IAST, ITRANS.
 
