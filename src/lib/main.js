@@ -8,27 +8,27 @@ exports.main= function() {
     // initialize
     myMod.init();
     
-	var menuItem = contextMenu.Menu({
-		label: "Parivartan",
-		context: contextMenu.SelectionContext(),
-		items: [
-        	contextMenu.Menu({
-        		label: "Indian/English(ITRANS) to",
-				context: contextMenu.SelectionContext(),
-				contentScript: 'self.on("click", function (node, data) {' +
-					 '  self.postMessage(data);' +
-					 '});',
-				items: [
-					contextMenu.Item({ label: "English", data: "English" }),
-    				contextMenu.Item({ label: "Devanagari", data: "Devanagari" }),
-    				contextMenu.Item({ label: "Telugu",  data: "Telugu" }),
-					contextMenu.Item({ label: "Kannada", data: "Kannada" }),
-					contextMenu.Item({ label: "Gujarati", data: "Gujarati" }),
-					contextMenu.Item({ label: "Tamil", data: "Tamil" }),
-					contextMenu.Item({ label: "Bengali", data: "Bengali" })
-				],
-				onMessage: function (outLang) {
-					for (var subselection in selection) {
+    var menuItem = contextMenu.Menu({
+        label: "Parivartan",
+        context: contextMenu.SelectionContext(),
+        items: [
+            contextMenu.Menu({
+                label: "Indian/English(ITRANS) to",
+                context: contextMenu.SelectionContext(),
+                contentScript: 'self.on("click", function (node, data) {' +
+                     '  self.postMessage(data);' +
+                     '});',
+                items: [
+                    contextMenu.Item({ label: "English", data: "English" }),
+                    contextMenu.Item({ label: "Devanagari", data: "Devanagari" }),
+                    contextMenu.Item({ label: "Telugu",  data: "Telugu" }),
+                    contextMenu.Item({ label: "Kannada", data: "Kannada" }),
+                    contextMenu.Item({ label: "Gujarati", data: "Gujarati" }),
+                    contextMenu.Item({ label: "Tamil", data: "Tamil" }),
+                    contextMenu.Item({ label: "Bengali", data: "Bengali" })
+                ],
+                onMessage: function (outLang) {
+                    for (var subselection in selection) {
                         // detect language [to improve speed, passing 'text' instead of 'html']
                         var inpLang = myMod.detectLanguage(subselection.text);
                         if(inpLang != outLang){
@@ -39,53 +39,53 @@ exports.main= function() {
                             }
                             else{
                                 // convert to the desired output language
-            			        subselection.html = myMod.convert2IndicScript(resultITRANS, 0, outLang, 1, 0, preferences.prefs.preferASCIIDigits);
+                                subselection.html = myMod.convert2IndicScript(resultITRANS, 0, outLang, 1, 0, preferences.prefs.preferASCIIDigits);
                             }
                         }
-					}
-				}
-			}),
-    		contextMenu.Menu({
-    			label: "General English to",
-				context: contextMenu.SelectionContext(),
-				contentScript: 'self.on("click", function (node, data) {' +
-					 '  self.postMessage(data);' +
-					 '});',
-				items: [
-					contextMenu.Item({ label: "Devanagari", data: "Devanagari" }),
-					contextMenu.Item({ label: "Telugu",  data: "Telugu" }),
-					contextMenu.Item({ label: "Kannada", data: "Kannada" }),
-					contextMenu.Item({ label: "Gujarati", data: "Gujarati" }),
-					contextMenu.Item({ label: "Tamil", data: "Tamil" }),
-					contextMenu.Item({ label: "Bengali", data: "Bengali" })
-				],
-				onMessage: function (indicScript) {
-					for (var subselection in selection) {
+                    }
+                }
+            }),
+            contextMenu.Menu({
+                label: "General English to",
+                context: contextMenu.SelectionContext(),
+                contentScript: 'self.on("click", function (node, data) {' +
+                     '  self.postMessage(data);' +
+                     '});',
+                items: [
+                    contextMenu.Item({ label: "Devanagari", data: "Devanagari" }),
+                    contextMenu.Item({ label: "Telugu",  data: "Telugu" }),
+                    contextMenu.Item({ label: "Kannada", data: "Kannada" }),
+                    contextMenu.Item({ label: "Gujarati", data: "Gujarati" }),
+                    contextMenu.Item({ label: "Tamil", data: "Tamil" }),
+                    contextMenu.Item({ label: "Bengali", data: "Bengali" })
+                ],
+                onMessage: function (indicScript) {
+                    for (var subselection in selection) {
                         subselection.html = myMod.convert2IndicScript(subselection.html||subselection.text, 1, indicScript, 0, 0, preferences.prefs.preferASCIIDigits);
-  					}
-				}
-			}),
-			contextMenu.Menu({
-        		label: "English (IAST) to",
-				context: contextMenu.SelectionContext(),
-				contentScript: 'self.on("click", function (node, data) {' +
-					 '  self.postMessage(data);' +
-					 '});',
-				items: [
-					contextMenu.Item({ label: "Devanagari", data: "Devanagari" }),
-					contextMenu.Item({ label: "Telugu",  data: "Telugu" }),
-					contextMenu.Item({ label: "Kannada", data: "Kannada" }),
-					contextMenu.Item({ label: "Gujarati", data: "Gujarati" }),
-					contextMenu.Item({ label: "Tamil", data: "Tamil" }),
-					contextMenu.Item({ label: "Bengali", data: "Bengali" })
-				],
-				onMessage: function (indicScript) {
-					for (var subselection in selection) {
-						subselection.html = myMod.convert2IndicScript(subselection.html||subselection.text, 1, indicScript, 1, 0, preferences.prefs.preferASCIIDigits);
-					}
-				}
-			}),
-		]
-	});
-	return true;
+                    }
+                }
+            }),
+            contextMenu.Menu({
+                label: "English (IAST) to",
+                context: contextMenu.SelectionContext(),
+                contentScript: 'self.on("click", function (node, data) {' +
+                     '  self.postMessage(data);' +
+                     '});',
+                items: [
+                    contextMenu.Item({ label: "Devanagari", data: "Devanagari" }),
+                    contextMenu.Item({ label: "Telugu",  data: "Telugu" }),
+                    contextMenu.Item({ label: "Kannada", data: "Kannada" }),
+                    contextMenu.Item({ label: "Gujarati", data: "Gujarati" }),
+                    contextMenu.Item({ label: "Tamil", data: "Tamil" }),
+                    contextMenu.Item({ label: "Bengali", data: "Bengali" })
+                ],
+                onMessage: function (indicScript) {
+                    for (var subselection in selection) {
+                        subselection.html = myMod.convert2IndicScript(subselection.html||subselection.text, 1, indicScript, 1, 0, preferences.prefs.preferASCIIDigits);
+                    }
+                }
+            }),
+        ]
+    });
+    return true;
 };
