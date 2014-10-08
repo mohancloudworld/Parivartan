@@ -24,7 +24,8 @@ exports.main= function() {
     				contextMenu.Item({ label: "Telugu",  data: "Telugu" }),
 					contextMenu.Item({ label: "Kannada", data: "Kannada" }),
 					contextMenu.Item({ label: "Gujarati", data: "Gujarati" }),
-					contextMenu.Item({ label: "Tamil", data: "Tamil" })
+					contextMenu.Item({ label: "Tamil", data: "Tamil" }),
+					contextMenu.Item({ label: "Bengali", data: "Bengali" })
 				],
 				onMessage: function (outLang) {
 					for (var subselection in selection) {
@@ -55,7 +56,8 @@ exports.main= function() {
 					contextMenu.Item({ label: "Telugu",  data: "Telugu" }),
 					contextMenu.Item({ label: "Kannada", data: "Kannada" }),
 					contextMenu.Item({ label: "Gujarati", data: "Gujarati" }),
-					contextMenu.Item({ label: "Tamil", data: "Tamil" })
+					contextMenu.Item({ label: "Tamil", data: "Tamil" }),
+					contextMenu.Item({ label: "Bengali", data: "Bengali" })
 				],
 				onMessage: function (indicScript) {
 					for (var subselection in selection) {
@@ -74,7 +76,8 @@ exports.main= function() {
 					contextMenu.Item({ label: "Telugu",  data: "Telugu" }),
 					contextMenu.Item({ label: "Kannada", data: "Kannada" }),
 					contextMenu.Item({ label: "Gujarati", data: "Gujarati" }),
-					contextMenu.Item({ label: "Tamil", data: "Tamil" })
+					contextMenu.Item({ label: "Tamil", data: "Tamil" }),
+					contextMenu.Item({ label: "Bengali", data: "Bengali" })
 				],
 				onMessage: function (indicScript) {
 					for (var subselection in selection) {
@@ -82,42 +85,6 @@ exports.main= function() {
 					}
 				}
 			}),
-            /*contextMenu.Menu({
-				label: "Google Translator",
-				context: contextMenu.SelectionContext(),
-				contentScript: 'self.on("click", function (node, data) {' +
-					 '  self.postMessage(data);' +
-					 '});',
-				items: [
-					contextMenu.Item({ label: "Devanagari", data: "Devanagari" }),
-					contextMenu.Item({ label: "Telugu",  data: "Telugu" }),
-					contextMenu.Item({ label: "Kannada", data: "Kannada" }),
-					contextMenu.Item({ label: "Gujarati", data: "Gujarati" }),
-					contextMenu.Item({ label: "Tamil", data: "Tamil" })
-				],
-				onMessage: function (indicScript) {
-                    /*var langCode;
-                    if(indicScript == "Devanagari"){langCode = "|hi";}
-        			else if(indicScript == "Telugu"){langCode = "|te";}
-            		else if(indicScript == "Kannada"){langCode = "|kn";}
-            		else if(indicScript == "Gujarati"){langCode = "|gu";}
-            		else if(indicScript == "Tamil"){langCode = "|en";}
-        			for (var subselection in selection) {* /
-                        var req = request.Request({
-                            url: "http://ajax.googleapis.com/ajax/services/language/translate",
-                            content:{
-                                v: "1.0",
-                                q: selection.text,
-                                langpair: "|en"
-                            },
-                            onComplete: function(response){
-                                selection.text = response.json.responseData.translateText;
-                            }
-                        });
-                        req.get();                        
-  					//}
-				}
-			})*/
 		]
 	});
 	return true;
