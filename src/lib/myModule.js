@@ -253,18 +253,9 @@ function getNxtIndicChr(lang_dict, inp_txt, modeStrict, word_start_p, vovel_need
             blk = blk.toLowerCase();
         }
 
-		// User Preference: Exclude Digits 
-        if((excludeNumbers == true) && (isNumber(blk) == true)){
-            // 2nd iteration ==> repeat as case-insensitive
-            if((!modeStrict) && (iteration == 1)){
-                iteration += 1;
-                continue;
-            }
-    		blkLen -= 1;
-            // Do nothing => NoMatch
-        }
-    	// Independent vowels
-		else if( (vovel_needed == false) && /*(word_start == true) &&*/ (array_key_exists(blk, lang_dict["Independent_vowels"])) ){
+		// Independent vowels
+		if( (vovel_needed == false) 
+            && (array_key_exists(blk, lang_dict["Independent_vowels"])) ){
 			Type = "Independent";
 			vovel_needed=0;
 			out += lang_dict["Independent_vowels"][blk];
@@ -272,7 +263,8 @@ function getNxtIndicChr(lang_dict, inp_txt, modeStrict, word_start_p, vovel_need
 			break;
 		}
 		// Dependent vowels
-		else if((vovel_needed) && (array_key_exists(blk, lang_dict["Dependent_vowel"])) ){
+		else if((vovel_needed) 
+                && (array_key_exists(blk, lang_dict["Dependent_vowel"])) ){
 			Type = "Vowel";
 			vovel_needed=0;
 			out += lang_dict["Dependent_vowel"][blk];
@@ -290,8 +282,9 @@ function getNxtIndicChr(lang_dict, inp_txt, modeStrict, word_start_p, vovel_need
 			//if(debug){document.write( "8: "+blk+" "+lang_dict["Consonants"][blk]);}
 			break;
 		}
-		// Others 
-		else if(array_key_exists(blk, lang_dict["Others"])){
+		// Others [Exclude Numbers/Digits if option is selected]
+		else if( !((isNumber(blk) == true) && (excludeNumbers == true)) 
+                && array_key_exists(blk, lang_dict["Others"])){
 			if(vovel_needed){
 				out += lang_dict["VIRAMA"];
 			}

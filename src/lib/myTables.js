@@ -233,12 +233,12 @@ var devanagari_dict = {
 		"AUM"	:	"\u0950", // ॐ DEVANAGARI OM
 
 		// Vedic tone marks
-		//""	:	"\u0951", // $॑ DEVANAGARI STRESS SIGN UDATTA = Vedic tone svarita • mostly used for svarita, with rare use for udatta • used also in Vedic texts written in other scripts → 1CDA $᳚   vedic tone double svarita
-		//""	:	"\u0952", // $॒ DEVANAGARI STRESS SIGN ANUDATTA = Vedic tone anudatta • used also in Vedic texts written in other scripts → 1CDC $᳜   vedic tone kathaka anudatta
+		u"\u030D":	"\u0951", // $॑ DEVANAGARI STRESS SIGN UDATTA = Vedic tone svarita • mostly used for svarita, with rare use for udatta • used also in Vedic texts written in other scripts → 1CDA $᳚   vedic tone double svarita
+		u"\u0331":	"\u0952", // $॒ DEVANAGARI STRESS SIGN ANUDATTA = Vedic tone anudatta • used also in Vedic texts written in other scripts → 1CDC $᳜   vedic tone kathaka anudatta
 
 		// Accent marks
-		//""	:	"\u0953", // $॓ DEVANAGARI GRAVE ACCENT → 0300 $̀   combining grave accent
-		//""	:	"\u0954"  // $॔ DEVANAGARI ACUTE ACCENT → 0301 $́   combining acute accent
+		u"\u0300":	"\u0953", // $॓ DEVANAGARI GRAVE ACCENT → 0300 $̀   combining grave accent
+		u"\u0301":	"\u0954"  // $॔ DEVANAGARI ACUTE ACCENT → 0301 $́   combining acute accent
 	},
 
 	// Virama
