@@ -2,7 +2,7 @@ exports.main= function() {
     var contextMenu = require("sdk/context-menu");
     var selection = require("sdk/selection");
     var preferences = require("sdk/simple-prefs")
-    var request = require("sdk/request");
+    //var request = require("sdk/request");
     var myMod = require("myModule");
 
     // initialize
