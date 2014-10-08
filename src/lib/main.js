@@ -28,11 +28,11 @@ exports.main= function() {
 				],
 				onMessage: function (outLang) {
 					for (var subselection in selection) {
-                        // detect language
+                        // detect language [to improve speed, passing 'text' instead of 'html']
                         var inpLang = myMod.detectLanguage(subselection.text);
                         if(inpLang != outLang){
-                            // convert to English (ITRANS)
-                            var resultITRANS = myMod.convert2IndicScript(subselection.html, 0, inpLang, 1, 1, preferences.prefs.excludeNumbers);
+                            // convert to English (ITRANS) [if selection is from a text-box, 'html' will be empty so, 'text' is used to convert]
+                            var resultITRANS = myMod.convert2IndicScript(subselection.html||subselection.text, 0, inpLang, 1, 1, preferences.prefs.excludeNumbers);
                             if(outLang == "English"){
                                 subselection.html = resultITRANS;
                             }
@@ -59,7 +59,7 @@ exports.main= function() {
 				],
 				onMessage: function (indicScript) {
 					for (var subselection in selection) {
-                        subselection.html = myMod.convert2IndicScript(subselection.html, 1, indicScript, 0, 0, preferences.prefs.excludeNumbers);
+                        subselection.html = myMod.convert2IndicScript(subselection.html||subselection.text, 1, indicScript, 0, 0, preferences.prefs.excludeNumbers);
   					}
 				}
 			}),
@@ -78,7 +78,7 @@ exports.main= function() {
 				],
 				onMessage: function (indicScript) {
 					for (var subselection in selection) {
-						subselection.html = myMod.convert2IndicScript(subselection.html, 1, indicScript, 1, 0, preferences.prefs.excludeNumbers);
+						subselection.html = myMod.convert2IndicScript(subselection.html||subselection.text, 1, indicScript, 1, 0, preferences.prefs.excludeNumbers);
 					}
 				}
 			}),

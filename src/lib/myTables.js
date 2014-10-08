@@ -213,8 +213,8 @@ var devanagari_dict = {
 		"9"		:	"\u096F", // ९ DEVANAGARI DIGIT NINE
 
 		// Abbreviation sign
-		//""	:	"\u0970", // ॰ DEVANAGARI ABBREVIATION SIGN • intended for Devanagari-specific abbreviations
-		//""	:	"\u0971", // ॱ DEVANAGARI SIGN HIGH SPACING DOT
+		"\u030A":	"\u0970", // ॰ DEVANAGARI ABBREVIATION SIGN • intended for Devanagari-specific abbreviations
+		"\u0307":	"\u0971", // ॱ DEVANAGARI SIGN HIGH SPACING DOT
 
 		// Additional consonants
 		//""	:	"\u0979", // ॹ DEVANAGARI LETTER ZHA • used in transliteration of Avestan
@@ -233,12 +233,12 @@ var devanagari_dict = {
 		"AUM"	:	"\u0950", // ॐ DEVANAGARI OM
 
 		// Vedic tone marks
-		u"\u030D":	"\u0951", // $॑ DEVANAGARI STRESS SIGN UDATTA = Vedic tone svarita • mostly used for svarita, with rare use for udatta • used also in Vedic texts written in other scripts → 1CDA $᳚   vedic tone double svarita
-		u"\u0331":	"\u0952", // $॒ DEVANAGARI STRESS SIGN ANUDATTA = Vedic tone anudatta • used also in Vedic texts written in other scripts → 1CDC $᳜   vedic tone kathaka anudatta
+		"\u030D":	"\u0951", // $॑ DEVANAGARI STRESS SIGN UDATTA = Vedic tone svarita • mostly used for svarita, with rare use for udatta • used also in Vedic texts written in other scripts → 1CDA $᳚   vedic tone double svarita
+		"\u0332":	"\u0952", // $॒ DEVANAGARI STRESS SIGN ANUDATTA = Vedic tone anudatta • used also in Vedic texts written in other scripts → 1CDC $᳜   vedic tone kathaka anudatta
 
 		// Accent marks
-		u"\u0300":	"\u0953", // $॓ DEVANAGARI GRAVE ACCENT → 0300 $̀   combining grave accent
-		u"\u0301":	"\u0954"  // $॔ DEVANAGARI ACUTE ACCENT → 0301 $́   combining acute accent
+		"\u0300":	"\u0953", // $॓ DEVANAGARI GRAVE ACCENT → 0300 $̀   combining grave accent
+		"\u0301":	"\u0954"  // $॔ DEVANAGARI ACUTE ACCENT → 0301 $́   combining acute accent
 	},
 
 	// Virama
