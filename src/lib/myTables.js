@@ -985,7 +985,7 @@ var bengali_dict = {
         "R^I"   :   "\u09E0", //  ৠ BENGALI LETTER VOCALIC RR
         "RRI"   :   "\u09E0", //  ৠ BENGALI LETTER VOCALIC RR
         "L^I"   :   "\u09E1", //  ৡ BENGALI LETTER VOCALIC LL
-        "LLI"   :   "\u09E1", //  ৡ BENGALI LETTER VOCALIC LL
+        "LLI"   :   "\u09E1"  //  ৡ BENGALI LETTER VOCALIC LL
     },
     
     "Dependent_vowel": { // +()
@@ -1015,6 +1015,10 @@ var bengali_dict = {
         "LLi"   :   "\u09E2", //  $ৢ BENGALI VOWEL SIGN VOCALIC L
         "L^I"   :   "\u09E3", //  $ৣ BENGALI VOWEL SIGN VOCALIC LL
         "LLI"   :   "\u09E3", //  $ৣ BENGALI VOWEL SIGN VOCALIC LL
+        
+        // Two-part dependent vowel signs These vowel signs have glyph pieces which stand on both sides of the consonant; they follow the consonant in logical order, and should be handled as a unit for most processing.
+        "o"     :   "\u09CB", // $ো BENGALI VOWEL SIGN O ≡ 09C7   $ে   09BE  $া  
+        "au"    :   "\u09CC"  // $ৌ BENGALI VOWEL SIGN AU ≡ 09C7   $ে   09D7  $ৗ  
     },
     
     "Consonants": { // ()+
@@ -1064,7 +1068,7 @@ var bengali_dict = {
         "h"     :   "\u09B9", //  হ BENGALI LETTER HA
 
         // Additional consonant
-        ""   :  "\u09CE", //  ৎ BENGALI LETTER KHANDA TA • a dead consonant form of ta, without implicit vowel, used in some sequences
+        //""    :  "\u09CE",  //  ৎ BENGALI LETTER KHANDA TA • a dead consonant form of ta, without implicit vowel, used in some sequences
 
         // Additional consonants
         "R"     :   "\u09DC", //  ড় BENGALI LETTER RRA ≡ 09A1  ড   09BC  $়  
@@ -1080,7 +1084,7 @@ var bengali_dict = {
         // Manually Added
         "x"     :   "\u0995"+"\u09CD"+"\u09B7", // क्ष
         //"kSh" :   "\u0995"+"\u09CD"+"\u09B7", // क्ष  (redundant) 
-        "GY"    :   "\u099C"+"\u09CD"+"\u099E", //
+        "GY"    :   "\u099C"+"\u09CD"+"\u099E"  //
         //"j~n" :   "\u099C"+"\u09CD"+"\u099E", // (redundant)
     },
     
@@ -1099,10 +1103,6 @@ var bengali_dict = {
         // Various signs
         //""    :   "\u09BC", // $় BENGALI SIGN NUKTA • for extending the alphabet to new letters
         
-        // Two-part dependent vowel signs These vowel signs have glyph pieces which stand on both sides of the consonant; they follow the consonant in logical order, and should be handled as a unit for most processing.
-        //""    :   "\u09CB", // $ো BENGALI VOWEL SIGN O ≡ 09C7   $ে   09BE  $া  
-        //""    :   "\u09CC", // $ৌ BENGALI VOWEL SIGN AU ≡ 09C7   $ে   09D7  $ৗ  
-
         // Reserved For viram punctuation, use the generic Indic 0964 and 0965.
         //""    :   "\u09E4", // " <reserved> → 0964  ।   devanagari danda
         //""    :   "\u09E5", // " <reserved> → 0965  ॥   devanagari double danda
@@ -1145,7 +1145,7 @@ var bengali_dict = {
     },
     
     // Virama   
-    "VIRAMA"    :   "\u09CD", // $ BENGALI SIGN VIRAMA = hasant (Bengali term for halant)
+    "VIRAMA"    :   "\u09CD"  // $ BENGALI SIGN VIRAMA = hasant (Bengali term for halant)
 };
 
 // Empty dictionary
