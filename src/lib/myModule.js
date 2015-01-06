@@ -73,7 +73,7 @@ function convert2IndicScript(inp_txt, is_IAST, indicScript, modeStrict, reverse,
     var word_start_p = true;
     var prev_Type = "NoMatch";
     var insideTag_p = false;
-        var blk, blkLen, Type;
+    var blk, blkLen, Type;
 
     // Assigning the dictionary
     var lang_dict;
@@ -262,9 +262,19 @@ function getNxtIndicChr(lang_dict, inp_txt, modeStrict, word_start_p, vovel_need
         if((!modeStrict) && (iteration == 2)){
             blk = blk.toLowerCase();
         }
-
+        
+        // Accent marks : Do not change any flags for this case, except "Type"
+        if(array_key_exists(blk, lang_dict["Accent_marks"])){
+            Type = "Accent";
+            out += lang_dict["Accent_marks"][blk];
+            //if(debug){document.write( "0: "+blk+" "+lang_dict["Accent_marks"][blk]+"<br>");}
+            break;
+        }
         // Independent vowels
-        if( (vovel_needed == false) 
+        /*else if( (reverse || !vovel_needed) // for reverse convertion, vovel_needed condition is not required
+                                            // *** This will be lossy translation *** 
+                                            // e.g., रई -> rii -> री   */
+        else if( (vovel_needed == false)
             && (array_key_exists(blk, lang_dict["Independent_vowels"])) ){
             Type = "Independent";
             vovel_needed=0;

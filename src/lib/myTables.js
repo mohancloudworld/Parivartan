@@ -83,9 +83,6 @@ var devanagari_dict = {
         //""    :   "\u093A", // $ऺ DEVANAGARI VOWEL SIGN OE
         //""    :   "\u093B", // $ऻ DEVANAGARI VOWEL SIGN OOE 
 
-        // Various signs
-        //""    :   "\u093C", // $़ DEVANAGARI SIGN NUKTA • for extending the alphabet to new letters
-
         // Dependent vowel signs
         "a"     :   "",       // ADDED
         "A"     :   "\u093E", // $ा DEVANAGARI VOWEL SIGN AA
@@ -189,6 +186,23 @@ var devanagari_dict = {
         //""    :   "\u095F"  // य़ DEVANAGARI LETTER YYA ≡ 092F य  093C $़ 
     },
 
+    "Accent_marks": {
+        // Various signs
+        "\u0323":   "\u093C", // $़ DEVANAGARI SIGN NUKTA • for extending the alphabet to new letters
+
+        // Abbreviation sign
+        "\u030A":   "\u0970", // ॰ DEVANAGARI ABBREVIATION SIGN • intended for Devanagari-specific abbreviations
+        "\u0307":   "\u0971", // ॱ DEVANAGARI SIGN HIGH SPACING DOT
+
+        // Vedic tone marks
+        "\u030D":   "\u0951", // $॑ DEVANAGARI STRESS SIGN UDATTA = Vedic tone svarita • mostly used for svarita, with rare use for udatta • used also in Vedic texts written in other scripts → 1CDA $᳚   vedic tone double svarita
+        "\u0332":   "\u0952", // $॒ DEVANAGARI STRESS SIGN ANUDATTA = Vedic tone anudatta • used also in Vedic texts written in other scripts → 1CDC $᳜   vedic tone kathaka anudatta
+
+        // Accent marks
+        "\u0300":   "\u0953", // $॓ DEVANAGARI GRAVE ACCENT → 0300 $̀   combining grave accent
+        "\u0301":   "\u0954"  // $॔ DEVANAGARI ACUTE ACCENT → 0301 $́   combining acute accent
+    },
+    
     "Others": { // ()
         // Various signs
         //""    :   "\u0900", // $ऀ DEVANAGARI SIGN INVERTED CANDRABINDU = vaidika adhomukha candrabindu
@@ -213,10 +227,6 @@ var devanagari_dict = {
         "8"     :   "\u096E", // ८ DEVANAGARI DIGIT EIGHT
         "9"     :   "\u096F", // ९ DEVANAGARI DIGIT NINE
 
-        // Abbreviation sign
-        "\u030A":   "\u0970", // ॰ DEVANAGARI ABBREVIATION SIGN • intended for Devanagari-specific abbreviations
-        "\u0307":   "\u0971", // ॱ DEVANAGARI SIGN HIGH SPACING DOT
-
         // Additional consonants
         //""    :   "\u0979", // ॹ DEVANAGARI LETTER ZHA • used in transliteration of Avestan
         //""    :   "\u097A", // ॺ DEVANAGARI LETTER HEAVY YA • used for an affricated glide JJYA Sindhi implosives
@@ -231,15 +241,7 @@ var devanagari_dict = {
         "."     :   "\u0965", // ॥ DEVANAGARI DOUBLE DANDA = deergh viram
 
         "OM"    :   "\u0950", // ॐ DEVANAGARI OM
-        "AUM"   :   "\u0950", // ॐ DEVANAGARI OM
-
-        // Vedic tone marks
-        "\u030D":   "\u0951", // $॑ DEVANAGARI STRESS SIGN UDATTA = Vedic tone svarita • mostly used for svarita, with rare use for udatta • used also in Vedic texts written in other scripts → 1CDA $᳚   vedic tone double svarita
-        "\u0332":   "\u0952", // $॒ DEVANAGARI STRESS SIGN ANUDATTA = Vedic tone anudatta • used also in Vedic texts written in other scripts → 1CDC $᳜   vedic tone kathaka anudatta
-
-        // Accent marks
-        "\u0300":   "\u0953", // $॓ DEVANAGARI GRAVE ACCENT → 0300 $̀   combining grave accent
-        "\u0301":   "\u0954"  // $॔ DEVANAGARI ACUTE ACCENT → 0301 $́   combining acute accent
+        "AUM"   :   "\u0950"  // ॐ DEVANAGARI OM
     },
 
     // Virama
@@ -370,6 +372,9 @@ var telugu_dict = {
 
     },
 
+    "Accent_marks": {
+    },
+    
     "Others": { // ()
             // Various signs
         ".N"    :   "\u0C01", // ఁ TELUGU SIGN CANDRABINDU
@@ -549,6 +554,11 @@ var gujarati_dict = {
         //"j~n" :   "\u0A9C"+"\u0ACD"+"\u0A9E", // (redundant)
     },
     
+    "Accent_marks": {
+        // Various signs
+        "\u0323":   "\u0ABC"  // $઼ GUJARATI SIGN NUKTA • for extending the alphabet to new letters
+    },
+    
     "Others": { // ()
         // Various signs 
         ".N"    :   "\u0A81", // $ઁ GUJARATI SIGN CANDRABINDU 
@@ -560,9 +570,6 @@ var gujarati_dict = {
         // Virama
         ".h"    :   "\u0ACD", // $ GUJARATI SIGN VIRAMA
         ".a"    :   "\u0ABD", // ઽ GUJARATI SIGN AVAGRAHA
-
-        // Various signs
-        //""    :   "\u0ABC", // $઼ GUJARATI SIGN NUKTA • for extending the alphabet to new letters
 
         // Various signs
         "OM"    :   "\u0AD0", // ૐ GUJARATI OM
@@ -715,6 +722,9 @@ var tamil_dict = {
         //"kSh" :   "\u0B95"+"\u0BCD"+"\u0BB7", // క్ష   (redundant)
         "GY"    :   "\u0B9C"+"\u0BCD"+"\u0B9E"  //
         //"j~n" :   "\u0B9C"+"\u0BCD"+"\u0B9E", // (redundant)
+    },
+    
+    "Accent_marks": {
     },
     
     "Others": { // ()
@@ -902,6 +912,11 @@ var kannada_dict = {
         //"j~n" :   "\u0C9C"+"\u0CCD"+"\u0C9E", // (redundant)
     },
     
+    "Accent_marks": {
+        // Various signs
+        "\u0323":   "\u0CBC"  // $಼ KANNADA SIGN NUKTA
+    },
+    
     "Others": { // ()
         // Various signs
         ".m"    :   "\u0C82", // $ಂ KANNADA SIGN ANUSVARA
@@ -913,7 +928,6 @@ var kannada_dict = {
         ".h"    :   "\u0CCD", // $ KANNADA SIGN VIRAMA • preferred name is halant
         
         // Various signs
-        //""    :   "\u0CBC", // $಼ KANNADA SIGN NUKTA
         ".a"    :   "\u0CBD", // ಽ KANNADA SIGN AVAGRAHA
 
         // Various signs
@@ -1088,6 +1102,11 @@ var bengali_dict = {
         //"j~n" :   "\u099C"+"\u09CD"+"\u099E", // (redundant)
     },
     
+    "Accent_marks": {
+        // Various signs
+        "\u0323":   "\u09BC"  // $় BENGALI SIGN NUKTA • for extending the alphabet to new letters
+    },
+    
     "Others": { // ()
         // Various signs
         ".N"    :   "\u0981", // $ঁ BENGALI SIGN CANDRABINDU
@@ -1100,9 +1119,6 @@ var bengali_dict = {
         ".h"    :   "\u09CD", // $ BENGALI SIGN VIRAMA
         ".a"    :   "\u09BD", // ঽ BENGALI SIGN AVAGRAHA
 
-        // Various signs
-        //""    :   "\u09BC", // $় BENGALI SIGN NUKTA • for extending the alphabet to new letters
-        
         // Reserved For viram punctuation, use the generic Indic 0964 and 0965.
         //""    :   "\u09E4", // " <reserved> → 0964  ।   devanagari danda
         //""    :   "\u09E5", // " <reserved> → 0965  ॥   devanagari double danda
@@ -1158,6 +1174,9 @@ var english_dict = {
     },
     
     "Consonants": { // ()+
+    },
+    
+    "Accent_marks": {
     },
     
     "Others": { // ()
