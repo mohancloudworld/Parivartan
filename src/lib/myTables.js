@@ -52,12 +52,14 @@ var devanagari_dict = {
         "L^i"   :   "\u090C", // ऌ DEVANAGARI LETTER VOCALIC L
         "LLi"   :   "\u090C", // ऌ DEVANAGARI LETTER VOCALIC L
         //""    :   "\u090D", // ऍ DEVANAGARI LETTER CANDRA E
-        "E"     :   "\u090E", // ऎ DEVANAGARI LETTER SHORT E • for transcribing Dravidian short e   ** Manual Change ***
-        "e"     :   "\u090F", // ए DEVANAGARI LETTER E
+        "e"     :   "\u090E", // ऎ DEVANAGARI LETTER SHORT E • for transcribing Dravidian short e   ** Manual Change ***
+        "E"     :   "\u090F", // ए DEVANAGARI LETTER E
+        "ee"    :   "\u090F", // ए DEVANAGARI LETTER E
         "ai"    :   "\u0910", // ऐ DEVANAGARI LETTER AI
         "aa.c"  :   "\u0911", // ऑ DEVANAGARI LETTER CANDRA O
-        "O"     :   "\u0912", // ऒ DEVANAGARI LETTER SHORT O • for transcribing Dravidian short o   *** Manual Change ***
-        "o"     :   "\u0913", // ओ DEVANAGARI LETTER O
+        "o"     :   "\u0912", // ऒ DEVANAGARI LETTER SHORT O • for transcribing Dravidian short o   *** Manual Change ***
+        "O"     :   "\u0913", // ओ DEVANAGARI LETTER O
+        "oo"    :   "\u0913", // ओ DEVANAGARI LETTER O
         "au"    :   "\u0914", // औ DEVANAGARI LETTER AU
 
 
@@ -98,12 +100,14 @@ var devanagari_dict = {
         "R^I"   :   "\u0944", // $ॄ DEVANAGARI VOWEL SIGN VOCALIC RR
         "RRI"   :   "\u0944", // $ॄ DEVANAGARI VOWEL SIGN VOCALIC RR
         //""    :   "\u0945", // $ॅ DEVANAGARI VOWEL SIGN CANDRA E = candra
-        "E"     :   "\u0946", // $ॆ DEVANAGARI VOWEL SIGN SHORT E • for transcribing Dravidian vowels   ** Manual Change ***
-        "e"     :   "\u0947", // $े DEVANAGARI VOWEL SIGN E
+        "e"     :   "\u0946", // $ॆ DEVANAGARI VOWEL SIGN SHORT E • for transcribing Dravidian vowels   ** Manual Change ***
+        "E"     :   "\u0947", // $े DEVANAGARI VOWEL SIGN E
+        "ee"    :   "\u0947", // $े DEVANAGARI VOWEL SIGN E
         "ai"    :   "\u0948", // $ै DEVANAGARI VOWEL SIGN AI
         //""    :   "\u0949", // $ॉ DEVANAGARI VOWEL SIGN CANDRA O
-        "O"     :   "\u094A", // $ॊ DEVANAGARI VOWEL SIGN SHORT O • for transcribing Dravidian vowels    ** Manual Change ***
-        "o"     :   "\u094B", // $ो DEVANAGARI VOWEL SIGN O
+        "o"     :   "\u094A", // $ॊ DEVANAGARI VOWEL SIGN SHORT O • for transcribing Dravidian vowels    ** Manual Change ***
+        "O"     :   "\u094B", // $ो DEVANAGARI VOWEL SIGN O
+        "oo"    :   "\u094B", // $ो DEVANAGARI VOWEL SIGN O
         "au"    :   "\u094C", // $ौ DEVANAGARI VOWEL SIGN AU
 
         // Dependent vowel signs
@@ -279,10 +283,12 @@ var telugu_dict = {
         //""    :   "\u0C0D", // " <reserved>
         "e"     :   "\u0C0E", // ఎ TELUGU LETTER E
         "E"     :   "\u0C0F", // ఏ TELUGU LETTER EE 
+        "ee"    :   "\u0C0F", // ఏ TELUGU LETTER EE 
         "ai"    :   "\u0C10", // ఐ TELUGU LETTER AI
         //""    :   "\u0C11", // " <reserved>
         "o"     :   "\u0C12", // ఒ TELUGU LETTER O
         "O"     :   "\u0C13", // ఓ TELUGU LETTER OO 
+        "oo"    :   "\u0C13", // ఓ TELUGU LETTER OO 
         "au"    :   "\u0C14"  // ఔ TELUGU LETTER AU
     },
 
@@ -304,10 +310,12 @@ var telugu_dict = {
         //""    :   "\u0C45", // " <reserved>
         "e"     :   "\u0C46", // ె  TELUGU VOWEL SIGN E
         "E"     :   "\u0C47", // ే  TELUGU VOWEL SIGN EE
+        "ee"    :   "\u0C47", // ే  TELUGU VOWEL SIGN EE
         "ai"    :   "\u0C48", // ై  TELUGU VOWEL SIGN AI ≡ 0C46  $ె   0C56  $ౖ  
         //""    :   "\u0C49", // " <reserved>
         "o"     :   "\u0C4A", // ొ  TELUGU VOWEL SIGN O
         "O"     :   "\u0C4B", // ో  TELUGU VOWEL SIGN OO
+        "oo"    :   "\u0C4B", // ో  TELUGU VOWEL SIGN OO
         "au"    :   "\u0C4C", // ౌ  TELUGU VOWEL SIGN AU
 
         // Dependent vowels
@@ -455,11 +463,15 @@ var gujarati_dict = {
         "LLi"   :   "\u0A8C", // ઌ GUJARATI LETTER VOCALIC L • used with Sanskrit text 
         //""    :   "\u0A8D", // ઍ GUJARATI VOWEL CANDRA E 
         //""    :   "\u0A8E", // " <reserved> 
-        "e"     :   "\u0A8F", // એ GUJARATI LETTER E 
+        "e"     :   "\u0A8F", // એ GUJARATI LETTER E ** Manual Change ***
+        "E"     :   "\u0A8F", // એ GUJARATI LETTER E 
+        "ee"    :   "\u0A8F", // એ GUJARATI LETTER E 
         "ai"    :   "\u0A90", // ઐ GUJARATI LETTER AI 
         //""    :   "\u0A91", // ઑ GUJARATI VOWEL CANDRA O 
         //""    :   "\u0A92", // " <reserved> 
-        "o"     :   "\u0A93", // ઓ GUJARATI LETTER O 
+        "o"     :   "\u0A93", // ઓ GUJARATI LETTER O ** Manual Change ***
+        "O"     :   "\u0A93", // ઓ GUJARATI LETTER O 
+        "oo"    :   "\u0A93", // ઓ GUJARATI LETTER O 
         "au"    :   "\u0A94", // ઔ GUJARATI LETTER AU 
 
         // Additional vowels for Sanskrit
@@ -486,11 +498,15 @@ var gujarati_dict = {
         "RRI"   :   "\u0AC4", // $ૄ GUJARATI VOWEL SIGN VOCALIC RR
         //""    :   "\u0AC5", // $ૅ GUJARATI VOWEL SIGN CANDRA E
         //""    :   "\u0AC6", // " <reserved>
-        "e"     :   "\u0AC7", // $ે GUJARATI VOWEL SIGN E
+        "e"     :   "\u0AC7", // $ે GUJARATI VOWEL SIGN E ** Manual Change ***
+        "E"     :   "\u0AC7", // $ે GUJARATI VOWEL SIGN E
+        "ee"    :   "\u0AC7", // $ે GUJARATI VOWEL SIGN E
         "ai"    :   "\u0AC8", // $ૈ GUJARATI VOWEL SIGN AI
         //""    :   "\u0AC9", // $ૉ GUJARATI VOWEL SIGN CANDRA O
         //""    :   "\u0ACA", // " <reserved>
-        "o"     :   "\u0ACB", // $ો GUJARATI VOWEL SIGN O
+        "o"     :   "\u0ACB", // $ો GUJARATI VOWEL SIGN O ** Manual Change ***
+        "O"     :   "\u0ACB", // $ો GUJARATI VOWEL SIGN O
+        "oo"    :   "\u0ACB", // $ો GUJARATI VOWEL SIGN O
         "au"    :   "\u0ACC", // $ૌ GUJARATI VOWEL SIGN AU
 
         // Additional vowels for Sanskrit
@@ -625,10 +641,12 @@ var tamil_dict = {
         //""    :   "\u0B8D", // " <reserved>
         "e"     :   "\u0B8E", // எ TAMIL LETTER E
         "E"     :   "\u0B8F", // ஏ TAMIL LETTER EE
+        "ee"    :   "\u0B8F", // ஏ TAMIL LETTER EE
         "ai"    :   "\u0B90", // ஐ TAMIL LETTER AI
         //""    :   "\u0B91", // " <reserved>
         "o"     :   "\u0B92", // ஒ TAMIL LETTER O
         "O"     :   "\u0B93", // ஓ TAMIL LETTER OO
+        "oo"    :   "\u0B93", // ஓ TAMIL LETTER OO
         "au"    :   "\u0B94"  // ஔ TAMIL LETTER AU ≡ 0B92 ஒ   0BD7 $ௗ 
     },
     
@@ -648,12 +666,14 @@ var tamil_dict = {
         //""    :   "\u0BC5", // " <reserved>
         "e"     :   "\u0BC6", // $ெ TAMIL VOWEL SIGN E • stands to the left of the consonant
         "E"     :   "\u0BC7", // $ே TAMIL VOWEL SIGN EE • stands to the left of the consonant
+        "ee"    :   "\u0BC7", // $ே TAMIL VOWEL SIGN EE • stands to the left of the consonant
         "ai"    :   "\u0BC8", // $ை TAMIL VOWEL SIGN AI • stands to the left of the consonant
 
         // Two-part dependent vowel signs
         // These vowel signs have glyph pieces which stand on both sides of the consonant; they follow the consonant in logical order, and should be handled as a unit for most processing.
         "o"     :   "\u0BCA", // $ொ TAMIL VOWEL SIGN O ≡ 0BC6   $ெ   0BBE $ா 
         "O"     :   "\u0BCB", // $ோ TAMIL VOWEL SIGN OO ≡ 0BC7   $ே   0BBE $ா 
+        "oo"    :   "\u0BCB", // $ோ TAMIL VOWEL SIGN OO ≡ 0BC7   $ே   0BBE $ா 
         "au"    :   "\u0BCC"  // $ௌ TAMIL VOWEL SIGN AU ≡ 0BC6   $ெ   0BD7 $ௗ 
     },
     
@@ -814,10 +834,12 @@ var kannada_dict = {
         //""    :   "\u0C8D", // " <reserved>
         "e"     :   "\u0C8E", // ಎ KANNADA LETTER E
         "E"     :   "\u0C8F", // ಏ KANNADA LETTER EE
+        "ee"    :   "\u0C8F", // ಏ KANNADA LETTER EE
         "ai"    :   "\u0C90", // ಐ KANNADA LETTER AI
         //""    :   "\u0C91", // " <reserved>
         "o"     :   "\u0C92", // ಒ KANNADA LETTER O
         "O"     :   "\u0C93", // ಓ KANNADA LETTER OO
+        "oo"    :   "\u0C93", // ಓ KANNADA LETTER OO
         "au"    :   "\u0C94", // ಔ KANNADA LETTER AU
 
         // Additional vowels for Sanskrit
@@ -845,10 +867,12 @@ var kannada_dict = {
         //""    :   "\u0CC5", // " <reserved>
         "e"     :   "\u0CC6", // $ೆ KANNADA VOWEL SIGN E
         "E"     :   "\u0CC7", // $ೇ KANNADA VOWEL SIGN EE ≡ 0CC6 $ೆ   0CD5 $ೕ 
+        "ee"    :   "\u0CC7", // $ೇ KANNADA VOWEL SIGN EE ≡ 0CC6 $ೆ   0CD5 $ೕ 
         "ai"    :   "\u0CC8", // $ೈ KANNADA VOWEL SIGN AI ≡ 0CC6 $ೆ   0CD6 $ೖ 
         //""    :   "\u0CC9", // " <reserved>
         "o"     :   "\u0CCA", // $ೊ KANNADA VOWEL SIGN O ≡ 0CC6 $ೆ   0CC2 $ೂ 
         "O"     :   "\u0CCB", // $ೋ KANNADA VOWEL SIGN OO ≡ 0CCA $ೊ  0CD5 $ೕ 
+        "oo"    :   "\u0CCB", // $ೋ KANNADA VOWEL SIGN OO ≡ 0CCA $ೊ  0CD5 $ೕ 
         "au"    :   "\u0CCC", // $ೌ KANNADA VOWEL SIGN AU
 
         // Dependent vowels
@@ -988,11 +1012,15 @@ var bengali_dict = {
         "LLi"   :   "\u098C", //  ঌ BENGALI LETTER VOCALIC L
         //""    :   "\u098D", //  " <reserved>
         //""    :   "\u098E", //  " <reserved>
-        "e"     :   "\u098F", //  এ BENGALI LETTER E
+        "e"     :   "\u098F", //  এ BENGALI LETTER E ** Manual Change ***
+        "E"     :   "\u098F", //  এ BENGALI LETTER E
+        "ee"    :   "\u098F", //  এ BENGALI LETTER E
         "ai"    :   "\u0990", //  ঐ BENGALI LETTER AI
         //""    :   "\u0991", //  " <reserved>
         //""    :   "\u0992", //  " <reserved>
-        "o"     :   "\u0993", //  ও BENGALI LETTER O
+        "o"     :   "\u0993", //  ও BENGALI LETTER O ** Manual Change ***
+        "O"     :   "\u0993", //  ও BENGALI LETTER O
+        "oo"    :   "\u0993", //  ও BENGALI LETTER O
         "au"    :   "\u0994", //  ঔ BENGALI LETTER AU
 
         // Additional vowels for Sanskrit
@@ -1018,7 +1046,9 @@ var bengali_dict = {
         "RRI"   :   "\u09C4", //  $ৄ BENGALI VOWEL SIGN VOCALIC RR
         //""    :   "\u09C5", //  " <reserved>
         //""    :   "\u09C6", //  " <reserved>
-        "e"     :   "\u09C7", //  $ে BENGALI VOWEL SIGN E • stands to the left of the consonant
+        "e"     :   "\u09C7", //  $ে BENGALI VOWEL SIGN E • stands to the left of the consonant ** Manual Change ***
+        "E"     :   "\u09C7", //  $ে BENGALI VOWEL SIGN E • stands to the left of the consonant
+        "ee"    :   "\u09C7", //  $ে BENGALI VOWEL SIGN E • stands to the left of the consonant
         "ai"    :   "\u09C8", //  $ৈ BENGALI VOWEL SIGN AI • stands to the left of the consonant
 
         // Sign
@@ -1031,7 +1061,9 @@ var bengali_dict = {
         "LLI"   :   "\u09E3", //  $ৣ BENGALI VOWEL SIGN VOCALIC LL
         
         // Two-part dependent vowel signs These vowel signs have glyph pieces which stand on both sides of the consonant; they follow the consonant in logical order, and should be handled as a unit for most processing.
-        "o"     :   "\u09CB", // $ো BENGALI VOWEL SIGN O ≡ 09C7   $ে   09BE  $া  
+        "o"     :   "\u09CB", // $ো BENGALI VOWEL SIGN O ≡ 09C7   $ে   09BE  $া   ** Manual Change ***
+        "O"     :   "\u09CB", // $ো BENGALI VOWEL SIGN O ≡ 09C7   $ে   09BE  $া  
+        "oo"     :   "\u09CB", // $ো BENGALI VOWEL SIGN O ≡ 09C7   $ে   09BE  $া  
         "au"    :   "\u09CC"  // $ৌ BENGALI VOWEL SIGN AU ≡ 09C7   $ে   09D7  $ৗ  
     },
     
