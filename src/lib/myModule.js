@@ -7,6 +7,9 @@ var kannada_dict_mod    = {};
 var gujarati_dict_mod   = {};
 var tamil_dict_mod      = {};
 var bengali_dict_mod    = {};
+var gurmukhi_dict_mod   = {};
+var malayalam_dict_mod  = {};
+var oriya_dict_mod      = {};
 var english_dict_mod    = {};        
 
 var devanagari_dict_rev = {};
@@ -15,6 +18,9 @@ var kannada_dict_rev    = {};
 var gujarati_dict_rev   = {};
 var tamil_dict_rev      = {};
 var bengali_dict_rev    = {};
+var gurmukhi_dict_rev   = {};
+var malayalam_dict_rev  = {};
+var oriya_dict_rev      = {};
 var english_dict_rev    = {};
 
 function init()
@@ -26,6 +32,9 @@ function init()
     gujarati_dict_mod   = extend(myTable.gujarati_dict);
     tamil_dict_mod      = extend(myTable.tamil_dict);
     bengali_dict_mod    = extend(myTable.bengali_dict);
+    gurmukhi_dict_mod   = extend(myTable.gurmukhi_dict);
+    malayalam_dict_mod  = extend(myTable.malayalam_dict);
+    oriya_dict_mod      = extend(myTable.oriya_dict);
     english_dict_mod    = extend(myTable.english_dict);
 
     // reverse dictionaries
@@ -35,6 +44,9 @@ function init()
     gujarati_dict_rev   = reverse(myTable.gujarati_dict);
     tamil_dict_rev      = reverse(myTable.tamil_dict);
     bengali_dict_rev    = reverse(myTable.bengali_dict);
+    gurmukhi_dict_rev   = reverse(myTable.gurmukhi_dict);
+    malayalam_dict_rev  = reverse(myTable.malayalam_dict);
+    oriya_dict_rev      = reverse(myTable.oriya_dict);
     english_dict_rev    = reverse(myTable.english_dict);
 }
 
@@ -61,6 +73,15 @@ function detectLanguage(inp_txt){
         else if((array_key_exists(chr, bengali_dict_rev["Independent_vowels"])) || (array_key_exists(chr, bengali_dict_rev["Consonants"]))) {
             return "Bengali";
         }
+        else if((array_key_exists(chr, gurmukhi_dict_rev["Independent_vowels"])) || (array_key_exists(chr, gurmukhi_dict_rev["Consonants"]))) {
+            return "Gurmukhi";
+        }
+        else if((array_key_exists(chr, malayalam_dict_rev["Independent_vowels"])) || (array_key_exists(chr, malayalam_dict_rev["Consonants"]))) {
+            return "Malayalam";
+        }
+        else if((array_key_exists(chr, oriya_dict_rev["Independent_vowels"])) || (array_key_exists(chr, oriya_dict_rev["Consonants"]))) {
+            return "Oriya";
+        }
     }
     return "English"; // default
 }
@@ -84,6 +105,9 @@ function convert2IndicScript(inp_txt, is_IAST, indicScript, modeStrict, reverse,
         else if(indicScript == "Gujarati"){lang_dict = gujarati_dict_rev;}
         else if(indicScript == "Tamil"){lang_dict = tamil_dict_rev;}
         else if(indicScript == "Bengali"){lang_dict = bengali_dict_rev;}
+        else if(indicScript == "Gurmukhi"){lang_dict = gurmukhi_dict_rev;}
+        else if(indicScript == "Malayalam"){lang_dict = malayalam_dict_rev;}
+        else if(indicScript == "Oriya"){lang_dict = oriya_dict_rev;}
         else {lang_dict = english_dict_rev;}        
     }
     else if(modeStrict){ // orignal dictionaries if modeStrict 
@@ -93,6 +117,9 @@ function convert2IndicScript(inp_txt, is_IAST, indicScript, modeStrict, reverse,
         else if(indicScript == "Gujarati"){lang_dict = myTable.gujarati_dict;}
         else if(indicScript == "Tamil"){lang_dict = myTable.tamil_dict;}
         else if(indicScript == "Bengali"){lang_dict = myTable.bengali_dict;}
+        else if(indicScript == "Gurmukhi"){lang_dict = myTable.gurmukhi_dict;}
+        else if(indicScript == "Malayalam"){lang_dict = myTable.malayalam_dict;}
+        else if(indicScript == "Oriya"){lang_dict = myTable.oriya_dict;}
         else {lang_dict = myTable.english_dict;}
     } 
     else { // modified/extended dictionaries if not modeStrict
@@ -102,6 +129,9 @@ function convert2IndicScript(inp_txt, is_IAST, indicScript, modeStrict, reverse,
         else if(indicScript == "Gujarati"){lang_dict = gujarati_dict_mod;}
         else if(indicScript == "Tamil"){lang_dict = tamil_dict_mod;}
         else if(indicScript == "Bengali"){lang_dict = bengali_dict_mod;}
+        else if(indicScript == "Gurmukhi"){lang_dict = gurmukhi_dict_mod;}
+        else if(indicScript == "Malayalam"){lang_dict = malayalam_dict_mod;}
+        else if(indicScript == "Oriya"){lang_dict = oriya_dict_mod;}
         else {lang_dict = english_dict_mod;}
     }
 

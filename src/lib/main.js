@@ -25,7 +25,10 @@ exports.main= function() {
                     contextMenu.Item({ label: "Kannada", data: "Kannada" }),
                     contextMenu.Item({ label: "Gujarati", data: "Gujarati" }),
                     contextMenu.Item({ label: "Tamil", data: "Tamil" }),
-                    contextMenu.Item({ label: "Bengali", data: "Bengali" })
+                    contextMenu.Item({ label: "Bengali", data: "Bengali" }),
+                    contextMenu.Item({ label: "Gurmukhi", data: "Gurmukhi" }),
+                    contextMenu.Item({ label: "Malayalam", data: "Malayalam" }),
+                    contextMenu.Item({ label: "Oriya", data: "Oriya" })
                 ],
                 onMessage: function (outLang) {
                     for (var subselection in selection) {
@@ -57,7 +60,10 @@ exports.main= function() {
                     contextMenu.Item({ label: "Kannada", data: "Kannada" }),
                     contextMenu.Item({ label: "Gujarati", data: "Gujarati" }),
                     contextMenu.Item({ label: "Tamil", data: "Tamil" }),
-                    contextMenu.Item({ label: "Bengali", data: "Bengali" })
+                    contextMenu.Item({ label: "Bengali", data: "Bengali" }),
+                    contextMenu.Item({ label: "Gurmukhi", data: "Gurmukhi" }),
+                    contextMenu.Item({ label: "Malayalam", data: "Malayalam" }),
+                    contextMenu.Item({ label: "Oriya", data: "Oriya" })
                 ],
                 onMessage: function (indicScript) {
                     for (var subselection in selection) {
@@ -77,7 +83,10 @@ exports.main= function() {
                     contextMenu.Item({ label: "Kannada", data: "Kannada" }),
                     contextMenu.Item({ label: "Gujarati", data: "Gujarati" }),
                     contextMenu.Item({ label: "Tamil", data: "Tamil" }),
-                    contextMenu.Item({ label: "Bengali", data: "Bengali" })
+                    contextMenu.Item({ label: "Bengali", data: "Bengali" }),
+                    contextMenu.Item({ label: "Gurmukhi", data: "Gurmukhi" }),
+                    contextMenu.Item({ label: "Malayalam", data: "Malayalam" }),
+                    contextMenu.Item({ label: "Oriya", data: "Oriya" })
                 ],
                 onMessage: function (indicScript) {
                     for (var subselection in selection) {
