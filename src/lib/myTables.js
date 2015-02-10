@@ -17,6 +17,8 @@ var iso2itrans_dict = {
     "ē"     :   "E",
     "ŏ"     :   "A.c",  // need to check again
     "ō"     :   "O",
+    "m̐"     :   ".N",
+    "n̆"     :   ".N",   // for Telugu
     "ṃ"     :   "M",    // *** not correct for Gurmukhi ***
     "ṁ"     :   "M",
     "ḥ"     :   "H",
