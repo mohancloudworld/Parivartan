@@ -36,13 +36,13 @@ exports.main= function() {
                         var inpLang = myMod.detectLanguage(subselection.text);
                         if(inpLang != outLang){
                             // convert to English (ITRANS) [if selection is from a text-box, 'html' will be empty so, 'text' is used to convert]
-                            var resultITRANS = myMod.convert2IndicScript(subselection.html||subselection.text, 0, inpLang, 1, 1, preferences.prefs.preferASCIIDigits);
+                            var resultITRANS = myMod.convert2IndicScript(subselection.html||subselection.text, "ITRANS", inpLang, 1, 1, preferences.prefs.preferASCIIDigits);
                             if(outLang == "English"){
                                 subselection.html = resultITRANS;
                             }
                             else{
                                 // convert to the desired output language
-                                subselection.html = myMod.convert2IndicScript(resultITRANS, 0, outLang, 1, 0, preferences.prefs.preferASCIIDigits);
+                                subselection.html = myMod.convert2IndicScript(resultITRANS, "ITRANS", outLang, 1, 0, preferences.prefs.preferASCIIDigits);
                             }
                         }
                     }
@@ -67,7 +67,30 @@ exports.main= function() {
                 ],
                 onMessage: function (indicScript) {
                     for (var subselection in selection) {
-                        subselection.html = myMod.convert2IndicScript(subselection.html||subselection.text, 1, indicScript, 0, 0, preferences.prefs.preferASCIIDigits);
+                        subselection.html = myMod.convert2IndicScript(subselection.html||subselection.text, "ISO", indicScript, 0, 0, preferences.prefs.preferASCIIDigits);
+                    }
+                }
+            }),
+            contextMenu.Menu({
+                label: "English (ISO 15919) to",
+                context: contextMenu.SelectionContext(),
+                contentScript: 'self.on("click", function (node, data) {' +
+                     '  self.postMessage(data);' +
+                     '});',
+                items: [
+                    contextMenu.Item({ label: "Devanagari", data: "Devanagari" }),
+                    contextMenu.Item({ label: "Telugu",  data: "Telugu" }),
+                    contextMenu.Item({ label: "Kannada", data: "Kannada" }),
+                    contextMenu.Item({ label: "Gujarati", data: "Gujarati" }),
+                    contextMenu.Item({ label: "Tamil", data: "Tamil" }),
+                    contextMenu.Item({ label: "Bengali", data: "Bengali" }),
+                    contextMenu.Item({ label: "Gurmukhi", data: "Gurmukhi" }),
+                    contextMenu.Item({ label: "Malayalam", data: "Malayalam" }),
+                    contextMenu.Item({ label: "Oriya", data: "Oriya" })
+                ],
+                onMessage: function (indicScript) {
+                    for (var subselection in selection) {
+                        subselection.html = myMod.convert2IndicScript(subselection.html||subselection.text, "ISO", indicScript, 1, 0, preferences.prefs.preferASCIIDigits);
                     }
                 }
             }),
@@ -90,7 +113,7 @@ exports.main= function() {
                 ],
                 onMessage: function (indicScript) {
                     for (var subselection in selection) {
-                        subselection.html = myMod.convert2IndicScript(subselection.html||subselection.text, 1, indicScript, 1, 0, preferences.prefs.preferASCIIDigits);
+                        subselection.html = myMod.convert2IndicScript(subselection.html||subselection.text, "IAST", indicScript, 1, 0, preferences.prefs.preferASCIIDigits);
                     }
                 }
             }),

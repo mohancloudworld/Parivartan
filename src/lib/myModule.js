@@ -86,7 +86,7 @@ function detectLanguage(inp_txt){
     return "English"; // default
 }
 
-function convert2IndicScript(inp_txt, is_IAST, indicScript, modeStrict, reverse, preferASCIIDigits)
+function convert2IndicScript(inp_txt, encoding_type, indicScript, modeStrict, reverse, preferASCIIDigits)
 {
     var indx=0;
     var out = "";
@@ -136,8 +136,8 @@ function convert2IndicScript(inp_txt, is_IAST, indicScript, modeStrict, reverse,
     }
 
     // convert to ITRANS   
-    if(is_IAST) {
-        inp_txt = convert2ITRANS(inp_txt);
+    if((!reverse) && ((encoding_type == "ISO") || (encoding_type == "IAST"))) {
+        inp_txt = convert2ITRANS(inp_txt, encoding_type);
     }
     
     while (indx <  inp_txt.length){
@@ -175,15 +175,28 @@ function convert2IndicScript(inp_txt, is_IAST, indicScript, modeStrict, reverse,
     return out;
 }
 
-function convert2ITRANS(inp_txt)
+function convert2ITRANS(inp_txt, encoding_type)
 {
     var myTab = require("myTables");
     var insideTag_p = false;
     var indx=0;
     var out = "";
     var blk, blkLen, Type, insideTag_p;
+    var decoding_dict; 
+    
+    // selecting appropriate dict to convert to ITRANS
+    if(encoding_type == "ISO") {
+        decoding_dict = myTab.iso2itrans_dict;
+    }
+    else if(encoding_type == "IAST") {
+        decoding_dict = myTab.iast2itrans_dict;
+    }
+    else {
+        return inp_txt;
+    }
+    
     while (indx <  inp_txt.length){
-        [blk, blkLen, Type, insideTag_p] = convertNextBlk2ITRANS(myTab.iast2itrans_dict, inp_txt.substring(indx), insideTag_p);
+        [blk, blkLen, Type, insideTag_p] = convertNextBlk2ITRANS(decoding_dict, inp_txt.substring(indx), insideTag_p);
         out += blk;
         if(Type == "NoMatch"){
             indx += 1;
