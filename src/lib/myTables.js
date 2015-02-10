@@ -123,7 +123,10 @@ var devanagari_dict = {
         "R^I"   :   "\u0960", // ॠ DEVANAGARI LETTER VOCALIC RR
         "RRI"   :   "\u0960", // ॠ DEVANAGARI LETTER VOCALIC RR
         "L^I"   :   "\u0961", // ॡ DEVANAGARI LETTER VOCALIC LL
-        "LLI"   :   "\u0961"  // ॡ DEVANAGARI LETTER VOCALIC LL
+        "LLI"   :   "\u0961", // ॡ DEVANAGARI LETTER VOCALIC LL
+
+        "OM"    :   "\u0950", // ॐ DEVANAGARI OM
+        "AUM"   :   "\u0950"  // ॐ DEVANAGARI OM
     },
 
     "Dependent_vowel": { // +()
@@ -233,7 +236,7 @@ var devanagari_dict = {
         "J"     :   "\u095B", // ज़ DEVANAGARI LETTER ZA ≡ 091C ज  093C $़
         ".D"    :   "\u095C", // ड़ DEVANAGARI LETTER DDDHA ≡ 0921 ड  093C $़
         ".Dh"   :   "\u095D", // ढ़ DEVANAGARI LETTER RHA ≡ 0922 ढ  093C $़
-        "f"     :   "\u095E", // फ़ DEVANAGARI LETTER FA ≡ 092B फ  093C $़
+        "f"     :   "\u095E"  // फ़ DEVANAGARI LETTER FA ≡ 092B फ  093C $़
         //""    :   "\u095F"  // य़ DEVANAGARI LETTER YYA ≡ 092F य  093C $़
     },
 
@@ -301,10 +304,7 @@ var devanagari_dict = {
 
         //Generic punctuation for scripts of India
         ","     :   "\u0964", // । DEVANAGARI DANDA = purna viram • phrase separator
-        "."     :   "\u0965", // ॥ DEVANAGARI DOUBLE DANDA = deergh viram
-
-        "OM"    :   "\u0950", // ॐ DEVANAGARI OM
-        "AUM"   :   "\u0950"  // ॐ DEVANAGARI OM
+        "."     :   "\u0965"  // ॥ DEVANAGARI DOUBLE DANDA = deergh viram
     },
 
     // Virama
@@ -348,7 +348,11 @@ var telugu_dict = {
         "o"     :   "\u0C12", // ఒ TELUGU LETTER O
         "O"     :   "\u0C13", // ఓ TELUGU LETTER OO
         "oo"    :   "\u0C13", // ఓ TELUGU LETTER OO
-        "au"    :   "\u0C14"  // ఔ TELUGU LETTER AU
+        "au"    :   "\u0C14", // ఔ TELUGU LETTER AU
+
+        // Sign: Manually added from Devanagari
+        "OM"    :   "\u0950", // ॐ
+        "AUM"   :   "\u0950"  // ॐ
     },
 
     "Dependent_vowel": { // +()
@@ -509,9 +513,7 @@ var telugu_dict = {
 
         // Sign: Manually added from Devanagari
         ","     :   "\u0964", // । DEVANAGARI DANDA = purna viram • phrase separator
-        "."     :   "\u0965", // ॥ DEVANAGARI DOUBLE DANDA = deergh viram
-        "OM"    :   "\u0950", // ॐ
-        "AUM"   :   "\u0950"  // ॐ
+        "."     :   "\u0965"  // ॥ DEVANAGARI DOUBLE DANDA = deergh viram
     },
 
     // Virama
@@ -555,7 +557,11 @@ var gujarati_dict = {
         "R^I"   :   "\u0AE0", // ૠ GUJARATI LETTER VOCALIC RR
         "RRI"   :   "\u0AE0", // ૠ GUJARATI LETTER VOCALIC RR
         "L^I"   :   "\u0AE1", // ૡ GUJARATI LETTER VOCALIC LL
-        "LLI"   :   "\u0AE1"  // ૡ GUJARATI LETTER VOCALIC LL
+        "LLI"   :   "\u0AE1", // ૡ GUJARATI LETTER VOCALIC LL
+
+        // Various signs
+        "OM"    :   "\u0AD0", // ૐ GUJARATI OM
+        "AUM"   :   "\u0AD0"  // ૐ GUJARATI OM
     },
 
     "Dependent_vowel": { // +()
@@ -686,10 +692,6 @@ var gujarati_dict = {
         ".h"    :   "\u0ACD", // $ GUJARATI SIGN VIRAMA
         ".a"    :   "\u0ABD", // ઽ GUJARATI SIGN AVAGRAHA
 
-        // Various signs
-        "OM"    :   "\u0AD0", // ૐ GUJARATI OM
-        "AUM"   :   "\u0AD0", // ૐ GUJARATI OM
-
         // Reserved // For viram punctuation, use the generic Indic 0964 and 0965.
         //""    :   "\u0AE4", // " <reserved> → 0964 ।  devanagari danda
         //""    :   "\u0AE5", // " <reserved> → 0965 ॥  devanagari double danda
@@ -746,7 +748,11 @@ var tamil_dict = {
         "o"     :   "\u0B92", // ஒ TAMIL LETTER O
         "O"     :   "\u0B93", // ஓ TAMIL LETTER OO
         "oo"    :   "\u0B93", // ஓ TAMIL LETTER OO
-        "au"    :   "\u0B94"  // ஔ TAMIL LETTER AU ≡ 0B92 ஒ   0BD7 $ௗ
+        "au"    :   "\u0B94", // ஔ TAMIL LETTER AU ≡ 0B92 ஒ   0BD7 $ௗ
+
+        // Various signs
+        "OM"    :   "\u0BD0", // ௐ TAMIL OM
+        "AUM"   :   "\u0BD0"  // ௐ TAMIL OM
     },
 
     "Dependent_vowel": { // +()
@@ -875,8 +881,6 @@ var tamil_dict = {
         ".h"    :   "\u0BCD", // $் TAMIL SIGN VIRAMA = pulli
 
         // Various signs
-        "OM"    :   "\u0BD0", // ௐ TAMIL OM
-        "AUM"   :   "\u0BD0", // ௐ TAMIL OM
         //""    :   "\u0BD1", // " <reserved>
         //""    :   "\u0BD2", // " <reserved>
         //""    :   "\u0BD3", // " <reserved>
@@ -962,7 +966,11 @@ var kannada_dict = {
         "R^I"   :   "\u0CE0", // ೠ KANNADA LETTER VOCALIC RR
         "RRI"   :   "\u0CE0", // ೠ KANNADA LETTER VOCALIC RR
         "L^I"   :   "\u0CE1", // ೡ KANNADA LETTER VOCALIC LL
-        "LLI"   :   "\u0CE1"  // ೡ KANNADA LETTER VOCALIC LL
+        "LLI"   :   "\u0CE1", // ೡ KANNADA LETTER VOCALIC LL
+
+        // Sign: Manually added from Devanagari
+        "OM"    :   "\u0950", // ॐ
+        "AUM"   :   "\u0950"  // ॐ
     },
 
     "Dependent_vowel": { // +()
@@ -1118,9 +1126,7 @@ var kannada_dict = {
 
         // Sign: Manually added from Devanagari
         ","     :   "\u0964", // । DEVANAGARI DANDA = purna viram • phrase separator
-        "."     :   "\u0965", // ॥ DEVANAGARI DOUBLE DANDA = deergh viram
-        "OM"    :   "\u0950", // ॐ
-        "AUM"   :   "\u0950"  // ॐ
+        "."     :   "\u0965"  // ॥ DEVANAGARI DOUBLE DANDA = deergh viram
     },
 
     // Virama
@@ -1161,7 +1167,11 @@ var bengali_dict = {
         "R^I"   :   "\u09E0", // ৠ BENGALI LETTER VOCALIC RR
         "RRI"   :   "\u09E0", // ৠ BENGALI LETTER VOCALIC RR
         "L^I"   :   "\u09E1", // ৡ BENGALI LETTER VOCALIC LL
-        "LLI"   :   "\u09E1"  // ৡ BENGALI LETTER VOCALIC LL
+        "LLI"   :   "\u09E1", // ৡ BENGALI LETTER VOCALIC LL
+
+        // Sign: Manually added from Devanagari
+        "OM"    :   "\u0950", // ॐ
+        "AUM"   :   "\u0950"  // ॐ
     },
 
     "Dependent_vowel": { // +()
@@ -1339,9 +1349,7 @@ var bengali_dict = {
 
         // Sign: Manually added from Devanagari
         ","     :   "\u0964", // । DEVANAGARI DANDA = purna viram • phrase separator
-        "."     :   "\u0965", // ॥ DEVANAGARI DOUBLE DANDA = deergh viram
-        "OM"    :   "\u0950", // ॐ
-        "AUM"   :   "\u0950"  // ॐ
+        "."     :   "\u0965"  // ॥ DEVANAGARI DOUBLE DANDA = deergh viram
     },
 
     // Virama
@@ -1373,7 +1381,11 @@ var gurmukhi_dict = {
         "o"     :   "\u0A13", // ਓ GURMUKHI LETTER OO
         "O"     :   "\u0A13", // ਓ GURMUKHI LETTER OO
         "oo"    :   "\u0A13", // ਓ GURMUKHI LETTER OO
-        "au"    :   "\u0A14"  // ਔ GURMUKHI LETTER AU
+        "au"    :   "\u0A14", // ਔ GURMUKHI LETTER AU
+
+        // Sign: Manually added from Devanagari
+        "OM"    :   "\u0950", // ॐ
+        "AUM"   :   "\u0950"  // ॐ
     },
 
     "Dependent_vowel": { // +()
@@ -1521,13 +1533,11 @@ var gurmukhi_dict = {
 
         // Sign: Manually added from Devanagari
         ","     :   "\u0964", // । DEVANAGARI DANDA = purna viram • phrase separator
-        "."     :   "\u0965", // ॥ DEVANAGARI DOUBLE DANDA = deergh viram
-        "OM"    :   "\u0950", // ॐ
-        "AUM"   :   "\u0950"  // ॐ
+        "."     :   "\u0965"  // ॥ DEVANAGARI DOUBLE DANDA = deergh viram
     },
 
     // Virama
-    "VIRAMA"    :   "\u0A4D", // $ GURMUKHI SIGN VIRAMA
+    "VIRAMA"    :   "\u0A4D"  // $ GURMUKHI SIGN VIRAMA
 };
 
 var malayalam_dict = {
@@ -1561,7 +1571,11 @@ var malayalam_dict = {
         "R^I"   :   "\u0D60", // ൠ MALAYALAM LETTER VOCALIC RR
         "RRI"   :   "\u0D60", // ൠ MALAYALAM LETTER VOCALIC RR
         "L^I"   :   "\u0D61", // ൡ MALAYALAM LETTER VOCALIC LL
-        "LLI"   :   "\u0D61"  // ൡ MALAYALAM LETTER VOCALIC LL
+        "LLI"   :   "\u0D61", // ൡ MALAYALAM LETTER VOCALIC LL
+
+        // Sign: Manually added from Devanagari
+        "OM"    :   "\u0950", // ॐ
+        "AUM"   :   "\u0950"  // ॐ
     },
 
     "Dependent_vowel": { // +()
@@ -1725,9 +1739,7 @@ var malayalam_dict = {
 
         // Sign: Manually added from Devanagari
         ","     :   "\u0964", // । DEVANAGARI DANDA = purna viram • phrase separator
-        "."     :   "\u0965", // ॥ DEVANAGARI DOUBLE DANDA = deergh viram
-        "OM"    :   "\u0950", // ॐ
-        "AUM"   :   "\u0950"  // ॐ
+        "."     :   "\u0965"  // ॥ DEVANAGARI DOUBLE DANDA = deergh viram
     },
 
     // Virama
@@ -1768,6 +1780,10 @@ var oriya_dict = {
         "RRI"   :   "\u0B60", // ୠ ORIYA LETTER VOCALIC RR
         "L^I"   :   "\u0B61", // ୡ ORIYA LETTER VOCALIC LL
         "LLI"   :   "\u0B61", // ୡ ORIYA LETTER VOCALIC LL
+
+        // Sign: Manually added from Devanagari
+        "OM"    :   "\u0950", // ॐ
+        "AUM"   :   "\u0950"  // ॐ
     },
 
     "Dependent_vowel": { // +()
@@ -1802,7 +1818,7 @@ var oriya_dict = {
         "L^i"   :   "\u0B62", // $ୢ ORIYA VOWEL SIGN VOCALIC L
         "LLi"   :   "\u0B62", // $ୢ ORIYA VOWEL SIGN VOCALIC L
         "L^I"   :   "\u0B63", // $ୣ ORIYA VOWEL SIGN VOCALIC LL
-        "LLI"   :   "\u0B63", // $ୣ ORIYA VOWEL SIGN VOCALIC LL
+        "LLI"   :   "\u0B63"  // $ୣ ORIYA VOWEL SIGN VOCALIC LL
     },
 
     "Consonants": { // ()+
@@ -1849,7 +1865,7 @@ var oriya_dict = {
         "Sh"    :   "\u0B37", // ଷ ORIYA LETTER SSA
         "shh"   :   "\u0B37", // ଷ ORIYA LETTER SSA
         "s"     :   "\u0B38", // ସ ORIYA LETTER SA
-        "h"     :   "\u0B39", // ହ ORIYA LETTER HA
+        "h"     :   "\u0B39"  // ହ ORIYA LETTER HA
 
         // Additional consonants
         //""    :   "\u0B5C", // ଡ଼ ORIYA LETTER RRA = dda ≡ 0B21  ଡ   0B3C  $଼
@@ -1930,9 +1946,7 @@ var oriya_dict = {
 
         // Sign: Manually added from Devanagari
         ","     :   "\u0964", // । DEVANAGARI DANDA = purna viram • phrase separator
-        "."     :   "\u0965", // ॥ DEVANAGARI DOUBLE DANDA = deergh viram
-        "OM"    :   "\u0950", // ॐ
-        "AUM"   :   "\u0950"  // ॐ
+        "."     :   "\u0965"  // ॥ DEVANAGARI DOUBLE DANDA = deergh viram
     },
 
     // Virama
@@ -1958,6 +1972,7 @@ var english_dict = {
     },
 
     // Virama
+    "VIRAMA"    :   ""
 };
 
 exports.iso2itrans_dict  = iso2itrans_dict;
@@ -1968,7 +1983,7 @@ exports.kannada_dict     = kannada_dict;
 exports.gujarati_dict    = gujarati_dict;
 exports.tamil_dict       = tamil_dict;
 exports.bengali_dict     = bengali_dict;
-exports.gurmukhi_dict    = gurmukhi_dict
-exports.malayalam_dict   = malayalam_dict
-exports.oriya_dict       = oriya_dict
+exports.gurmukhi_dict    = gurmukhi_dict;
+exports.malayalam_dict   = malayalam_dict;
+exports.oriya_dict       = oriya_dict;
 exports.english_dict     = english_dict;
