@@ -1,18 +1,26 @@
 // ISO 15919
-var iso2itrans_dict = { 
+var iso2itrans_dict = {
     // http://en.wikipedia.org/wiki/Wikipedia:Indic_transliteration
+    // http://homepage.ntlworld.com/stone-catend/trimain1.htm
+    // http://www.virtualvinodh.com/wp/character-matrix/
 
     "ā"     :   "A",
+    //"æ"     :   "",
+    //"ǣ"     :   "",
     "ī"     :   "I",
     "ū"     :   "U",
-    //"ĕ"   :   "",
-    "ē"     :   "E",
-    //"ŏ"   :   "",
-    "ō"     :   "O",
     "r̥"     :   "RRi",
     "r̥̄"     :   "RRI",
     "l̥"     :   "LLi",
     "l̥̄"     :   "LLI",
+    "ĕ"     :   "a.c",  // need to check again
+    "ē"     :   "E",
+    "ŏ"     :   "A.c",  // need to check again
+    "ō"     :   "O",
+    "ṃ"     :   "M",    // *** not correct for Gurmukhi ***
+    "ṁ"     :   "M",
+    "ḥ"     :   "H",
+    "'"     :   ".a",
     "ṅ"     :   "~N",
     "c"     :   "ch",   // will also handle ch -> chh/Ch
     "ñ"     :   "~n",
@@ -42,7 +50,7 @@ var iso2itrans_dict = {
     "ṯ"     :   "t"
 };
 
-var iast2itrans_dict = { 
+var iast2itrans_dict = {
     // http://en.wikipedia.org/wiki/International_Alphabet_of_Sanskrit_Transliteration
     // http://en.wikipedia.org/wiki/Devanagari_transliteration
     // http://www.aczoom.com/itrans/html/romancsx/node4.html
@@ -88,12 +96,13 @@ var devanagari_dict = {
         "RRi"   :   "\u090B", // ऋ DEVANAGARI LETTER VOCALIC R
         "L^i"   :   "\u090C", // ऌ DEVANAGARI LETTER VOCALIC L
         "LLi"   :   "\u090C", // ऌ DEVANAGARI LETTER VOCALIC L
-        //""    :   "\u090D", // ऍ DEVANAGARI LETTER CANDRA E
+        "a.c"   :   "\u090D", // ऍ DEVANAGARI LETTER CANDRA E ** Manual Change ***
         "e"     :   "\u090E", // ऎ DEVANAGARI LETTER SHORT E • for transcribing Dravidian short e   ** Manual Change ***
         "E"     :   "\u090F", // ए DEVANAGARI LETTER E
         "ee"    :   "\u090F", // ए DEVANAGARI LETTER E
         "ai"    :   "\u0910", // ऐ DEVANAGARI LETTER AI
-        "aa.c"  :   "\u0911", // ऑ DEVANAGARI LETTER CANDRA O
+        "A.c"   :   "\u0911", // ऑ DEVANAGARI LETTER CANDRA O ** Manual Change ***
+        "aa.c"  :   "\u0911", // ऑ DEVANAGARI LETTER CANDRA O ** Manual Change ***
         "o"     :   "\u0912", // ऒ DEVANAGARI LETTER SHORT O • for transcribing Dravidian short o   *** Manual Change ***
         "O"     :   "\u0913", // ओ DEVANAGARI LETTER O
         "oo"    :   "\u0913", // ओ DEVANAGARI LETTER O
@@ -120,7 +129,7 @@ var devanagari_dict = {
     "Dependent_vowel": { // +()
         // Dependent vowel signs for Kashmiri
         //""    :   "\u093A", // $ऺ DEVANAGARI VOWEL SIGN OE
-        //""    :   "\u093B", // $ऻ DEVANAGARI VOWEL SIGN OOE 
+        //""    :   "\u093B", // $ऻ DEVANAGARI VOWEL SIGN OOE
 
         // Dependent vowel signs
         "a"     :   "",       // ADDED
@@ -136,12 +145,13 @@ var devanagari_dict = {
         "RRi"   :   "\u0943", // $ृ DEVANAGARI VOWEL SIGN VOCALIC R
         "R^I"   :   "\u0944", // $ॄ DEVANAGARI VOWEL SIGN VOCALIC RR
         "RRI"   :   "\u0944", // $ॄ DEVANAGARI VOWEL SIGN VOCALIC RR
-        //""    :   "\u0945", // $ॅ DEVANAGARI VOWEL SIGN CANDRA E = candra
+        "a.c"   :   "\u0945", // $ॅ DEVANAGARI VOWEL SIGN CANDRA E = candra ** Manual Change ***
         "e"     :   "\u0946", // $ॆ DEVANAGARI VOWEL SIGN SHORT E • for transcribing Dravidian vowels   ** Manual Change ***
         "E"     :   "\u0947", // $े DEVANAGARI VOWEL SIGN E
         "ee"    :   "\u0947", // $े DEVANAGARI VOWEL SIGN E
         "ai"    :   "\u0948", // $ै DEVANAGARI VOWEL SIGN AI
-        //""    :   "\u0949", // $ॉ DEVANAGARI VOWEL SIGN CANDRA O
+        "A.c"   :   "\u0949", // $ॉ DEVANAGARI VOWEL SIGN CANDRA O ** Manual Change ***
+        "aa.c"  :   "\u0949", // $ॉ DEVANAGARI VOWEL SIGN CANDRA O ** Manual Change ***
         "o"     :   "\u094A", // $ॊ DEVANAGARI VOWEL SIGN SHORT O • for transcribing Dravidian vowels    ** Manual Change ***
         "O"     :   "\u094B", // $ो DEVANAGARI VOWEL SIGN O
         "oo"    :   "\u094B", // $ो DEVANAGARI VOWEL SIGN O
@@ -188,7 +198,7 @@ var devanagari_dict = {
         "d"     :   "\u0926", // द DEVANAGARI LETTER DA
         "dh"    :   "\u0927", // ध DEVANAGARI LETTER DHA
         "n"     :   "\u0928", // न DEVANAGARI LETTER NA
-        "^n"    :   "\u0929", // ऩ DEVANAGARI LETTER NNNA • for transcribing Dravidian alveolar n ≡ 0928 न  093C $़ 
+        "^n"    :   "\u0929", // ऩ DEVANAGARI LETTER NNNA • for transcribing Dravidian alveolar n ≡ 0928 न  093C $़
         "p"     :   "\u092A", // प DEVANAGARI LETTER PA
         "ph"    :   "\u092B", // फ DEVANAGARI LETTER PHA
         "b"     :   "\u092C", // ब DEVANAGARI LETTER BA
@@ -196,11 +206,11 @@ var devanagari_dict = {
         "m"     :   "\u092E", // म DEVANAGARI LETTER MA
         "y"     :   "\u092F", // य DEVANAGARI LETTER YA
         "r"     :   "\u0930", // र DEVANAGARI LETTER RA
-        "R"     :   "\u0931", // ऱ DEVANAGARI LETTER RRA • for transcribing Dravidian alveolar r • half form is represented as “Eyelash RA” ≡ 0930 र  093C $़ 
+        "R"     :   "\u0931", // ऱ DEVANAGARI LETTER RRA • for transcribing Dravidian alveolar r • half form is represented as “Eyelash RA” ≡ 0930 र  093C $़
         "l"     :   "\u0932", // ल DEVANAGARI LETTER LA
         "L"     :   "\u0933", // ळ DEVANAGARI LETTER LLA
         //"ld"  :   "\u0933", // ळ DEVANAGARI LETTER LLA
-        //""    :   "\u0934", // ऴ DEVANAGARI LETTER LLLA • for transcribing Dravidian l ≡ 0933 ळ  093C $़ 
+        //""    :   "\u0934", // ऴ DEVANAGARI LETTER LLLA • for transcribing Dravidian l ≡ 0933 ळ  093C $़
         "w"     :   "\u0935", // व DEVANAGARI LETTER VA
         "v"     :   "\u0935", // व DEVANAGARI LETTER VA
         "sh"    :   "\u0936", // श DEVANAGARI LETTER SHA
@@ -211,20 +221,20 @@ var devanagari_dict = {
 
         // Manually Added
         "x" :   "\u0915"+"\u094D"+"\u0937", // क्ष
-        //"kSh" :   "\u0915"+"\u094D"+"\u0937", // क्ष  (redundant) 
+        //"kSh" :   "\u0915"+"\u094D"+"\u0937", // क्ष  (redundant)
         "GY"    :   "\u091C"+"\u094D"+"\u091E", //
         //"j~n" :   "\u091C"+"\u094D"+"\u091E", // (redundant)
 
         // Additional consonants
-        "q"     :   "\u0958", // क़ DEVANAGARI LETTER QA ≡ 0915 क  093C $़ 
-        "K"     :   "\u0959", // ख़ DEVANAGARI LETTER KHHA ≡ 0916 ख  093C $़ 
-        "G"     :   "\u095A", // ग़ DEVANAGARI LETTER GHHA ≡ 0917 ग  093C $़ 
-        "z"     :   "\u095B", // ज़ DEVANAGARI LETTER ZA ≡ 091C ज  093C $़ 
-        "J"     :   "\u095B", // ज़ DEVANAGARI LETTER ZA ≡ 091C ज  093C $़ 
-        ".D"    :   "\u095C", // ड़ DEVANAGARI LETTER DDDHA ≡ 0921 ड  093C $़ 
-        ".Dh"   :   "\u095D", // ढ़ DEVANAGARI LETTER RHA ≡ 0922 ढ  093C $़ 
-        "f"     :   "\u095E", // फ़ DEVANAGARI LETTER FA ≡ 092B फ  093C $़ 
-        //""    :   "\u095F"  // य़ DEVANAGARI LETTER YYA ≡ 092F य  093C $़ 
+        "q"     :   "\u0958", // क़ DEVANAGARI LETTER QA ≡ 0915 क  093C $़
+        "K"     :   "\u0959", // ख़ DEVANAGARI LETTER KHHA ≡ 0916 ख  093C $़
+        "G"     :   "\u095A", // ग़ DEVANAGARI LETTER GHHA ≡ 0917 ग  093C $़
+        "z"     :   "\u095B", // ज़ DEVANAGARI LETTER ZA ≡ 091C ज  093C $़
+        "J"     :   "\u095B", // ज़ DEVANAGARI LETTER ZA ≡ 091C ज  093C $़
+        ".D"    :   "\u095C", // ड़ DEVANAGARI LETTER DDDHA ≡ 0921 ड  093C $़
+        ".Dh"   :   "\u095D", // ढ़ DEVANAGARI LETTER RHA ≡ 0922 ढ  093C $़
+        "f"     :   "\u095E", // फ़ DEVANAGARI LETTER FA ≡ 092B फ  093C $़
+        //""    :   "\u095F"  // य़ DEVANAGARI LETTER YYA ≡ 092F य  093C $़
     },
 
     "Accent_marks": {
@@ -235,7 +245,7 @@ var devanagari_dict = {
         "\u030A":   "\u030A", // ॰ ABBREVIATION SIGN • intended for Devanagari-specific abbreviations
         "\u030D":   "\u030D", // $॑ STRESS SIGN UDATTA = Vedic tone svarita
         "\u0323":   "\u0323", // $़ SIGN NUKTA • for extending the alphabet to new letters
-        "\u0332":   "\u0332", // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta     
+        "\u0332":   "\u0332", // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta
 
         // Various signs
         "\u0323":   "\u093C", // $़ DEVANAGARI SIGN NUKTA • for extending the alphabet to new letters
@@ -252,8 +262,11 @@ var devanagari_dict = {
         "\u030A":   "\u0970", // ॰ DEVANAGARI ABBREVIATION SIGN • intended for Devanagari-specific abbreviations
         "\u0307":   "\u0971"  // ॱ DEVANAGARI SIGN HIGH SPACING DOT
     },
-    
+
     "Others": { // ()
+        // copied from Dependent vowels, for handling individual charecters
+        ".c"    :   "\u0945", // $ॅ DEVANAGARI VOWEL SIGN CANDRA E = candra ** Manual Change ***
+
         // Various signs
         //""    :   "\u0900", // $ऀ DEVANAGARI SIGN INVERTED CANDRABINDU = vaidika adhomukha candrabindu
         ".N"    :   "\u0901", // $ँ DEVANAGARI SIGN CANDRABINDU = anunasika → 0310 $̐   combining candrabindu
@@ -314,27 +327,27 @@ var telugu_dict = {
         "uu"    :   "\u0C0A", // ఊ TELUGU LETTER UU
         "R^i"   :   "\u0C0B", // ఋ TELUGU LETTER VOCALIC R
         "RRi"   :   "\u0C0B", // ఋ TELUGU LETTER VOCALIC R
-        
+
             // Additional vowels for Sanskrit
         "R^I"   :   "\u0C60", // ౠ TELUGU LETTER VOCALIC RR
         "RRI"   :   "\u0C60", // ౠ TELUGU LETTER VOCALIC RR
-        
+
         "L^i"   :   "\u0C0C", // ఌ TELUGU LETTER VOCALIC L
         "LLi"   :   "\u0C0C", // ఌ TELUGU LETTER VOCALIC L
-        
+
             // Additional vowels for Sanskrit
         "L^I"   :   "\u0C61", // ౡ TELUGU LETTER VOCALIC LL
         "LLI"   :   "\u0C61", // ౡ TELUGU LETTER VOCALIC LL
 
         //""    :   "\u0C0D", // " <reserved>
         "e"     :   "\u0C0E", // ఎ TELUGU LETTER E
-        "E"     :   "\u0C0F", // ఏ TELUGU LETTER EE 
-        "ee"    :   "\u0C0F", // ఏ TELUGU LETTER EE 
+        "E"     :   "\u0C0F", // ఏ TELUGU LETTER EE
+        "ee"    :   "\u0C0F", // ఏ TELUGU LETTER EE
         "ai"    :   "\u0C10", // ఐ TELUGU LETTER AI
         //""    :   "\u0C11", // " <reserved>
         "o"     :   "\u0C12", // ఒ TELUGU LETTER O
-        "O"     :   "\u0C13", // ఓ TELUGU LETTER OO 
-        "oo"    :   "\u0C13", // ఓ TELUGU LETTER OO 
+        "O"     :   "\u0C13", // ఓ TELUGU LETTER OO
+        "oo"    :   "\u0C13", // ఓ TELUGU LETTER OO
         "au"    :   "\u0C14"  // ఔ TELUGU LETTER AU
     },
 
@@ -357,7 +370,7 @@ var telugu_dict = {
         "e"     :   "\u0C46", // ె  TELUGU VOWEL SIGN E
         "E"     :   "\u0C47", // ే  TELUGU VOWEL SIGN EE
         "ee"    :   "\u0C47", // ే  TELUGU VOWEL SIGN EE
-        "ai"    :   "\u0C48", // ై  TELUGU VOWEL SIGN AI ≡ 0C46  $ె   0C56  $ౖ  
+        "ai"    :   "\u0C48", // ై  TELUGU VOWEL SIGN AI ≡ 0C46  $ె   0C56  $ౖ
         //""    :   "\u0C49", // " <reserved>
         "o"     :   "\u0C4A", // ొ  TELUGU VOWEL SIGN O
         "O"     :   "\u0C4B", // ో  TELUGU VOWEL SIGN OO
@@ -419,7 +432,7 @@ var telugu_dict = {
         "h"     :   "\u0C39", // హ TELUGU LETTER HA
 
         // Manually Added
-        "x"     :   "\u0C15"+"\u0C4D"+"\u0C37", // క్ష  
+        "x"     :   "\u0C15"+"\u0C4D"+"\u0C37", // క్ష
         //"kSh" :   "\u0C15"+"\u0C4D"+"\u0C37", // క్ష   (redundant)
         "GY"    :   "\u0C1C"+"\u0C4D"+"\u0C1E"  //
         //"j~n" :   "\u0C1C"+"\u0C4D"+"\u0C1E", // (redundant)
@@ -434,7 +447,7 @@ var telugu_dict = {
         "\u030A":   "\u030A", // ॰ ABBREVIATION SIGN • intended for Devanagari-specific abbreviations
         "\u030D":   "\u030D", // $॑ STRESS SIGN UDATTA = Vedic tone svarita
         "\u0323":   "\u0323", // $़ SIGN NUKTA • for extending the alphabet to new letters
-        "\u0332":   "\u0332", // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta     
+        "\u0332":   "\u0332", // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta
 
         // Accent: Manually added from Devanagari
         "\u0323":   "\u093C", // $़ DEVANAGARI SIGN NUKTA • for extending the alphabet to new letters
@@ -445,7 +458,7 @@ var telugu_dict = {
         "\u0307":   "\u0971", // ॱ DEVANAGARI SIGN HIGH SPACING DOT
         "\u030A":   "\u0970"  // ॰ DEVANAGARI ABBREVIATION SIGN • intended for Devanagari-specific abbreviations
     },
-    
+
     "Others": { // ()
             // Various signs
         ".N"    :   "\u0C01", // ఁ TELUGU SIGN CANDRABINDU
@@ -510,32 +523,33 @@ var gujarati_dict = {
     // **** incomplete *** last table from the link...
 
     "Independent_vowels": { // -()
-        // Independent vowels 
-        "a"     :   "\u0A85", // અ GUJARATI LETTER A 
-        "A"     :   "\u0A86", // આ GUJARATI LETTER AA 
-        "aa"    :   "\u0A86", // આ GUJARATI LETTER AA 
-        "i"     :   "\u0A87", // ઇ GUJARATI LETTER I 
-        "I"     :   "\u0A88", // ઈ GUJARATI LETTER II 
-        "ii"    :   "\u0A88", // ઈ GUJARATI LETTER II 
-        "u"     :   "\u0A89", // ઉ GUJARATI LETTER U 
-        "U"     :   "\u0A8A", // ઊ GUJARATI LETTER UU 
-        "uu"    :   "\u0A8A", // ઊ GUJARATI LETTER UU 
-        "R^i"   :   "\u0A8B", // ઋ GUJARATI LETTER VOCALIC R 
-        "RRi"   :   "\u0A8B", // ઋ GUJARATI LETTER VOCALIC R 
-        "L^i"   :   "\u0A8C", // ઌ GUJARATI LETTER VOCALIC L • used with Sanskrit text 
-        "LLi"   :   "\u0A8C", // ઌ GUJARATI LETTER VOCALIC L • used with Sanskrit text 
-        //""    :   "\u0A8D", // ઍ GUJARATI VOWEL CANDRA E 
-        //""    :   "\u0A8E", // " <reserved> 
+        // Independent vowels
+        "a"     :   "\u0A85", // અ GUJARATI LETTER A
+        "A"     :   "\u0A86", // આ GUJARATI LETTER AA
+        "aa"    :   "\u0A86", // આ GUJARATI LETTER AA
+        "i"     :   "\u0A87", // ઇ GUJARATI LETTER I
+        "I"     :   "\u0A88", // ઈ GUJARATI LETTER II
+        "ii"    :   "\u0A88", // ઈ GUJARATI LETTER II
+        "u"     :   "\u0A89", // ઉ GUJARATI LETTER U
+        "U"     :   "\u0A8A", // ઊ GUJARATI LETTER UU
+        "uu"    :   "\u0A8A", // ઊ GUJARATI LETTER UU
+        "R^i"   :   "\u0A8B", // ઋ GUJARATI LETTER VOCALIC R
+        "RRi"   :   "\u0A8B", // ઋ GUJARATI LETTER VOCALIC R
+        "L^i"   :   "\u0A8C", // ઌ GUJARATI LETTER VOCALIC L • used with Sanskrit text
+        "LLi"   :   "\u0A8C", // ઌ GUJARATI LETTER VOCALIC L • used with Sanskrit text
+        "a.c"   :   "\u0A8D", // ઍ GUJARATI VOWEL CANDRA E ** Manual Change ***
+        //""    :   "\u0A8E", // " <reserved>
         "e"     :   "\u0A8F", // એ GUJARATI LETTER E ** Manual Change ***
-        "E"     :   "\u0A8F", // એ GUJARATI LETTER E 
-        "ee"    :   "\u0A8F", // એ GUJARATI LETTER E 
-        "ai"    :   "\u0A90", // ઐ GUJARATI LETTER AI 
-        //""    :   "\u0A91", // ઑ GUJARATI VOWEL CANDRA O 
-        //""    :   "\u0A92", // " <reserved> 
+        "E"     :   "\u0A8F", // એ GUJARATI LETTER E
+        "ee"    :   "\u0A8F", // એ GUJARATI LETTER E
+        "ai"    :   "\u0A90", // ઐ GUJARATI LETTER AI
+        "A.c"   :   "\u0A91", // ઑ GUJARATI VOWEL CANDRA O ** Manual Change ***
+        "aa.c"  :   "\u0A91", // ઑ GUJARATI VOWEL CANDRA O ** Manual Change ***
+        //""    :   "\u0A92", // " <reserved>
         "o"     :   "\u0A93", // ઓ GUJARATI LETTER O ** Manual Change ***
-        "O"     :   "\u0A93", // ઓ GUJARATI LETTER O 
-        "oo"    :   "\u0A93", // ઓ GUJARATI LETTER O 
-        "au"    :   "\u0A94", // ઔ GUJARATI LETTER AU 
+        "O"     :   "\u0A93", // ઓ GUJARATI LETTER O
+        "oo"    :   "\u0A93", // ઓ GUJARATI LETTER O
+        "au"    :   "\u0A94", // ઔ GUJARATI LETTER AU
 
         // Additional vowels for Sanskrit
         "R^I"   :   "\u0AE0", // ૠ GUJARATI LETTER VOCALIC RR
@@ -543,7 +557,7 @@ var gujarati_dict = {
         "L^I"   :   "\u0AE1", // ૡ GUJARATI LETTER VOCALIC LL
         "LLI"   :   "\u0AE1"  // ૡ GUJARATI LETTER VOCALIC LL
     },
-    
+
     "Dependent_vowel": { // +()
         // Dependent vowel signs
         "a"     :   "",       // ADDED
@@ -559,13 +573,14 @@ var gujarati_dict = {
         "RRi"   :   "\u0AC3", // $ૃ GUJARATI VOWEL SIGN VOCALIC R
         "R^I"   :   "\u0AC4", // $ૄ GUJARATI VOWEL SIGN VOCALIC RR
         "RRI"   :   "\u0AC4", // $ૄ GUJARATI VOWEL SIGN VOCALIC RR
-        //""    :   "\u0AC5", // $ૅ GUJARATI VOWEL SIGN CANDRA E
+        "a.c"   :   "\u0AC5", // $ૅ GUJARATI VOWEL SIGN CANDRA E ** Manual Change ***
         //""    :   "\u0AC6", // " <reserved>
         "e"     :   "\u0AC7", // $ે GUJARATI VOWEL SIGN E ** Manual Change ***
         "E"     :   "\u0AC7", // $ે GUJARATI VOWEL SIGN E
         "ee"    :   "\u0AC7", // $ે GUJARATI VOWEL SIGN E
         "ai"    :   "\u0AC8", // $ૈ GUJARATI VOWEL SIGN AI
-        //""    :   "\u0AC9", // $ૉ GUJARATI VOWEL SIGN CANDRA O
+        "A.c"   :   "\u0AC9", // $ૉ GUJARATI VOWEL SIGN CANDRA O ** Manual Change ***
+        "aa.c"  :   "\u0AC9", // $ૉ GUJARATI VOWEL SIGN CANDRA O ** Manual Change ***
         //""    :   "\u0ACA", // " <reserved>
         "o"     :   "\u0ACB", // $ો GUJARATI VOWEL SIGN O ** Manual Change ***
         "O"     :   "\u0ACB", // $ો GUJARATI VOWEL SIGN O
@@ -578,7 +593,7 @@ var gujarati_dict = {
         "L^I"   :   "\u0AE3", // $ૣ GUJARATI VOWEL SIGN VOCALIC LL
         "LLI"   :   "\u0AE3"  // $ૣ GUJARATI VOWEL SIGN VOCALIC LL
     },
-    
+
     "Consonants": { // ()+
         // Consonants
         "k"     :   "\u0A95", // ક GUJARATI LETTER KA
@@ -627,12 +642,12 @@ var gujarati_dict = {
         "h"     :   "\u0AB9", // હ GUJARATI LETTER HA
 
         // Manually Added
-        "x"     :   "\u0A95"+"\u0ACD"+"\u0AB7", // క్ష  
+        "x"     :   "\u0A95"+"\u0ACD"+"\u0AB7", // క్ష
         //"kSh" :   "\u0A95"+"\u0ACD"+"\u0AB7", // క్ష   (redundant)
         "GY"    :   "\u0A9C"+"\u0ACD"+"\u0A9E"  //
         //"j~n" :   "\u0A9C"+"\u0ACD"+"\u0A9E", // (redundant)
     },
-    
+
     "Accent_marks": {
         // Hack to preserve accent by including the Non-Indic accent marks, if used in Indic scripts
         "\u0300":   "\u0300", // $॓ GRAVE ACCENT → 0300 $̀   combining grave accent
@@ -641,7 +656,7 @@ var gujarati_dict = {
         "\u030A":   "\u030A", // ॰ ABBREVIATION SIGN • intended for Devanagari-specific abbreviations
         "\u030D":   "\u030D", // $॑ STRESS SIGN UDATTA = Vedic tone svarita
         "\u0323":   "\u0323", // $़ SIGN NUKTA • for extending the alphabet to new letters
-        "\u0332":   "\u0332", // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta     
+        "\u0332":   "\u0332", // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta
 
         // Accent: Manually added from Devanagari
         "\u0323":   "\u093C", // $़ DEVANAGARI SIGN NUKTA • for extending the alphabet to new letters
@@ -655,14 +670,17 @@ var gujarati_dict = {
         // Various signs
         "\u0323":   "\u0ABC"  // $઼ GUJARATI SIGN NUKTA • for extending the alphabet to new letters
     },
-    
+
     "Others": { // ()
-        // Various signs 
-        ".N"    :   "\u0A81", // $ઁ GUJARATI SIGN CANDRABINDU 
-        ".m"    :   "\u0A82", // $ં GUJARATI SIGN ANUSVARA 
-        ".n"    :   "\u0A82", // $ં GUJARATI SIGN ANUSVARA 
-        "M"     :   "\u0A82", // $ં GUJARATI SIGN ANUSVARA 
-        "H"     :   "\u0A83", // $ઃ GUJARATI SIGN VISARGA 
+        // copied from Dependent vowels, for handling individual charecters
+        ".c"    :   "\u0AC5", // $ૅ GUJARATI VOWEL SIGN CANDRA E ** Manual Change ***
+
+        // Various signs
+        ".N"    :   "\u0A81", // $ઁ GUJARATI SIGN CANDRABINDU
+        ".m"    :   "\u0A82", // $ં GUJARATI SIGN ANUSVARA
+        ".n"    :   "\u0A82", // $ં GUJARATI SIGN ANUSVARA
+        "M"     :   "\u0A82", // $ં GUJARATI SIGN ANUSVARA
+        "H"     :   "\u0A83", // $ઃ GUJARATI SIGN VISARGA
 
         // Virama
         ".h"    :   "\u0ACD", // $ GUJARATI SIGN VIRAMA
@@ -692,13 +710,13 @@ var gujarati_dict = {
         //""    :   "\u0AF0", // ૰ GUJARATI ABBREVIATION SIGN
 
         // Currency sign
-        //""    :   "\u0AF1", // ૱ GUJARATI RUPEE SIGN • preferred spelling is 0AB0 ર   0AC2 $ૂ   0AF0 ૰ 
+        //""    :   "\u0AF1", // ૱ GUJARATI RUPEE SIGN • preferred spelling is 0AB0 ર   0AC2 $ૂ   0AF0 ૰
 
         // Sign: Manually added from Devanagari
         ","     :   "\u0964", // । DEVANAGARI DANDA = purna viram • phrase separator
         "."     :   "\u0965"  // ॥ DEVANAGARI DOUBLE DANDA = deergh viram
     },
-    
+
     // Virama
     "VIRAMA"    :   "\u0ACD"  // $ GUJARATI SIGN VIRAMA
 };
@@ -728,9 +746,9 @@ var tamil_dict = {
         "o"     :   "\u0B92", // ஒ TAMIL LETTER O
         "O"     :   "\u0B93", // ஓ TAMIL LETTER OO
         "oo"    :   "\u0B93", // ஓ TAMIL LETTER OO
-        "au"    :   "\u0B94"  // ஔ TAMIL LETTER AU ≡ 0B92 ஒ   0BD7 $ௗ 
+        "au"    :   "\u0B94"  // ஔ TAMIL LETTER AU ≡ 0B92 ஒ   0BD7 $ௗ
     },
-    
+
     "Dependent_vowel": { // +()
         // Dependent vowel signs
         "a"     :   "",       // ADDED
@@ -752,12 +770,12 @@ var tamil_dict = {
 
         // Two-part dependent vowel signs
         // These vowel signs have glyph pieces which stand on both sides of the consonant; they follow the consonant in logical order, and should be handled as a unit for most processing.
-        "o"     :   "\u0BCA", // $ொ TAMIL VOWEL SIGN O ≡ 0BC6   $ெ   0BBE $ா 
-        "O"     :   "\u0BCB", // $ோ TAMIL VOWEL SIGN OO ≡ 0BC7   $ே   0BBE $ா 
-        "oo"    :   "\u0BCB", // $ோ TAMIL VOWEL SIGN OO ≡ 0BC7   $ே   0BBE $ா 
-        "au"    :   "\u0BCC"  // $ௌ TAMIL VOWEL SIGN AU ≡ 0BC6   $ெ   0BD7 $ௗ 
+        "o"     :   "\u0BCA", // $ொ TAMIL VOWEL SIGN O ≡ 0BC6   $ெ   0BBE $ா
+        "O"     :   "\u0BCB", // $ோ TAMIL VOWEL SIGN OO ≡ 0BC7   $ே   0BBE $ா
+        "oo"    :   "\u0BCB", // $ோ TAMIL VOWEL SIGN OO ≡ 0BC7   $ே   0BBE $ா
+        "au"    :   "\u0BCC"  // $ௌ TAMIL VOWEL SIGN AU ≡ 0BC6   $ெ   0BD7 $ௗ
     },
-    
+
     "Consonants": { // ()+
         // Consonants
         "k"     :   "\u0B95", // க TAMIL LETTER KA
@@ -819,12 +837,12 @@ var tamil_dict = {
         "s"     :   "\u0BB8", // ஸ TAMIL LETTER SA
         "h"     :   "\u0BB9", // ஹ TAMIL LETTER HA
         // Manually Added
-        "x"     :   "\u0B95"+"\u0BCD"+"\u0BB7", // క్ష  
+        "x"     :   "\u0B95"+"\u0BCD"+"\u0BB7", // క్ష
         //"kSh" :   "\u0B95"+"\u0BCD"+"\u0BB7", // క్ష   (redundant)
         "GY"    :   "\u0B9C"+"\u0BCD"+"\u0B9E"  //
         //"j~n" :   "\u0B9C"+"\u0BCD"+"\u0B9E", // (redundant)
     },
-    
+
     "Accent_marks": {
         // Hack to preserve accent by including the Non-Indic accent marks, if used in Indic scripts
         "\u0300":   "\u0300", // $॓ GRAVE ACCENT → 0300 $̀   combining grave accent
@@ -833,7 +851,7 @@ var tamil_dict = {
         "\u030A":   "\u030A", // ॰ ABBREVIATION SIGN • intended for Devanagari-specific abbreviations
         "\u030D":   "\u030D", // $॑ STRESS SIGN UDATTA = Vedic tone svarita
         "\u0323":   "\u0323", // $़ SIGN NUKTA • for extending the alphabet to new letters
-        "\u0332":   "\u0332", // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta     
+        "\u0332":   "\u0332", // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta
 
         // Accent: Manually added from Devanagari
         "\u0323":   "\u093C", // $़ DEVANAGARI SIGN NUKTA • for extending the alphabet to new letters
@@ -844,7 +862,7 @@ var tamil_dict = {
         "\u0307":   "\u0971", // ॱ DEVANAGARI SIGN HIGH SPACING DOT
         "\u030A":   "\u0970"  // ॰ DEVANAGARI ABBREVIATION SIGN • intended for Devanagari-specific abbreviations
     },
-    
+
     "Others": { // ()
         // Various signs
         // The anusvara should not be confused with the use of a circular glyph for the pulli.
@@ -852,7 +870,7 @@ var tamil_dict = {
         ".n"    :   "\u0B82", // $ஂ TAMIL SIGN ANUSVARA • not used in Tamil
         "M"     :   "\u0B82", // $ஂ TAMIL SIGN ANUSVARA • not used in Tamil
         "H"     :   "\u0B83", // ஃ TAMIL SIGN VISARGA = aytham • in fonts which display the Tamil pulli as a ring shape, the glyph for aytham also uses rings
-        
+
         // Virama
         ".h"    :   "\u0BCD", // $் TAMIL SIGN VIRAMA = pulli
 
@@ -906,7 +924,7 @@ var tamil_dict = {
         ","     :   "\u0964", // । DEVANAGARI DANDA = purna viram • phrase separator
         "."     :   "\u0965"  // ॥ DEVANAGARI DOUBLE DANDA = deergh viram
     },
-    
+
     // Virama   // The Tamil pulli usually displays as a dot above, but in some fonts displays as a ring above. Do not use 0B82 to represent a ring-shaped pulli.
     "VIRAMA"    :   "\u0BCD"  // $் TAMIL SIGN VIRAMA = pulli
 };
@@ -946,15 +964,15 @@ var kannada_dict = {
         "L^I"   :   "\u0CE1", // ೡ KANNADA LETTER VOCALIC LL
         "LLI"   :   "\u0CE1"  // ೡ KANNADA LETTER VOCALIC LL
     },
-    
+
     "Dependent_vowel": { // +()
         // Dependent vowel signs
         "a"     :   "",       // ADDED
         "A"     :   "\u0CBE", // $ಾ KANNADA VOWEL SIGN AA
         "aa"    :   "\u0CBE", // $ಾ KANNADA VOWEL SIGN AA
         "i"     :   "\u0CBF", // $ಿ KANNADA VOWEL SIGN I
-        "I"     :   "\u0CC0", // $ೀ KANNADA VOWEL SIGN II ≡ 0CBF $ಿ  0CD5 $ೕ 
-        "ii"    :   "\u0CC0", // $ೀ KANNADA VOWEL SIGN II ≡ 0CBF $ಿ  0CD5 $ೕ 
+        "I"     :   "\u0CC0", // $ೀ KANNADA VOWEL SIGN II ≡ 0CBF $ಿ  0CD5 $ೕ
+        "ii"    :   "\u0CC0", // $ೀ KANNADA VOWEL SIGN II ≡ 0CBF $ಿ  0CD5 $ೕ
         "u"     :   "\u0CC1", // $ು KANNADA VOWEL SIGN U
         "U"     :   "\u0CC2", // $ೂ KANNADA VOWEL SIGN UU
         "uu"    :   "\u0CC2", // $ೂ KANNADA VOWEL SIGN UU
@@ -964,13 +982,13 @@ var kannada_dict = {
         "RRI"   :   "\u0CC4", // $ೄ KANNADA VOWEL SIGN VOCALIC RR
         //""    :   "\u0CC5", // " <reserved>
         "e"     :   "\u0CC6", // $ೆ KANNADA VOWEL SIGN E
-        "E"     :   "\u0CC7", // $ೇ KANNADA VOWEL SIGN EE ≡ 0CC6 $ೆ   0CD5 $ೕ 
-        "ee"    :   "\u0CC7", // $ೇ KANNADA VOWEL SIGN EE ≡ 0CC6 $ೆ   0CD5 $ೕ 
-        "ai"    :   "\u0CC8", // $ೈ KANNADA VOWEL SIGN AI ≡ 0CC6 $ೆ   0CD6 $ೖ 
+        "E"     :   "\u0CC7", // $ೇ KANNADA VOWEL SIGN EE ≡ 0CC6 $ೆ   0CD5 $ೕ
+        "ee"    :   "\u0CC7", // $ೇ KANNADA VOWEL SIGN EE ≡ 0CC6 $ೆ   0CD5 $ೕ
+        "ai"    :   "\u0CC8", // $ೈ KANNADA VOWEL SIGN AI ≡ 0CC6 $ೆ   0CD6 $ೖ
         //""    :   "\u0CC9", // " <reserved>
-        "o"     :   "\u0CCA", // $ೊ KANNADA VOWEL SIGN O ≡ 0CC6 $ೆ   0CC2 $ೂ 
-        "O"     :   "\u0CCB", // $ೋ KANNADA VOWEL SIGN OO ≡ 0CCA $ೊ  0CD5 $ೕ 
-        "oo"    :   "\u0CCB", // $ೋ KANNADA VOWEL SIGN OO ≡ 0CCA $ೊ  0CD5 $ೕ 
+        "o"     :   "\u0CCA", // $ೊ KANNADA VOWEL SIGN O ≡ 0CC6 $ೆ   0CC2 $ೂ
+        "O"     :   "\u0CCB", // $ೋ KANNADA VOWEL SIGN OO ≡ 0CCA $ೊ  0CD5 $ೕ
+        "oo"    :   "\u0CCB", // $ೋ KANNADA VOWEL SIGN OO ≡ 0CCA $ೊ  0CD5 $ೕ
         "au"    :   "\u0CCC", // $ೌ KANNADA VOWEL SIGN AU
 
         // Dependent vowels
@@ -979,7 +997,7 @@ var kannada_dict = {
         "L^I"   :   "\u0CE3", // ೣ KANNADA VOWEL SIGN VOCALIC LL
         "LLI"   :   "\u0CE3"  // ೣ KANNADA VOWEL SIGN VOCALIC LL
     },
-    
+
     "Consonants": { // ()+
         // Consonants
         "k"     :   "\u0C95", // ಕ KANNADA LETTER KA
@@ -1028,12 +1046,12 @@ var kannada_dict = {
         "h"     :   "\u0CB9", // ಹ KANNADA LETTER HA
 
         // Manually Added
-        "x" :   "\u0C95"+"\u0CCD"+"\u0CB7", // క్ష  
+        "x" :   "\u0C95"+"\u0CCD"+"\u0CB7", // క్ష
         //"kSh" :   "\u0C95"+"\u0CCD"+"\u0CB7", // క్ష   (redundant)
         "GY"    :   "\u0C9C"+"\u0CCD"+"\u0C9E"  //
         //"j~n" :   "\u0C9C"+"\u0CCD"+"\u0C9E", // (redundant)
     },
-    
+
     "Accent_marks": {
         // Hack to preserve accent by including the Non-Indic accent marks, if used in Indic scripts
         "\u0300":   "\u0300", // $॓ GRAVE ACCENT → 0300 $̀   combining grave accent
@@ -1042,7 +1060,7 @@ var kannada_dict = {
         "\u030A":   "\u030A", // ॰ ABBREVIATION SIGN • intended for Devanagari-specific abbreviations
         "\u030D":   "\u030D", // $॑ STRESS SIGN UDATTA = Vedic tone svarita
         "\u0323":   "\u0323", // $़ SIGN NUKTA • for extending the alphabet to new letters
-        "\u0332":   "\u0332", // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta     
+        "\u0332":   "\u0332", // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta
 
         // Accent: Manually added from Devanagari
         "\u0323":   "\u093C", // $़ DEVANAGARI SIGN NUKTA • for extending the alphabet to new letters
@@ -1056,7 +1074,7 @@ var kannada_dict = {
         // Various signs
         "\u0323":   "\u0CBC"  // $಼ KANNADA SIGN NUKTA
     },
-    
+
     "Others": { // ()
         // Various signs
         ".m"    :   "\u0C82", // $ಂ KANNADA SIGN ANUSVARA
@@ -1066,7 +1084,7 @@ var kannada_dict = {
 
         // Virama
         ".h"    :   "\u0CCD", // $ KANNADA SIGN VIRAMA • preferred name is halant
-        
+
         // Various signs
         ".a"    :   "\u0CBD", // ಽ KANNADA SIGN AVAGRAHA
 
@@ -1104,7 +1122,7 @@ var kannada_dict = {
         "OM"    :   "\u0950", // ॐ
         "AUM"   :   "\u0950"  // ॐ
     },
-    
+
     // Virama
     "VIRAMA"    :   "\u0CCD" // $ KANNADA SIGN VIRAMA • preferred name is halant
 };
@@ -1145,7 +1163,7 @@ var bengali_dict = {
         "L^I"   :   "\u09E1", // ৡ BENGALI LETTER VOCALIC LL
         "LLI"   :   "\u09E1"  // ৡ BENGALI LETTER VOCALIC LL
     },
-    
+
     "Dependent_vowel": { // +()
         "a"     :   "",       // ADDED
         "A"     :   "\u09BE", // $া BENGALI VOWEL SIGN AA
@@ -1175,14 +1193,14 @@ var bengali_dict = {
         "LLi"   :   "\u09E2", // $ৢ BENGALI VOWEL SIGN VOCALIC L
         "L^I"   :   "\u09E3", // $ৣ BENGALI VOWEL SIGN VOCALIC LL
         "LLI"   :   "\u09E3", // $ৣ BENGALI VOWEL SIGN VOCALIC LL
-        
+
         // Two-part dependent vowel signs These vowel signs have glyph pieces which stand on both sides of the consonant; they follow the consonant in logical order, and should be handled as a unit for most processing.
         "o"     :   "\u09CB", // $ো BENGALI VOWEL SIGN O ≡ 09C7   $ে   09BE  $া   ** Manual Change ***
-        "O"     :   "\u09CB", // $ো BENGALI VOWEL SIGN O ≡ 09C7   $ে   09BE  $া  
-        "oo"     :   "\u09CB", // $ো BENGALI VOWEL SIGN O ≡ 09C7   $ে   09BE  $া  
-        "au"    :   "\u09CC"  // $ৌ BENGALI VOWEL SIGN AU ≡ 09C7   $ে   09D7  $ৗ  
+        "O"     :   "\u09CB", // $ো BENGALI VOWEL SIGN O ≡ 09C7   $ে   09BE  $া
+        "oo"     :   "\u09CB", // $ো BENGALI VOWEL SIGN O ≡ 09C7   $ে   09BE  $া
+        "au"    :   "\u09CC"  // $ৌ BENGALI VOWEL SIGN AU ≡ 09C7   $ে   09D7  $ৗ
     },
-    
+
     "Consonants": { // ()+
         "k"     :   "\u0995", // ক BENGALI LETTER KA
         "kh"    :   "\u0996", // খ BENGALI LETTER KHA
@@ -1233,11 +1251,11 @@ var bengali_dict = {
         //""    :  "\u09CE",  // ৎ BENGALI LETTER KHANDA TA • a dead consonant form of ta, without implicit vowel, used in some sequences
 
         // Additional consonants
-        "R"     :   "\u09DC", // ড় BENGALI LETTER RRA ≡ 09A1  ড   09BC  $়  
-        ".D"    :   "\u09DC", // ড় BENGALI LETTER RRA ≡ 09A1  ড   09BC  $়  
-        ".Dh"   :   "\u09DD", // ঢ় BENGALI LETTER RHA ≡ 09A2  ঢ   09BC  $়  
+        "R"     :   "\u09DC", // ড় BENGALI LETTER RRA ≡ 09A1  ড   09BC  $়
+        ".D"    :   "\u09DC", // ড় BENGALI LETTER RRA ≡ 09A1  ড   09BC  $়
+        ".Dh"   :   "\u09DD", // ঢ় BENGALI LETTER RHA ≡ 09A2  ঢ   09BC  $়
         //""    :   "\u09DE", // " <reserved>
-        "Y"     :   "\u09DF", // য় BENGALI LETTER YYA ≡ 09AF  য   09BC  $়  
+        "Y"     :   "\u09DF", // য় BENGALI LETTER YYA ≡ 09AF  য   09BC  $়
 
         // Additions for Assamese
         //""    :   "\u09F0", // ৰ BENGALI LETTER RA WITH MIDDLE DIAGONAL
@@ -1245,11 +1263,11 @@ var bengali_dict = {
 
         // Manually Added
         "x"     :   "\u0995"+"\u09CD"+"\u09B7", // क्ष
-        //"kSh" :   "\u0995"+"\u09CD"+"\u09B7", // क्ष  (redundant) 
+        //"kSh" :   "\u0995"+"\u09CD"+"\u09B7", // क्ष  (redundant)
         "GY"    :   "\u099C"+"\u09CD"+"\u099E"  //
         //"j~n" :   "\u099C"+"\u09CD"+"\u099E", // (redundant)
     },
-    
+
     "Accent_marks": {
         // Hack to preserve accent by including the Non-Indic accent marks, if used in Indic scripts
         "\u0300":   "\u0300", // $॓ GRAVE ACCENT → 0300 $̀   combining grave accent
@@ -1258,7 +1276,7 @@ var bengali_dict = {
         "\u030A":   "\u030A", // ॰ ABBREVIATION SIGN • intended for Devanagari-specific abbreviations
         "\u030D":   "\u030D", // $॑ STRESS SIGN UDATTA = Vedic tone svarita
         "\u0323":   "\u0323", // $़ SIGN NUKTA • for extending the alphabet to new letters
-        "\u0332":   "\u0332", // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta     
+        "\u0332":   "\u0332", // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta
 
         // Accent: Manually added from Devanagari
         "\u0323":   "\u093C", // $़ DEVANAGARI SIGN NUKTA • for extending the alphabet to new letters
@@ -1272,7 +1290,7 @@ var bengali_dict = {
         // Various signs
         "\u0323":   "\u09BC"  // $় BENGALI SIGN NUKTA • for extending the alphabet to new letters
     },
-    
+
     "Others": { // ()
         // Various signs
         ".N"    :   "\u0981", // $ঁ BENGALI SIGN CANDRABINDU
@@ -1325,8 +1343,8 @@ var bengali_dict = {
         "OM"    :   "\u0950", // ॐ
         "AUM"   :   "\u0950"  // ॐ
     },
-    
-    // Virama   
+
+    // Virama
     "VIRAMA"    :   "\u09CD"  // $ BENGALI SIGN VIRAMA = hasant (Bengali term for halant)
 };
 
@@ -1357,7 +1375,7 @@ var gurmukhi_dict = {
         "oo"    :   "\u0A13", // ਓ GURMUKHI LETTER OO
         "au"    :   "\u0A14"  // ਔ GURMUKHI LETTER AU
     },
-    
+
     "Dependent_vowel": { // +()
         // Dependent vowel signs
         "a"     :   "",       // ADDED
@@ -1384,7 +1402,7 @@ var gurmukhi_dict = {
         "oo"    :   "\u0A4B", // $ੋ GURMUKHI VOWEL SIGN OO = hora
         "au"    :   "\u0A4C"  // $ ੌ GURMUKHI VOWEL SIGN AU = kanaura
     },
-    
+
     "Consonants": { // ()+
         // Consonants
         "k"     :   "\u0A15", // ਕ GURMUKHI LETTER KA
@@ -1421,26 +1439,26 @@ var gurmukhi_dict = {
         "r"     :   "\u0A30", // ਰ GURMUKHI LETTER RA
         //""    :   "\u0A31 " <reserved>
         "l"     :   "\u0A32", // ਲ GURMUKHI LETTER LA
-        "L"     :   "\u0A33", // ਲ਼ GURMUKHI LETTER LLA ≡ 0A32  ਲ   0A3C  $਼  
+        "L"     :   "\u0A33", // ਲ਼ GURMUKHI LETTER LLA ≡ 0A32  ਲ   0A3C  $਼
         //""    :   "\u0A34", // " <reserved>
         "w"     :   "\u0A35", // ਵ GURMUKHI LETTER VA
         "v"     :   "\u0A35", // ਵ GURMUKHI LETTER VA
-        "sh"    :   "\u0A36", // ਸ਼ GURMUKHI LETTER SHA ≡ 0A38  ਸ   0A3C  $਼  
-        "Sh"    :   "\u0A36", // ਸ਼ GURMUKHI LETTER SHA ≡ 0A38  ਸ   0A3C  $਼  
-        "ssh"   :   "\u0A36", // ਸ਼ GURMUKHI LETTER SHA ≡ 0A38  ਸ   0A3C  $਼  
+        "sh"    :   "\u0A36", // ਸ਼ GURMUKHI LETTER SHA ≡ 0A38  ਸ   0A3C  $਼
+        "Sh"    :   "\u0A36", // ਸ਼ GURMUKHI LETTER SHA ≡ 0A38  ਸ   0A3C  $਼
+        "ssh"   :   "\u0A36", // ਸ਼ GURMUKHI LETTER SHA ≡ 0A38  ਸ   0A3C  $਼
         //""    :   "\u0A37", // " <reserved>
         "s"     :   "\u0A38", // ਸ GURMUKHI LETTER SA
         "h"     :   "\u0A39"  // ਹ GURMUKHI LETTER HA
-        
+
         // Additional consonants
-        //""    :   "\u0A59", // ਖ਼ GURMUKHI LETTER KHHA ≡ 0A16  ਖ   0A3C  $਼  
-        //""    :   "\u0A5A", // ਗ਼ GURMUKHI LETTER GHHA ≡ 0A17  ਗ   0A3C  $਼  
-        //""    :   "\u0A5B", // ਜ਼ GURMUKHI LETTER ZA ≡ 0A1C  ਜ   0A3C  $਼  
+        //""    :   "\u0A59", // ਖ਼ GURMUKHI LETTER KHHA ≡ 0A16  ਖ   0A3C  $਼
+        //""    :   "\u0A5A", // ਗ਼ GURMUKHI LETTER GHHA ≡ 0A17  ਗ   0A3C  $਼
+        //""    :   "\u0A5B", // ਜ਼ GURMUKHI LETTER ZA ≡ 0A1C  ਜ   0A3C  $਼
         //""    :   "\u0A5C", // ੜ GURMUKHI LETTER RRA
         //""    :   "\u0A5D", // " <reserved>
-        //""    :   "\u0A5E", // ਫ਼ GURMUKHI LETTER FA ≡ 0A2B  ਫ   0A3C  $਼  
+        //""    :   "\u0A5E", // ਫ਼ GURMUKHI LETTER FA ≡ 0A2B  ਫ   0A3C  $਼
     },
-    
+
     "Accent_marks": {
         // Hack to preserve accent by including the Non-Indic accent marks, if used in Indic scripts
         "\u0300":   "\u0300", // $॓ GRAVE ACCENT → 0300 $̀   combining grave accent
@@ -1449,7 +1467,7 @@ var gurmukhi_dict = {
         "\u030A":   "\u030A", // ॰ ABBREVIATION SIGN • intended for Devanagari-specific abbreviations
         "\u030D":   "\u030D", // $॑ STRESS SIGN UDATTA = Vedic tone svarita
         "\u0323":   "\u0323", // $़ SIGN NUKTA • for extending the alphabet to new letters
-        "\u0332":   "\u0332", // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta     
+        "\u0332":   "\u0332", // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta
 
         // Accent: Manually added from Devanagari
         "\u0323":   "\u093C", // $़ DEVANAGARI SIGN NUKTA • for extending the alphabet to new letters
@@ -1465,7 +1483,7 @@ var gurmukhi_dict = {
         // Sign
         "\u030D":   "\u0A51"  // $ੑ GURMUKHI SIGN UDAAT (See: Page 6 of http://www.unicode.org/L2/L2005/05344-gurmukhi3.pdf)
     },
-    
+
     "Others": { // ()
         // Various signs
         ".N"     :   "\u0A01", // $ਁ GURMUKHI SIGN ADAK BINDI
@@ -1473,14 +1491,14 @@ var gurmukhi_dict = {
         ".n"     :   "\u0A02", // $ਂ GURMUKHI SIGN BINDI
         "M"      :   "\u0A02", // $ਂ GURMUKHI SIGN BINDI
         "H"      :   "\u0A03", // $ਃ GURMUKHI SIGN VISARGA
-        
+
         // Virama
         ".h"    :   "\u0A4D", // $ GURMUKHI SIGN VIRAMA
-        
+
         // Reserved For viram punctuation, use the generic Indic 0964 and 0965.
         //""    :   "\u0A64", // " <reserved> → 0964  ।   devanagari danda
         //""    :   "\u0A65", // " <reserved> → 0965  ॥   devanagari double danda
-    
+
         // Digits
         "0"     :   "\u0A66", // ੦ GURMUKHI DIGIT ZERO
         "1"     :   "\u0A67", // ੧ GURMUKHI DIGIT ONE
@@ -1492,7 +1510,7 @@ var gurmukhi_dict = {
         "7"     :   "\u0A6D", // ੭ GURMUKHI DIGIT SEVEN
         "8"     :   "\u0A6E", // ੮ GURMUKHI DIGIT EIGHT
         "9"     :   "\u0A6F", // ੯ GURMUKHI DIGIT NINE
-        
+
         // Gurmukhi-specific additions
         //""    :   "\u0A70", // $ੰ GURMUKHI TIPPI • nasalization
         //""    :   "\u0A71", // $ੱ GURMUKHI ADDAK • doubles following consonant
@@ -1500,14 +1518,14 @@ var gurmukhi_dict = {
         //""    :   "\u0A73", // ੳ GURMUKHI URA • base for vowels
         //""    :   "\u0A74", // ੴ GURMUKHI EK ONKAR • God is One
         //""    :   "\u0A75", // $ੵ GURMUKHI SIGN YAKASH
-        
+
         // Sign: Manually added from Devanagari
         ","     :   "\u0964", // । DEVANAGARI DANDA = purna viram • phrase separator
         "."     :   "\u0965", // ॥ DEVANAGARI DOUBLE DANDA = deergh viram
         "OM"    :   "\u0950", // ॐ
         "AUM"   :   "\u0950"  // ॐ
     },
-    
+
     // Virama
     "VIRAMA"    :   "\u0A4D", // $ GURMUKHI SIGN VIRAMA
 };
@@ -1538,14 +1556,14 @@ var malayalam_dict = {
         "O"     :   "\u0D13", // ഓ MALAYALAM LETTER OO
         "oo"    :   "\u0D13", // ഓ MALAYALAM LETTER OO
         "au"    :   "\u0D14", // ഔ MALAYALAM LETTER AU
-        
+
         // Additional vowels for Sanskrit
         "R^I"   :   "\u0D60", // ൠ MALAYALAM LETTER VOCALIC RR
         "RRI"   :   "\u0D60", // ൠ MALAYALAM LETTER VOCALIC RR
         "L^I"   :   "\u0D61", // ൡ MALAYALAM LETTER VOCALIC LL
         "LLI"   :   "\u0D61"  // ൡ MALAYALAM LETTER VOCALIC LL
     },
-    
+
     "Dependent_vowel": { // +()
         // Dependent vowel signs
         "a"     :   "",       // ADDED
@@ -1565,13 +1583,13 @@ var malayalam_dict = {
         "E"     :   "\u0D47", // $ േ MALAYALAM VOWEL SIGN EE • stands to the left of the consonant
         "ee"    :   "\u0D47", // $ േ MALAYALAM VOWEL SIGN EE • stands to the left of the consonant
         "ai"    :   "\u0D48", // $ ൈ MALAYALAM VOWEL SIGN AI • stands to the left of the consonant
-        
+
         // Two-part dependent vowel signs
         // These vowel signs have glyph pieces which stand on both sides of the consonant; they follow the consonant in logical order, and should be handled as a unit for most processing.
-        "o"     :   "\u0D4A", // $ ൊ MALAYALAM VOWEL SIGN O ≡ 0D46  $ െ   0D3E  $ ാ 
-        "O"     :   "\u0D4B", // $ ോ MALAYALAM VOWEL SIGN OO ≡ 0D47  $ േ   0D3E  $ ാ 
-        "oo"    :   "\u0D4B", // $ ോ MALAYALAM VOWEL SIGN OO ≡ 0D47  $ േ   0D3E  $ ാ 
-        "au"    :   "\u0D4C", // $ ൌ MALAYALAM VOWEL SIGN AU • archaic form of the /au/ dependent vowel → 0D57  $ ൗ  malayalam au length mark ≡ 0D46  $ െ   0D57  $ ൗ 
+        "o"     :   "\u0D4A", // $ ൊ MALAYALAM VOWEL SIGN O ≡ 0D46  $ െ   0D3E  $ ാ
+        "O"     :   "\u0D4B", // $ ോ MALAYALAM VOWEL SIGN OO ≡ 0D47  $ േ   0D3E  $ ാ
+        "oo"    :   "\u0D4B", // $ ോ MALAYALAM VOWEL SIGN OO ≡ 0D47  $ േ   0D3E  $ ാ
+        "au"    :   "\u0D4C", // $ ൌ MALAYALAM VOWEL SIGN AU • archaic form of the /au/ dependent vowel → 0D57  $ ൗ  malayalam au length mark ≡ 0D46  $ െ   0D57  $ ൗ
 
         // Dependent vowels
         "L^i"   :   "\u0D62", // $ ൢ MALAYALAM VOWEL SIGN VOCALIC L
@@ -1579,7 +1597,7 @@ var malayalam_dict = {
         "L^I"   :   "\u0D63", // $ ൣ MALAYALAM VOWEL SIGN VOCALIC LL
         "LLI"   :   "\u0D63"  // $ ൣ MALAYALAM VOWEL SIGN VOCALIC LL
     },
-    
+
     "Consonants": { // ()+
         // Consonants
         // Alternate romanizations are shown as aliases for some letters to clarify their identity.
@@ -1628,7 +1646,7 @@ var malayalam_dict = {
         "h"     :   "\u0D39"  // ഹ MALAYALAM LETTER HA
         //""    :   "\u0D3A", // ഺ MALAYALAM LETTER TTTA • historic use only
     },
-    
+
     "Accent_marks": {
         // Hack to preserve accent by including the Non-Indic accent marks, if used in Indic scripts
         "\u0300":   "\u0300", // $॓ GRAVE ACCENT → 0300 $̀   combining grave accent
@@ -1637,7 +1655,7 @@ var malayalam_dict = {
         "\u030A":   "\u030A", // ॰ ABBREVIATION SIGN • intended for Devanagari-specific abbreviations
         "\u030D":   "\u030D", // $॑ STRESS SIGN UDATTA = Vedic tone svarita
         "\u0323":   "\u0323", // $़ SIGN NUKTA • for extending the alphabet to new letters
-        "\u0332":   "\u0332", // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta     
+        "\u0332":   "\u0332", // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta
 
         // Accent: Manually added from Devanagari
         "\u0323":   "\u093C", // $़ DEVANAGARI SIGN NUKTA • for extending the alphabet to new letters
@@ -1648,30 +1666,30 @@ var malayalam_dict = {
         "\u0307":   "\u0971", // ॱ DEVANAGARI SIGN HIGH SPACING DOT
         "\u030A":   "\u0970"  // ॰ DEVANAGARI ABBREVIATION SIGN • intended for Devanagari-specific abbreviations
 
-        // Dot reph 
+        // Dot reph
         //""    :   "\u0D4E"  // ൎ MALAYALAM LETTER DOT REPH • not used in reformed modern Malayalam orthography
     },
-    
+
     "Others": { // ()
         // Various signs
         ".m"    :   "\u0D02", // $ ം MALAYALAM SIGN ANUSVARA
         ".n"    :   "\u0D02", // $ ം MALAYALAM SIGN ANUSVARA
         "M"     :   "\u0D02", // $ ം MALAYALAM SIGN ANUSVARA
         "H"     :   "\u0D03", // $ ഃ MALAYALAM SIGN VISARGA
-        
+
         // Virama
         ".h"    :   "\u0D4D", // $ ് MALAYALAM SIGN VIRAMA = chandrakkala (the preferred name) = vowel half-u
         // Addition for Sanskrit
         ".a"    :   "\u0D3D", // ഽ MALAYALAM SIGN AVAGRAHA = praslesham
-        
+
         // Various signs
         //""    :   "\u0D57", // $ ൗ MALAYALAM AU LENGTH MARK • used alone to write the /au/ dependent vowel in modern texts →
         //""    :   "\u0D4C", //  $ ൌ   malayalam vowel sign au
-        
+
         // Reserved For viram punctuation, use the generic Indic 0964 and 0965.
         //""    :   "\u0D64", // " <reserved> → 0964  ।   devanagari danda
         //""    :   "\u0D65", // " <reserved> → 0965  ॥   devanagari double danda
-        
+
         // Digits
         "0"     :   "\u0D66", // ൦ MALAYALAM DIGIT ZERO
         "1"     :   "\u0D67", // ൧ MALAYALAM DIGIT ONE
@@ -1683,20 +1701,20 @@ var malayalam_dict = {
         "7"     :   "\u0D6D", // ൭ MALAYALAM DIGIT SEVEN
         "8"     :   "\u0D6E", // ൮ MALAYALAM DIGIT EIGHT
         "9"     :   "\u0D6F", // ൯ MALAYALAM DIGIT NINE
-        
+
         // Malayalam numerics
         //""    :   "\u0D70", // ൰ MALAYALAM NUMBER TEN
         //""    :   "\u0D71", // ൱ MALAYALAM NUMBER ONE HUNDRED
         //""    :   "\u0D72", // ൲ MALAYALAM NUMBER ONE THOUSAND
-        
+
         // Fractions
         //""    :   "\u0D73", // ൳ MALAYALAM FRACTION ONE QUARTER
         //""    :   "\u0D74", // ൴ MALAYALAM FRACTION ONE HALF
         //""    :   "\u0D75", // ൵ MALAYALAM FRACTION THREE QUARTERS
-        
+
         // Date mark
         //""    :   "\u0D79", // ൹ MALAYALAM DATE MARK
-        
+
         // Chillu letters
         //""    :   "\u0D7A", // ൺ MALAYALAM LETTER CHILLU NN
         //""    :   "\u0D7B", // ൻ MALAYALAM LETTER CHILLU N
@@ -1711,7 +1729,7 @@ var malayalam_dict = {
         "OM"    :   "\u0950", // ॐ
         "AUM"   :   "\u0950"  // ॐ
     },
-    
+
     // Virama
     "VIRAMA"    :   "\u0D4D"  // $ ് MALAYALAM SIGN VIRAMA = chandrakkala (the preferred name) = vowel half-u
 };
@@ -1744,14 +1762,14 @@ var oriya_dict = {
         "O"     :   "\u0B13", // ଓ ORIYA LETTER O
         "oo"    :   "\u0B13", // ଓ ORIYA LETTER O
         "au"    :   "\u0B14", // ଔ ORIYA LETTER AU
-        
+
         // Additional vowels for Sanskrit
         "R^I"   :   "\u0B60", // ୠ ORIYA LETTER VOCALIC RR
         "RRI"   :   "\u0B60", // ୠ ORIYA LETTER VOCALIC RR
         "L^I"   :   "\u0B61", // ୡ ORIYA LETTER VOCALIC LL
         "LLI"   :   "\u0B61", // ୡ ORIYA LETTER VOCALIC LL
     },
-    
+
     "Dependent_vowel": { // +()
     // Dependent vowel signs
         "a"     :   "",       // ADDED
@@ -1772,21 +1790,21 @@ var oriya_dict = {
         "e"     :   "\u0B47", // $େ ORIYA VOWEL SIGN E • stands to the left of the consonant
         "E"     :   "\u0B47", // $େ ORIYA VOWEL SIGN E • stands to the left of the consonant
         "ee"    :   "\u0B47", // $େ ORIYA VOWEL SIGN E • stands to the left of the consonant
-        "ai"    :   "\u0B48", // $ୈ ORIYA VOWEL SIGN AI • pieces left of and above the consonant ≡ 0B47   $େ   0B56  $ୖ  
-        
+        "ai"    :   "\u0B48", // $ୈ ORIYA VOWEL SIGN AI • pieces left of and above the consonant ≡ 0B47   $େ   0B56  $ୖ
+
         // Two-part dependent vowel signs These vowel signs have glyph pieces which stand on both sides of the consonant; they follow the consonant in logical order, and should be handled as a unit for most processing.
-        "o"     :   "\u0B4B", // $ୋ ORIYA VOWEL SIGN O ≡ 0B47   $େ   0B3E  $ା  
-        "O"     :   "\u0B4B", // $ୋ ORIYA VOWEL SIGN O ≡ 0B47   $େ   0B3E  $ା  
-        "oo"    :   "\u0B4B", // $ୋ ORIYA VOWEL SIGN O ≡ 0B47   $େ   0B3E  $ା  
-        "au"    :   "\u0B4C", // $ୌ ORIYA VOWEL SIGN AU ≡ 0B47   $େ   0B57  ୗ  
-    
+        "o"     :   "\u0B4B", // $ୋ ORIYA VOWEL SIGN O ≡ 0B47   $େ   0B3E  $ା
+        "O"     :   "\u0B4B", // $ୋ ORIYA VOWEL SIGN O ≡ 0B47   $େ   0B3E  $ା
+        "oo"    :   "\u0B4B", // $ୋ ORIYA VOWEL SIGN O ≡ 0B47   $େ   0B3E  $ା
+        "au"    :   "\u0B4C", // $ୌ ORIYA VOWEL SIGN AU ≡ 0B47   $େ   0B57  ୗ
+
     // Dependent vowels
         "L^i"   :   "\u0B62", // $ୢ ORIYA VOWEL SIGN VOCALIC L
         "LLi"   :   "\u0B62", // $ୢ ORIYA VOWEL SIGN VOCALIC L
-        "L^I"   :   "\u0B63", // $ୣ ORIYA VOWEL SIGN VOCALIC LL                
-        "LLI"   :   "\u0B63", // $ୣ ORIYA VOWEL SIGN VOCALIC LL                
+        "L^I"   :   "\u0B63", // $ୣ ORIYA VOWEL SIGN VOCALIC LL
+        "LLI"   :   "\u0B63", // $ୣ ORIYA VOWEL SIGN VOCALIC LL
     },
-    
+
     "Consonants": { // ()+
         // Consonants
         "k"     :   "\u0B15", // କ ORIYA LETTER KA
@@ -1832,18 +1850,18 @@ var oriya_dict = {
         "shh"   :   "\u0B37", // ଷ ORIYA LETTER SSA
         "s"     :   "\u0B38", // ସ ORIYA LETTER SA
         "h"     :   "\u0B39", // ହ ORIYA LETTER HA
-        
+
         // Additional consonants
-        //""    :   "\u0B5C", // ଡ଼ ORIYA LETTER RRA = dda ≡ 0B21  ଡ   0B3C  $଼  
-        //""    :   "\u0B5D", // ଢ଼ ORIYA LETTER RHA = ddha ≡ 0B22  ଢ   0B3C  $଼  
+        //""    :   "\u0B5C", // ଡ଼ ORIYA LETTER RRA = dda ≡ 0B21  ଡ   0B3C  $଼
+        //""    :   "\u0B5D", // ଢ଼ ORIYA LETTER RHA = ddha ≡ 0B22  ଢ   0B3C  $଼
         //""    :   "\u0B5E", // " <reserved>
         //""    :   "\u0B5F", // ୟ ORIYA LETTER YYA = ya
-        
+
         // Additional consonant
         //""    :   "\u0B71", // ୱ ORIYA LETTER WA → 0B13  ଓ   oriya letter o → 0B35  ଵ   oriya letter va
-        
+
     },
-    
+
     "Accent_marks": {
         // Hack to preserve accent by including the Non-Indic accent marks, if used in Indic scripts
         "\u0300":   "\u0300", // $॓ GRAVE ACCENT → 0300 $̀   combining grave accent
@@ -1852,7 +1870,7 @@ var oriya_dict = {
         "\u030A":   "\u030A", // ॰ ABBREVIATION SIGN • intended for Devanagari-specific abbreviations
         "\u030D":   "\u030D", // $॑ STRESS SIGN UDATTA = Vedic tone svarita
         "\u0323":   "\u0323", // $़ SIGN NUKTA • for extending the alphabet to new letters
-        "\u0332":   "\u0332", // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta     
+        "\u0332":   "\u0332", // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta
 
         // Accent: Manually added from Devanagari
         "\u0323":   "\u093C", // $़ DEVANAGARI SIGN NUKTA • for extending the alphabet to new letters
@@ -1866,7 +1884,7 @@ var oriya_dict = {
         // Various signs
         "\u0323":   "\u0B3C" // $଼ ORIYA SIGN NUKTA • for extending the alphabet to new letters
     },
-    
+
     "Others": { // ()
         // Various signs
         ".N"    :   "\u0B01", // $ଁ ORIYA SIGN CANDRABINDU
@@ -1874,7 +1892,7 @@ var oriya_dict = {
         ".n"    :   "\u0B02", // $ଂ ORIYA SIGN ANUSVARA
         "M"     :   "\u0B02", // $ଂ ORIYA SIGN ANUSVARA
         "H"     :   "\u0B03", // $ଃ ORIYA SIGN VISARGA
-        
+
         // Virama
         ".h"    :   "\u0B4D", // $୍ ORIYA SIGN VIRAMA
         ".a"    :   "\u0B3D", // ଽ ORIYA SIGN AVAGRAHA
@@ -1882,11 +1900,11 @@ var oriya_dict = {
         // Various signs
         //""    :   "\u0B56", // $ୖ ORIYA AI LENGTH MARK
         //""    :   "\u0B57", //  ୗ ORIYA AU LENGTH MARK
-        
+
         // Reserved For viram punctuation, use the generic Indic 0964 and 0965.
         //""    :   "\u0B64", // " <reserved> → 0964  ।   devanagari danda
         //""    :   "\u0B65", // " <reserved> → 0965  ॥   devanagari double danda
-        
+
         // Digits
         "0"     :   "\u0B66", // ୦ ORIYA DIGIT ZERO
         "1"     :   "\u0B67", // ୧  ORIYA DIGIT ONE
@@ -1916,7 +1934,7 @@ var oriya_dict = {
         "OM"    :   "\u0950", // ॐ
         "AUM"   :   "\u0950"  // ॐ
     },
-    
+
     // Virama
     "VIRAMA"    :   "\u0B4D" // $୍ ORIYA SIGN VIRAMA
 };
@@ -1926,19 +1944,19 @@ var english_dict = {
     "Independent_vowels": { // -()
     // Independent vowels
     },
-    
+
     "Dependent_vowel": { // +()
     },
-    
+
     "Consonants": { // ()+
     },
-    
+
     "Accent_marks": {
     },
-    
+
     "Others": { // ()
     },
-    
+
     // Virama
 };
 

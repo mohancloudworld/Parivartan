@@ -10,7 +10,7 @@ var bengali_dict_mod    = {};
 var gurmukhi_dict_mod   = {};
 var malayalam_dict_mod  = {};
 var oriya_dict_mod      = {};
-var english_dict_mod    = {};        
+var english_dict_mod    = {};
 
 var devanagari_dict_rev = {};
 var telugu_dict_rev     = {};
@@ -108,9 +108,9 @@ function convert2IndicScript(inp_txt, encoding_type, indicScript, modeStrict, re
         else if(indicScript == "Gurmukhi"){lang_dict = gurmukhi_dict_rev;}
         else if(indicScript == "Malayalam"){lang_dict = malayalam_dict_rev;}
         else if(indicScript == "Oriya"){lang_dict = oriya_dict_rev;}
-        else {lang_dict = english_dict_rev;}        
+        else {lang_dict = english_dict_rev;}
     }
-    else if(modeStrict){ // orignal dictionaries if modeStrict 
+    else if(modeStrict){ // orignal dictionaries if modeStrict
         if(indicScript == "Devanagari"){lang_dict = myTable.devanagari_dict;}
         else if(indicScript == "Telugu"){lang_dict = myTable.telugu_dict;}
         else if(indicScript == "Kannada"){lang_dict = myTable.kannada_dict;}
@@ -121,7 +121,7 @@ function convert2IndicScript(inp_txt, encoding_type, indicScript, modeStrict, re
         else if(indicScript == "Malayalam"){lang_dict = myTable.malayalam_dict;}
         else if(indicScript == "Oriya"){lang_dict = myTable.oriya_dict;}
         else {lang_dict = myTable.english_dict;}
-    } 
+    }
     else { // modified/extended dictionaries if not modeStrict
         if(indicScript == "Devanagari"){lang_dict = devanagari_dict_mod;}
         else if(indicScript == "Telugu"){lang_dict = telugu_dict_mod;}
@@ -135,13 +135,13 @@ function convert2IndicScript(inp_txt, encoding_type, indicScript, modeStrict, re
         else {lang_dict = english_dict_mod;}
     }
 
-    // convert to ITRANS   
+    // convert to ITRANS
     if((!reverse) && ((encoding_type == "ISO") || (encoding_type == "IAST"))) {
         inp_txt = convert2ITRANS(inp_txt, encoding_type);
     }
-    
+
     while (indx <  inp_txt.length){
-        
+
         // skip space charecter "&nbsp;"
         if(inp_txt.substring(indx,indx+6) == "&nbsp;"){
             if(vovel_needed_p){
@@ -152,8 +152,8 @@ function convert2IndicScript(inp_txt, encoding_type, indicScript, modeStrict, re
             word_start_p = true;
             vovel_needed_p=0;
             continue;
-        }   
-        
+        }
+
         [blk, blkLen, Type, vovel_needed_p, insideTag_p] = getNxtIndicChr(lang_dict, inp_txt.substring(indx), modeStrict, word_start_p, vovel_needed_p, insideTag_p, reverse, preferASCIIDigits);
         out += blk;
         if(Type == "NoMatch"){
@@ -182,8 +182,8 @@ function convert2ITRANS(inp_txt, encoding_type)
     var indx=0;
     var out = "";
     var blk, blkLen, Type, insideTag_p;
-    var decoding_dict; 
-    
+    var decoding_dict;
+
     // selecting appropriate dict to convert to ITRANS
     if(encoding_type == "ISO") {
         decoding_dict = myTab.iso2itrans_dict;
@@ -194,7 +194,7 @@ function convert2ITRANS(inp_txt, encoding_type)
     else {
         return inp_txt;
     }
-    
+
     while (indx <  inp_txt.length){
         [blk, blkLen, Type, insideTag_p] = convertNextBlk2ITRANS(decoding_dict, inp_txt.substring(indx), insideTag_p);
         out += blk;
@@ -225,21 +225,21 @@ function convertNextBlk2ITRANS(trans_dict, inp_txt, insideTag_p){
         }
         else if( (insideTag) && (inp_txt.charAt(0) == ">") ){
             insideTag = false;
-            break;          
+            break;
         }
         else if(insideTag){
-            break;          
+            break;
         }
         blk= inp_txt.substring(0, blkLen);
         //if(debug){document.write( "<br>blk...:"+blk+" "+word_start+" "+vovel_needed+"<br>");}
-        
+
         if( array_key_exists(blk, trans_dict) ){
             Type = "Match";
             out += trans_dict[blk];
             //if(debug){document.write( "5: "+"-"+blk+" "+trans_dict[blk]);}
             break;
         }
-        // No match for the taken block 
+        // No match for the taken block
         else{
             blkLen -= 1;
         }
@@ -247,9 +247,9 @@ function convertNextBlk2ITRANS(trans_dict, inp_txt, insideTag_p){
     if(Type == "NoMatch"){// no match found
         out += inp_txt[0];
     }
-    else{ 
+    else{
         //if(debug){document.write( "Match "+vovel_needed+"<br>");}
-    }   
+    }
     //if(debug){document.write( "<br>returning "+out+" "+blkLen+"<br>");}
     return [out, blkLen, Type, insideTag];
 };
@@ -264,8 +264,8 @@ function getNxtIndicChr(lang_dict, inp_txt, modeStrict, word_start_p, vovel_need
     var insideTag = insideTag_p;
     var blk = "";
     var blkLen=MAX;
-    var iteration = 1; // first time 
-    
+    var iteration = 1; // first time
+
     // decoding charecter-by-charecter in reverse convertion
     if(reverse){
         blkLen=1;
@@ -279,10 +279,10 @@ function getNxtIndicChr(lang_dict, inp_txt, modeStrict, word_start_p, vovel_need
         }
         else if( (insideTag) && (inp_txt.charAt(0) == ">") ){
             insideTag = false;
-            break;          
+            break;
         }
         else if(insideTag){
-            break;          
+            break;
         }
         else if(inp_txt.length >= blkLen){ // string is longer than or equal to blkLen
             blk= inp_txt.substring(0, blkLen);
@@ -296,7 +296,7 @@ function getNxtIndicChr(lang_dict, inp_txt, modeStrict, word_start_p, vovel_need
 
         //if(debug){document.write( "<br>blk...:"+blk+" "+word_start+" "+vovel_needed+"<br>");}
 
-        // if not modeStrict, convert the 1st letter of every word to lower-case        
+        // if not modeStrict, convert the 1st letter of every word to lower-case
         if((!modeStrict) && (word_start == true)){
             blk = blk.substring(0,1).toLowerCase() + blk.substring(1);
         }
@@ -305,7 +305,7 @@ function getNxtIndicChr(lang_dict, inp_txt, modeStrict, word_start_p, vovel_need
         if((!modeStrict) && (iteration == 2)){
             blk = blk.toLowerCase();
         }
-        
+
         // Accent marks : Do not change any flags for this case, except "Type"
         if(array_key_exists(blk, lang_dict["Accent_marks"])){
             Type = "Accent";
@@ -315,7 +315,7 @@ function getNxtIndicChr(lang_dict, inp_txt, modeStrict, word_start_p, vovel_need
         }
         // Independent vowels
         /*else if( (reverse || !vovel_needed) // for reverse convertion, vovel_needed condition is not required
-                                            // *** This will be lossy translation *** 
+                                            // *** This will be lossy translation ***
                                             // e.g., रई -> rii -> री   */
         else if( (vovel_needed == false)
             && (array_key_exists(blk, lang_dict["Independent_vowels"])) ){
@@ -326,7 +326,7 @@ function getNxtIndicChr(lang_dict, inp_txt, modeStrict, word_start_p, vovel_need
             break;
         }
         // Dependent vowels
-        else if((vovel_needed) 
+        else if((vovel_needed)
                 && (array_key_exists(blk, lang_dict["Dependent_vowel"])) ){
             Type = "Vowel";
             vovel_needed=0;
@@ -346,7 +346,7 @@ function getNxtIndicChr(lang_dict, inp_txt, modeStrict, word_start_p, vovel_need
             break;
         }
         // Others [Do not convert ASCII Digits if option is selected]
-        else if( !((isASCIIDigit(blk) == true) && (preferASCIIDigits == true)) 
+        else if( !((isASCIIDigit(blk) == true) && (preferASCIIDigits == true))
                 && array_key_exists(blk, lang_dict["Others"])){
             if(vovel_needed){
                 out += lang_dict["VIRAMA"];
@@ -363,7 +363,7 @@ function getNxtIndicChr(lang_dict, inp_txt, modeStrict, word_start_p, vovel_need
             //if(debug){document.write( "9: "+blk+" "+lang_dict["Others"][blk]+"<br>");}
             break;
         }
-        // No match for the taken block 
+        // No match for the taken block
         else{
             // 2nd iteration ==> repeat as case-insensitive
             if((!modeStrict) && (iteration == 1)){
@@ -381,7 +381,7 @@ function getNxtIndicChr(lang_dict, inp_txt, modeStrict, word_start_p, vovel_need
         out += inp_txt[0];
         word_start = true;
         vovel_needed=0;
-    }   
+    }
     else{
         //if(debug){document.write( "Match "+vovel_needed+"<br>");}
         word_start = false;
@@ -393,7 +393,7 @@ function getNxtIndicChr(lang_dict, inp_txt, modeStrict, word_start_p, vovel_need
 function array_key_exists(key, dict)
 {
     if (key in dict) return true;
-    else return false;  
+    else return false;
 }
 
 // to extend dictionaries
@@ -409,7 +409,7 @@ function extend(org_dict) {
             "c"     :   org_dict['Consonants']["k"],
             "f"     :   org_dict['Consonants']["ph"],
             "z"     :   org_dict['Consonants']["j"],
-            
+
             // Modifications eto IAST/ITRANS
             "t"     :   org_dict['Consonants']["T"],
             "tt"    :   org_dict['Consonants']["Th"],
@@ -421,7 +421,7 @@ function extend(org_dict) {
             "ddh"   :   org_dict['Consonants']["dh"]
         }
     };
-    
+
     var new_dict = cloneDict(org_dict);
     for (var property in ext_dict) {
         for(var key in ext_dict[property]){
@@ -437,9 +437,9 @@ function extend(org_dict) {
 function cloneDict(dict) {
     if(typeof(dict) != 'object') return dict;
     if(dict == null) return dict;
-     
+
     var new_dict = new Object();
-     
+
     for(var property in dict){
         new_dict[property] = cloneDict(dict[property]);
     }
@@ -452,10 +452,10 @@ function reverse(org_dict) {
     for (var property in org_dict) {
         new_dict[property] = cloneRevDict(org_dict[property]);
     }
-    
+
     // nullify the adding of "VIRAMA"
-    new_dict["VIRAMA"] = "a"; 
-    
+    new_dict["VIRAMA"] = "a";
+
     return new_dict;
 };
 
@@ -463,9 +463,9 @@ function reverse(org_dict) {
 function cloneRevDict(dict) {
     if(typeof(dict) != 'object') return dict;
     if(dict == null) return dict;
-     
+
     var new_dict = new Object();
-     
+
     for(var property in dict){
             new_dict[dict[property]] = property;
     }

@@ -7,7 +7,7 @@ exports.main= function() {
 
     // initialize
     myMod.init();
-    
+
     var menuItem = contextMenu.Menu({
         label: "Parivartan",
         context: contextMenu.SelectionContext(),
