@@ -1259,9 +1259,6 @@ var bengali_dict = {
         "s"     :   "\u09B8", // স BENGALI LETTER SA
         "h"     :   "\u09B9", // হ BENGALI LETTER HA
 
-        // Additional consonant
-        //""    :  "\u09CE",  // ৎ BENGALI LETTER KHANDA TA • a dead consonant form of ta, without implicit vowel, used in some sequences
-
         // Additional consonants
         "R"     :   "\u09DC", // ড় BENGALI LETTER RRA ≡ 09A1  ড   09BC  $়
         ".D"    :   "\u09DC", // ড় BENGALI LETTER RRA ≡ 09A1  ড   09BC  $়
@@ -1314,6 +1311,9 @@ var bengali_dict = {
         // Virama
         ".h"    :   "\u09CD", // $ BENGALI SIGN VIRAMA
         ".a"    :   "\u09BD", // ঽ BENGALI SIGN AVAGRAHA
+
+        // Additional consonant
+        "t"     :  "\u09CE",  // ৎ BENGALI LETTER KHANDA TA • a dead consonant form of ta, without implicit vowel, used in some sequences
 
         // Reserved For viram punctuation, use the generic Indic 0964 and 0965.
         //""    :   "\u09E4", // " <reserved> → 0964  ।   devanagari danda
