@@ -4,8 +4,7 @@ A Mozilla Firefox Extension to converter text from Indian language to English an
 
 This can be installed/downloaded from <a href="https://addons.mozilla.org/en-US/firefox/addon/parivartan/" target="_blank">Firefox addons page</a>.
 
-Supported Indian formats: Devanagari (Sanskrit/Hindi/Marathi), Telugu, Kannada, Gujarati, Tamil, Bengali, Gurmukhi (Punjabi), Malayalam and Oriya (Odia).
-Supported English formats: ITRANS, ISO-15919 and IAST.
+<b>Supported formats:</b><ul><li>Indian: Devanagari (Sanskrit/Hindi/Marathi), Telugu, Kannada, Gujarati, Tamil, Bengali, Gurmukhi (Punjabi), Malayalam and Oriya (Odia).</li><li>English: ITRANS, ISO-15919 and IAST.</li></ul>
 
 <b>Purpose:</b>
 India is a multi linguistic nation yet have common sacred/religious texts. But it is not an easy task to maintain all these scripts in all the Indian languages. "Parivartan" add-on converts the Indian Scripts in Indian/English language to various Indian languages. This facilitates maintaining the scripts in a single language and still reach out all Indian linguistic users.
