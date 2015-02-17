@@ -243,7 +243,7 @@ var devanagari_dict = {
     },
 
     "Accent_marks": {
-        // Hack to preserve accent by including the Non-Indic accent marks, if used in Indic scripts
+        // Hack to handle accent marks, if used in Indian scripts or if language specific accent marks does not exist
         "\u0300":   "\u0300", // $॓ GRAVE ACCENT → 0300 $̀   combining grave accent
         "\u0301":   "\u0301", // $॔ ACUTE ACCENT → 0301 $́   combining acute accent
         "\u0307":   "\u0307", // ॱ SIGN HIGH SPACING DOT
@@ -446,23 +446,14 @@ var telugu_dict = {
     },
 
     "Accent_marks": {
-        // Hack to preserve accent by including the Non-Indic accent marks, if used in Indic scripts
+        // Hack to handle accent marks, if used in Indian scripts or if language specific accent marks does not exist
         "\u0300":   "\u0300", // $॓ GRAVE ACCENT → 0300 $̀   combining grave accent
         "\u0301":   "\u0301", // $॔ ACUTE ACCENT → 0301 $́   combining acute accent
         "\u0307":   "\u0307", // ॱ SIGN HIGH SPACING DOT
         "\u030A":   "\u030A", // ॰ ABBREVIATION SIGN • intended for Devanagari-specific abbreviations
         "\u030D":   "\u030D", // $॑ STRESS SIGN UDATTA = Vedic tone svarita
         "\u0323":   "\u0323", // $़ SIGN NUKTA • for extending the alphabet to new letters
-        "\u0332":   "\u0332", // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta
-
-        // Accent: Manually added from Devanagari
-        "\u0323":   "\u093C", // $़ DEVANAGARI SIGN NUKTA • for extending the alphabet to new letters
-        "\u030D":   "\u0951", // $॑ DEVANAGARI STRESS SIGN UDATTA = Vedic tone svarita
-        "\u0332":   "\u0952", // $॒ DEVANAGARI STRESS SIGN ANUDATTA = Vedic tone anudatta
-        "\u0300":   "\u0953", // $॓ DEVANAGARI GRAVE ACCENT → 0300 $̀   combining grave accent
-        "\u0301":   "\u0954", // $॔ DEVANAGARI ACUTE ACCENT → 0301 $́   combining acute accent
-        "\u0307":   "\u0971", // ॱ DEVANAGARI SIGN HIGH SPACING DOT
-        "\u030A":   "\u0970"  // ॰ DEVANAGARI ABBREVIATION SIGN • intended for Devanagari-specific abbreviations
+        "\u0332":   "\u0332"  // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta
     },
 
     "Others": { // ()
@@ -657,7 +648,7 @@ var gujarati_dict = {
     },
 
     "Accent_marks": {
-        // Hack to preserve accent by including the Non-Indic accent marks, if used in Indic scripts
+        // Hack to handle accent marks, if used in Indian scripts or if language specific accent marks does not exist
         "\u0300":   "\u0300", // $॓ GRAVE ACCENT → 0300 $̀   combining grave accent
         "\u0301":   "\u0301", // $॔ ACUTE ACCENT → 0301 $́   combining acute accent
         "\u0307":   "\u0307", // ॱ SIGN HIGH SPACING DOT
@@ -665,15 +656,6 @@ var gujarati_dict = {
         "\u030D":   "\u030D", // $॑ STRESS SIGN UDATTA = Vedic tone svarita
         "\u0323":   "\u0323", // $़ SIGN NUKTA • for extending the alphabet to new letters
         "\u0332":   "\u0332", // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta
-
-        // Accent: Manually added from Devanagari
-        "\u0323":   "\u093C", // $़ DEVANAGARI SIGN NUKTA • for extending the alphabet to new letters
-        "\u030D":   "\u0951", // $॑ DEVANAGARI STRESS SIGN UDATTA = Vedic tone svarita
-        "\u0332":   "\u0952", // $॒ DEVANAGARI STRESS SIGN ANUDATTA = Vedic tone anudatta
-        "\u0300":   "\u0953", // $॓ DEVANAGARI GRAVE ACCENT → 0300 $̀   combining grave accent
-        "\u0301":   "\u0954", // $॔ DEVANAGARI ACUTE ACCENT → 0301 $́   combining acute accent
-        "\u0307":   "\u0971", // ॱ DEVANAGARI SIGN HIGH SPACING DOT
-        "\u030A":   "\u0970", // ॰ DEVANAGARI ABBREVIATION SIGN • intended for Devanagari-specific abbreviations
 
         // Various signs
         "\u0323":   "\u0ABC"  // $઼ GUJARATI SIGN NUKTA • for extending the alphabet to new letters
@@ -852,23 +834,14 @@ var tamil_dict = {
     },
 
     "Accent_marks": {
-        // Hack to preserve accent by including the Non-Indic accent marks, if used in Indic scripts
+        // Hack to handle accent marks, if used in Indian scripts or if language specific accent marks does not exist
         "\u0300":   "\u0300", // $॓ GRAVE ACCENT → 0300 $̀   combining grave accent
         "\u0301":   "\u0301", // $॔ ACUTE ACCENT → 0301 $́   combining acute accent
         "\u0307":   "\u0307", // ॱ SIGN HIGH SPACING DOT
         "\u030A":   "\u030A", // ॰ ABBREVIATION SIGN • intended for Devanagari-specific abbreviations
         "\u030D":   "\u030D", // $॑ STRESS SIGN UDATTA = Vedic tone svarita
         "\u0323":   "\u0323", // $़ SIGN NUKTA • for extending the alphabet to new letters
-        "\u0332":   "\u0332", // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta
-
-        // Accent: Manually added from Devanagari
-        "\u0323":   "\u093C", // $़ DEVANAGARI SIGN NUKTA • for extending the alphabet to new letters
-        "\u030D":   "\u0951", // $॑ DEVANAGARI STRESS SIGN UDATTA = Vedic tone svarita
-        "\u0332":   "\u0952", // $॒ DEVANAGARI STRESS SIGN ANUDATTA = Vedic tone anudatta
-        "\u0300":   "\u0953", // $॓ DEVANAGARI GRAVE ACCENT → 0300 $̀   combining grave accent
-        "\u0301":   "\u0954", // $॔ DEVANAGARI ACUTE ACCENT → 0301 $́   combining acute accent
-        "\u0307":   "\u0971", // ॱ DEVANAGARI SIGN HIGH SPACING DOT
-        "\u030A":   "\u0970"  // ॰ DEVANAGARI ABBREVIATION SIGN • intended for Devanagari-specific abbreviations
+        "\u0332":   "\u0332"  // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta
     },
 
     "Others": { // ()
@@ -1063,7 +1036,7 @@ var kannada_dict = {
     },
 
     "Accent_marks": {
-        // Hack to preserve accent by including the Non-Indic accent marks, if used in Indic scripts
+        // Hack to handle accent marks, if used in Indian scripts or if language specific accent marks does not exist
         "\u0300":   "\u0300", // $॓ GRAVE ACCENT → 0300 $̀   combining grave accent
         "\u0301":   "\u0301", // $॔ ACUTE ACCENT → 0301 $́   combining acute accent
         "\u0307":   "\u0307", // ॱ SIGN HIGH SPACING DOT
@@ -1071,15 +1044,6 @@ var kannada_dict = {
         "\u030D":   "\u030D", // $॑ STRESS SIGN UDATTA = Vedic tone svarita
         "\u0323":   "\u0323", // $़ SIGN NUKTA • for extending the alphabet to new letters
         "\u0332":   "\u0332", // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta
-
-        // Accent: Manually added from Devanagari
-        "\u0323":   "\u093C", // $़ DEVANAGARI SIGN NUKTA • for extending the alphabet to new letters
-        "\u030D":   "\u0951", // $॑ DEVANAGARI STRESS SIGN UDATTA = Vedic tone svarita
-        "\u0332":   "\u0952", // $॒ DEVANAGARI STRESS SIGN ANUDATTA = Vedic tone anudatta
-        "\u0300":   "\u0953", // $॓ DEVANAGARI GRAVE ACCENT → 0300 $̀   combining grave accent
-        "\u0301":   "\u0954", // $॔ DEVANAGARI ACUTE ACCENT → 0301 $́   combining acute accent
-        "\u0307":   "\u0971", // ॱ DEVANAGARI SIGN HIGH SPACING DOT
-        "\u030A":   "\u0970", // ॰ DEVANAGARI ABBREVIATION SIGN • intended for Devanagari-specific abbreviations
 
         // Various signs
         "\u0323":   "\u0CBC"  // $಼ KANNADA SIGN NUKTA
@@ -1278,7 +1242,7 @@ var bengali_dict = {
     },
 
     "Accent_marks": {
-        // Hack to preserve accent by including the Non-Indic accent marks, if used in Indic scripts
+        // Hack to handle accent marks, if used in Indian scripts or if language specific accent marks does not exist
         "\u0300":   "\u0300", // $॓ GRAVE ACCENT → 0300 $̀   combining grave accent
         "\u0301":   "\u0301", // $॔ ACUTE ACCENT → 0301 $́   combining acute accent
         "\u0307":   "\u0307", // ॱ SIGN HIGH SPACING DOT
@@ -1286,15 +1250,6 @@ var bengali_dict = {
         "\u030D":   "\u030D", // $॑ STRESS SIGN UDATTA = Vedic tone svarita
         "\u0323":   "\u0323", // $़ SIGN NUKTA • for extending the alphabet to new letters
         "\u0332":   "\u0332", // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta
-
-        // Accent: Manually added from Devanagari
-        "\u0323":   "\u093C", // $़ DEVANAGARI SIGN NUKTA • for extending the alphabet to new letters
-        "\u030D":   "\u0951", // $॑ DEVANAGARI STRESS SIGN UDATTA = Vedic tone svarita
-        "\u0332":   "\u0952", // $॒ DEVANAGARI STRESS SIGN ANUDATTA = Vedic tone anudatta
-        "\u0300":   "\u0953", // $॓ DEVANAGARI GRAVE ACCENT → 0300 $̀   combining grave accent
-        "\u0301":   "\u0954", // $॔ DEVANAGARI ACUTE ACCENT → 0301 $́   combining acute accent
-        "\u0307":   "\u0971", // ॱ DEVANAGARI SIGN HIGH SPACING DOT
-        "\u030A":   "\u0970", // ॰ DEVANAGARI ABBREVIATION SIGN • intended for Devanagari-specific abbreviations
 
         // Various signs
         "\u0323":   "\u09BC"  // $় BENGALI SIGN NUKTA • for extending the alphabet to new letters
@@ -1474,7 +1429,7 @@ var gurmukhi_dict = {
     },
 
     "Accent_marks": {
-        // Hack to preserve accent by including the Non-Indic accent marks, if used in Indic scripts
+        // Hack to handle accent marks, if used in Indian scripts or if language specific accent marks does not exist
         "\u0300":   "\u0300", // $॓ GRAVE ACCENT → 0300 $̀   combining grave accent
         "\u0301":   "\u0301", // $॔ ACUTE ACCENT → 0301 $́   combining acute accent
         "\u0307":   "\u0307", // ॱ SIGN HIGH SPACING DOT
@@ -1482,15 +1437,6 @@ var gurmukhi_dict = {
         "\u030D":   "\u030D", // $॑ STRESS SIGN UDATTA = Vedic tone svarita
         "\u0323":   "\u0323", // $़ SIGN NUKTA • for extending the alphabet to new letters
         "\u0332":   "\u0332", // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta
-
-        // Accent: Manually added from Devanagari
-        "\u0323":   "\u093C", // $़ DEVANAGARI SIGN NUKTA • for extending the alphabet to new letters
-        "\u030D":   "\u0951", // $॑ DEVANAGARI STRESS SIGN UDATTA = Vedic tone svarita
-        "\u0332":   "\u0952", // $॒ DEVANAGARI STRESS SIGN ANUDATTA = Vedic tone anudatta
-        "\u0300":   "\u0953", // $॓ DEVANAGARI GRAVE ACCENT → 0300 $̀   combining grave accent
-        "\u0301":   "\u0954", // $॔ DEVANAGARI ACUTE ACCENT → 0301 $́   combining acute accent
-        "\u0307":   "\u0971", // ॱ DEVANAGARI SIGN HIGH SPACING DOT
-        "\u030A":   "\u0970", // ॰ DEVANAGARI ABBREVIATION SIGN • intended for Devanagari-specific abbreviations
 
         // Various signs
         "\u0323":   "\u0A3C", // $਼ GURMUKHI SIGN NUKTA = pairin bindi • for extending the alphabet to new letters
@@ -1664,7 +1610,7 @@ var malayalam_dict = {
     },
 
     "Accent_marks": {
-        // Hack to preserve accent by including the Non-Indic accent marks, if used in Indic scripts
+        // Hack to handle accent marks, if used in Indian scripts or if language specific accent marks does not exist
         "\u0300":   "\u0300", // $॓ GRAVE ACCENT → 0300 $̀   combining grave accent
         "\u0301":   "\u0301", // $॔ ACUTE ACCENT → 0301 $́   combining acute accent
         "\u0307":   "\u0307", // ॱ SIGN HIGH SPACING DOT
@@ -1672,15 +1618,6 @@ var malayalam_dict = {
         "\u030D":   "\u030D", // $॑ STRESS SIGN UDATTA = Vedic tone svarita
         "\u0323":   "\u0323", // $़ SIGN NUKTA • for extending the alphabet to new letters
         "\u0332":   "\u0332", // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta
-
-        // Accent: Manually added from Devanagari
-        "\u0323":   "\u093C", // $़ DEVANAGARI SIGN NUKTA • for extending the alphabet to new letters
-        "\u030D":   "\u0951", // $॑ DEVANAGARI STRESS SIGN UDATTA = Vedic tone svarita
-        "\u0332":   "\u0952", // $॒ DEVANAGARI STRESS SIGN ANUDATTA = Vedic tone anudatta
-        "\u0300":   "\u0953", // $॓ DEVANAGARI GRAVE ACCENT → 0300 $̀   combining grave accent
-        "\u0301":   "\u0954", // $॔ DEVANAGARI ACUTE ACCENT → 0301 $́   combining acute accent
-        "\u0307":   "\u0971", // ॱ DEVANAGARI SIGN HIGH SPACING DOT
-        "\u030A":   "\u0970"  // ॰ DEVANAGARI ABBREVIATION SIGN • intended for Devanagari-specific abbreviations
 
         // Dot reph
         //""    :   "\u0D4E"  // ൎ MALAYALAM LETTER DOT REPH • not used in reformed modern Malayalam orthography
@@ -1881,7 +1818,7 @@ var oriya_dict = {
     },
 
     "Accent_marks": {
-        // Hack to preserve accent by including the Non-Indic accent marks, if used in Indic scripts
+        // Hack to handle accent marks, if used in Indian scripts or if language specific accent marks does not exist
         "\u0300":   "\u0300", // $॓ GRAVE ACCENT → 0300 $̀   combining grave accent
         "\u0301":   "\u0301", // $॔ ACUTE ACCENT → 0301 $́   combining acute accent
         "\u0307":   "\u0307", // ॱ SIGN HIGH SPACING DOT
@@ -1889,15 +1826,6 @@ var oriya_dict = {
         "\u030D":   "\u030D", // $॑ STRESS SIGN UDATTA = Vedic tone svarita
         "\u0323":   "\u0323", // $़ SIGN NUKTA • for extending the alphabet to new letters
         "\u0332":   "\u0332", // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta
-
-        // Accent: Manually added from Devanagari
-        "\u0323":   "\u093C", // $़ DEVANAGARI SIGN NUKTA • for extending the alphabet to new letters
-        "\u030D":   "\u0951", // $॑ DEVANAGARI STRESS SIGN UDATTA = Vedic tone svarita
-        "\u0332":   "\u0952", // $॒ DEVANAGARI STRESS SIGN ANUDATTA = Vedic tone anudatta
-        "\u0300":   "\u0953", // $॓ DEVANAGARI GRAVE ACCENT → 0300 $̀   combining grave accent
-        "\u0301":   "\u0954", // $॔ DEVANAGARI ACUTE ACCENT → 0301 $́   combining acute accent
-        "\u0307":   "\u0971", // ॱ DEVANAGARI SIGN HIGH SPACING DOT
-        "\u030A":   "\u0970", // ॰ DEVANAGARI ABBREVIATION SIGN • intended for Devanagari-specific abbreviations
 
         // Various signs
         "\u0323":   "\u0B3C" // $଼ ORIYA SIGN NUKTA • for extending the alphabet to new letters

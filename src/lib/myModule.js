@@ -55,7 +55,10 @@ function detectLanguage(inp_txt){
     var chr;
     for (indx = 0; indx <  inp_txt.length; indx++){
         chr = inp_txt.charAt(indx);
-        if((array_key_exists(chr, devanagari_dict_rev["Independent_vowels"])) || (array_key_exists(chr, devanagari_dict_rev["Consonants"]))) {
+        if(chr == "\u0950") { // skip Devanagari 'AUM', since it is used across all Indian languages
+            continue;
+        }
+        else if((array_key_exists(chr, devanagari_dict_rev["Independent_vowels"])) || (array_key_exists(chr, devanagari_dict_rev["Consonants"]))) {
             return "Devanagari";
         }
         else if((array_key_exists(chr, telugu_dict_rev["Independent_vowels"])) || (array_key_exists(chr, telugu_dict_rev["Consonants"]))) {
