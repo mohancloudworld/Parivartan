@@ -128,6 +128,7 @@ var devanagari_dict = {
         "LLI"   :   "\u0961", // ॡ DEVANAGARI LETTER VOCALIC LL
 
         "OM"    :   "\u0950", // ॐ DEVANAGARI OM
+        "ooM"   :   "\u0950", // ॐ DEVANAGARI OM
         "AUM"   :   "\u0950"  // ॐ DEVANAGARI OM
     },
 
@@ -354,6 +355,7 @@ var telugu_dict = {
 
         // Sign: Manually added from Devanagari
         "OM"    :   "\u0950", // ॐ
+        "ooM"   :   "\u0950", // ॐ
         "AUM"   :   "\u0950"  // ॐ
     },
 
@@ -554,6 +556,7 @@ var gujarati_dict = {
 
         // Various signs
         "OM"    :   "\u0AD0", // ૐ GUJARATI OM
+        "ooM"   :   "\u0AD0", // ૐ GUJARATI OM
         "AUM"   :   "\u0AD0"  // ૐ GUJARATI OM
     },
 
@@ -736,6 +739,7 @@ var tamil_dict = {
 
         // Various signs
         "OM"    :   "\u0BD0", // ௐ TAMIL OM
+        "ooM"   :   "\u0BD0", // ௐ TAMIL OM
         "AUM"   :   "\u0BD0"  // ௐ TAMIL OM
     },
 
@@ -945,6 +949,7 @@ var kannada_dict = {
 
         // Sign: Manually added from Devanagari
         "OM"    :   "\u0950", // ॐ
+        "ooM"   :   "\u0950", // ॐ
         "AUM"   :   "\u0950"  // ॐ
     },
 
@@ -1137,6 +1142,7 @@ var bengali_dict = {
 
         // Sign: Manually added from Devanagari
         "OM"    :   "\u0950", // ॐ
+        "ooM"   :   "\u0950", // ॐ
         "AUM"   :   "\u0950"  // ॐ
     },
 
@@ -1342,6 +1348,7 @@ var gurmukhi_dict = {
 
         // Sign: Manually added from Devanagari
         "OM"    :   "\u0950", // ॐ
+        "ooM"   :   "\u0950", // ॐ
         "AUM"   :   "\u0950"  // ॐ
     },
 
@@ -1523,6 +1530,7 @@ var malayalam_dict = {
 
         // Sign: Manually added from Devanagari
         "OM"    :   "\u0950", // ॐ
+        "ooM"   :   "\u0950", // ॐ
         "AUM"   :   "\u0950"  // ॐ
     },
 
@@ -1617,7 +1625,7 @@ var malayalam_dict = {
         "\u030A":   "\u030A", // ॰ ABBREVIATION SIGN • intended for Devanagari-specific abbreviations
         "\u030D":   "\u030D", // $॑ STRESS SIGN UDATTA = Vedic tone svarita
         "\u0323":   "\u0323", // $़ SIGN NUKTA • for extending the alphabet to new letters
-        "\u0332":   "\u0332", // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta
+        "\u0332":   "\u0332"  // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta
 
         // Dot reph
         //""    :   "\u0D4E"  // ൎ MALAYALAM LETTER DOT REPH • not used in reformed modern Malayalam orthography
@@ -1722,6 +1730,7 @@ var oriya_dict = {
 
         // Sign: Manually added from Devanagari
         "OM"    :   "\u0950", // ॐ
+        "ooM"   :   "\u0950", // ॐ
         "AUM"   :   "\u0950"  // ॐ
     },
 
