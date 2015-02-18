@@ -226,10 +226,8 @@ var devanagari_dict = {
         "h"     :   "\u0939", // ह DEVANAGARI LETTER HA
 
         // Manually Added
-        "x" :   "\u0915"+"\u094D"+"\u0937", // क्ष
-        //"kSh" :   "\u0915"+"\u094D"+"\u0937", // क्ष  (redundant)
-        "GY"    :   "\u091C"+"\u094D"+"\u091E", //
-        //"j~n" :   "\u091C"+"\u094D"+"\u091E", // (redundant)
+        "x"     :   "\u0915"+"\u094D"+"\u0937", // क्ष == "kSh"
+        "GY"    :   "\u091C"+"\u094D"+"\u091E", // == "j~n"
 
         // Additional consonants
         "q"     :   "\u0958", // क़ DEVANAGARI LETTER QA ≡ 0915 क  093C $़
@@ -319,14 +317,14 @@ var telugu_dict = {
         "R^i"   :   "\u0C0B", // ఋ TELUGU LETTER VOCALIC R
         "RRi"   :   "\u0C0B", // ఋ TELUGU LETTER VOCALIC R
 
-            // Additional vowels for Sanskrit
+        // Additional vowels for Sanskrit
         "R^I"   :   "\u0C60", // ౠ TELUGU LETTER VOCALIC RR
         "RRI"   :   "\u0C60", // ౠ TELUGU LETTER VOCALIC RR
 
         "L^i"   :   "\u0C0C", // ఌ TELUGU LETTER VOCALIC L
         "LLi"   :   "\u0C0C", // ఌ TELUGU LETTER VOCALIC L
 
-            // Additional vowels for Sanskrit
+        // Additional vowels for Sanskrit
         "L^I"   :   "\u0C61", // ౡ TELUGU LETTER VOCALIC LL
         "LLI"   :   "\u0C61", // ౡ TELUGU LETTER VOCALIC LL
 
@@ -428,15 +426,12 @@ var telugu_dict = {
         "h"     :   "\u0C39", // హ TELUGU LETTER HA
 
         // Manually Added
-        "x"     :   "\u0C15"+"\u0C4D"+"\u0C37", // క్ష
-        //"kSh" :   "\u0C15"+"\u0C4D"+"\u0C37", // క్ష   (redundant)
-        "GY"    :   "\u0C1C"+"\u0C4D"+"\u0C1E"  //
-        //"j~n" :   "\u0C1C"+"\u0C4D"+"\u0C1E", // (redundant)
-
+        "x"     :   "\u0C15"+"\u0C4D"+"\u0C37", // క్ష == "kSh"
+        "GY"    :   "\u0C1C"+"\u0C4D"+"\u0C1E"  // == "j~n"
     },
 
     "Others": { // ()
-            // Various signs
+        // Various signs
         ".N"    :   "\u0C01", // ఁ TELUGU SIGN CANDRABINDU
         ".m"    :   "\u0C02", // ం TELUGU SIGN ANUSVARA
         ".n"    :   "\u0C02", // ం TELUGU SIGN ANUSVARA
@@ -530,6 +525,7 @@ var gujarati_dict = {
         "LLI"   :   "\u0AE1", // ૡ GUJARATI LETTER VOCALIC LL
 
         // Various signs
+        "AUM"   :   "\u0950", // ADDED DEVANAGARI ॐ for reverse conversion, if used
         "OM"    :   "\u0AD0", // ૐ GUJARATI OM
         "ooM"   :   "\u0AD0", // ૐ GUJARATI OM
         "AUM"   :   "\u0AD0"  // ૐ GUJARATI OM
@@ -619,10 +615,8 @@ var gujarati_dict = {
         "h"     :   "\u0AB9", // હ GUJARATI LETTER HA
 
         // Manually Added
-        "x"     :   "\u0A95"+"\u0ACD"+"\u0AB7", // క్ష
-        //"kSh" :   "\u0A95"+"\u0ACD"+"\u0AB7", // క్ష   (redundant)
-        "GY"    :   "\u0A9C"+"\u0ACD"+"\u0A9E"  //
-        //"j~n" :   "\u0A9C"+"\u0ACD"+"\u0A9E", // (redundant)
+        "x"     :   "\u0A95"+"\u0ACD"+"\u0AB7", // క్ష == "kSh"
+        "GY"    :   "\u0A9C"+"\u0ACD"+"\u0A9E"  // == "j~n"
     },
 
     "Others": { // ()
@@ -700,6 +694,7 @@ var tamil_dict = {
         "au"    :   "\u0B94", // ஔ TAMIL LETTER AU ≡ 0B92 ஒ   0BD7 $ௗ
 
         // Various signs
+        "AUM"   :   "\u0950", // ADDED DEVANAGARI ॐ for reverse conversion, if used 
         "OM"    :   "\u0BD0", // ௐ TAMIL OM
         "ooM"   :   "\u0BD0", // ௐ TAMIL OM
         "AUM"   :   "\u0BD0"  // ௐ TAMIL OM
@@ -792,11 +787,10 @@ var tamil_dict = {
         "shh"   :   "\u0BB7", // ஷ TAMIL LETTER SSA
         "s"     :   "\u0BB8", // ஸ TAMIL LETTER SA
         "h"     :   "\u0BB9", // ஹ TAMIL LETTER HA
+
         // Manually Added
-        "x"     :   "\u0B95"+"\u0BCD"+"\u0BB7", // క్ష
-        //"kSh" :   "\u0B95"+"\u0BCD"+"\u0BB7", // క్ష   (redundant)
-        "GY"    :   "\u0B9C"+"\u0BCD"+"\u0B9E"  //
-        //"j~n" :   "\u0B9C"+"\u0BCD"+"\u0B9E", // (redundant)
+        "x"     :   "\u0B95"+"\u0BCD"+"\u0BB7", // క్ష == "kSh"
+        "GY"    :   "\u0B9C"+"\u0BCD"+"\u0B9E"  // == "j~n"
     },
 
     "Others": { // ()
@@ -984,10 +978,8 @@ var kannada_dict = {
         "h"     :   "\u0CB9", // ಹ KANNADA LETTER HA
 
         // Manually Added
-        "x"     :   "\u0C95"+"\u0CCD"+"\u0CB7", // క్ష
-        //"kSh" :   "\u0C95"+"\u0CCD"+"\u0CB7", // క్ష   (redundant)
-        "GY"    :   "\u0C9C"+"\u0CCD"+"\u0C9E"  //
-        //"j~n" :   "\u0C9C"+"\u0CCD"+"\u0C9E", // (redundant)
+        "x"     :   "\u0C95"+"\u0CCD"+"\u0CB7", // క్ష == "kSh"
+        "GY"    :   "\u0C9C"+"\u0CCD"+"\u0C9E"  // == "j~n"
     },
 
     "Others": { // ()
@@ -1160,26 +1152,24 @@ var bengali_dict = {
         //""    :   "\u09B5", // " <reserved>
         "sh"    :   "\u09B6", // শ BENGALI LETTER SHA
         "Sh"    :   "\u09B7", // ষ BENGALI LETTER SSA
-        "ssh"   :   "\u09B7", // ষ BENGALI LETTER SSA
+        "shh"   :   "\u09B7", // ষ BENGALI LETTER SSA
         "s"     :   "\u09B8", // স BENGALI LETTER SA
         "h"     :   "\u09B9", // হ BENGALI LETTER HA
+
+        // Manually Added
+        "x"     :   "\u0995"+"\u09CD"+"\u09B7", // क्ष == "kSh"
+        "GY"    :   "\u099C"+"\u09CD"+"\u099E", // == "j~n"
 
         // Additional consonants
         "R"     :   "\u09DC", // ড় BENGALI LETTER RRA ≡ 09A1  ড   09BC  $়
         ".D"    :   "\u09DC", // ড় BENGALI LETTER RRA ≡ 09A1  ড   09BC  $়
         ".Dh"   :   "\u09DD", // ঢ় BENGALI LETTER RHA ≡ 09A2  ঢ   09BC  $়
         //""    :   "\u09DE", // " <reserved>
-        "Y"     :   "\u09DF", // য় BENGALI LETTER YYA ≡ 09AF  য   09BC  $়
+        "Y"     :   "\u09DF"  // য় BENGALI LETTER YYA ≡ 09AF  য   09BC  $়
 
         // Additions for Assamese
         //""    :   "\u09F0", // ৰ BENGALI LETTER RA WITH MIDDLE DIAGONAL
         //""    :   "\u09F1", // ৱ BENGALI LETTER RA WITH LOWER DIAGONAL = bengali letter va with lower diagonal (1.0)
-
-        // Manually Added
-        "x"     :   "\u0995"+"\u09CD"+"\u09B7", // क्ष
-        //"kSh" :   "\u0995"+"\u09CD"+"\u09B7", // क्ष  (redundant)
-        "GY"    :   "\u099C"+"\u09CD"+"\u099E"  //
-        //"j~n" :   "\u099C"+"\u09CD"+"\u099E", // (redundant)
     },
 
     "Others": { // ()
@@ -1343,10 +1333,14 @@ var gurmukhi_dict = {
         "v"     :   "\u0A35", // ਵ GURMUKHI LETTER VA
         "sh"    :   "\u0A36", // ਸ਼ GURMUKHI LETTER SHA ≡ 0A38  ਸ   0A3C  $਼
         "Sh"    :   "\u0A36", // ਸ਼ GURMUKHI LETTER SHA ≡ 0A38  ਸ   0A3C  $਼
-        "ssh"   :   "\u0A36", // ਸ਼ GURMUKHI LETTER SHA ≡ 0A38  ਸ   0A3C  $਼
+        "shh"   :   "\u0A36", // ਸ਼ GURMUKHI LETTER SHA ≡ 0A38  ਸ   0A3C  $਼
         //""    :   "\u0A37", // " <reserved>
         "s"     :   "\u0A38", // ਸ GURMUKHI LETTER SA
-        "h"     :   "\u0A39"  // ਹ GURMUKHI LETTER HA
+        "h"     :   "\u0A39", // ਹ GURMUKHI LETTER HA
+
+        // Manually Added
+        "x"     :   "\u0A15"+"\u0A4D"+"\u0A36", // क्ष == "kSh"
+        "GY"    :   "\u0A1C"+"\u0A4D"+"\u0A1E"  // == "j~n"
 
         // Additional consonants
         //""    :   "\u0A59", // ਖ਼ GURMUKHI LETTER KHHA ≡ 0A16  ਖ   0A3C  $਼
@@ -1523,8 +1517,12 @@ var malayalam_dict = {
         "Sh"    :   "\u0D37", // ഷ MALAYALAM LETTER SSA = sha
         "shh"   :   "\u0D37", // ഷ MALAYALAM LETTER SSA = sha
         "s"     :   "\u0D38", // സ MALAYALAM LETTER SA
-        "h"     :   "\u0D39"  // ഹ MALAYALAM LETTER HA
+        "h"     :   "\u0D39", // ഹ MALAYALAM LETTER HA
         //""    :   "\u0D3A", // ഺ MALAYALAM LETTER TTTA • historic use only
+
+        // Manually Added
+        "x"     :   "\u0D15"+"\u0D4D"+"\u0D37", // क्ष == "kSh"
+        "GY"    :   "\u0D1C"+"\u0D4D"+"\u0D1E"  // == "j~n"
     },
 
     "Others": { // ()
@@ -1710,7 +1708,11 @@ var oriya_dict = {
         "Sh"    :   "\u0B37", // ଷ ORIYA LETTER SSA
         "shh"   :   "\u0B37", // ଷ ORIYA LETTER SSA
         "s"     :   "\u0B38", // ସ ORIYA LETTER SA
-        "h"     :   "\u0B39"  // ହ ORIYA LETTER HA
+        "h"     :   "\u0B39", // ହ ORIYA LETTER HA
+
+        // Manually Added
+        "x"     :   "\u0B15"+"\u0B4D"+"\u0B37", // क्ष == "kSh"
+        "GY"    :   "\u0B1C"+"\u0B4D"+"\u0B1E"  // == "j~n"
 
         // Additional consonants
         //""    :   "\u0B5C", // ଡ଼ ORIYA LETTER RRA = dda ≡ 0B21  ଡ   0B3C  $଼
