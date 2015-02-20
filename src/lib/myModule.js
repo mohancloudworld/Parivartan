@@ -1,3 +1,5 @@
+"use strict";
+
 var myTable = require("myTables");
 
 // Dictionaries to modify/extend the original dictionaries

@@ -1,3 +1,5 @@
+"use strict";
+
 // ISO 15919
 var iso2itrans_dict = {
     // http://en.wikipedia.org/wiki/Wikipedia:Indic_transliteration
@@ -729,46 +731,46 @@ var tamil_dict = {
 
     "Consonants": { // ()+
         // Consonants
+        "kh"    :   "\u0B95", // க TAMIL LETTER KA ** Manual Change ***
+        "g"     :   "\u0B95", // க TAMIL LETTER KA ** Manual Change ***
+        "gh"    :   "\u0B95", // க TAMIL LETTER KA ** Manual Change ***
         "k"     :   "\u0B95", // க TAMIL LETTER KA
-        "kh"    :   "\u0B95", // க TAMIL LETTER KA
-        "g"     :   "\u0B95", // க TAMIL LETTER KA
-        "gh"    :   "\u0B95", // க TAMIL LETTER KA
         //""    :   "\u0B96", // " <reserved>
         //""    :   "\u0B97", // " <reserved>
         //""    :   "\u0B98", // " <reserved>
         "~N"    :   "\u0B99", // ங TAMIL LETTER NGA
         "N^"    :   "\u0B99", // ங TAMIL LETTER NGA
+        "Ch"    :   "\u0B9A", // ச TAMIL LETTER CA ** Manual Change ***
+        "chh"   :   "\u0B9A", // ச TAMIL LETTER CA ** Manual Change ***
         "ch"    :   "\u0B9A", // ச TAMIL LETTER CA
-        "Ch"    :   "\u0B9A", // ச TAMIL LETTER CA
-        "chh"   :   "\u0B9A", // ச TAMIL LETTER CA
         //""    :   "\u0B9B", // " <reserved>
+        "jh"    :   "\u0B9C", // ஜ TAMIL LETTER JA ** Manual Change ***
         "j"     :   "\u0B9C", // ஜ TAMIL LETTER JA
-        "jh"    :   "\u0B9C", // ஜ TAMIL LETTER JA
         //""    :   "\u0B9D", // " <reserved>
         "~n"    :   "\u0B9E", // ஞ TAMIL LETTER NYA
         "n^"    :   "\u0B9E", // ஞ TAMIL LETTER NYA
         "JN"    :   "\u0B9E", // ஞ TAMIL LETTER NYA
+        "Th"    :   "\u0B9F", // ட TAMIL LETTER TTA ** Manual Change ***
+        "D"     :   "\u0B9F", // ட TAMIL LETTER TTA ** Manual Change ***
+        "Dh"    :   "\u0B9F", // ட TAMIL LETTER TTA ** Manual Change ***
         "T"     :   "\u0B9F", // ட TAMIL LETTER TTA
-        "Th"    :   "\u0B9F", // ட TAMIL LETTER TTA
-        "D"     :   "\u0B9F", // ட TAMIL LETTER TTA
-        "Dh"    :   "\u0B9F", // ட TAMIL LETTER TTA
         //""    :   "\u0BA0", // " <reserved>
         //""    :   "\u0BA1", // " <reserved>
         //""    :   "\u0BA2", // " <reserved>
         "N"     :   "\u0BA3", // ண TAMIL LETTER NNA
+        "th"    :   "\u0BA4", // த TAMIL LETTER TA ** Manual Change ***
+        "d"     :   "\u0BA4", // த TAMIL LETTER TA ** Manual Change ***
+        "dh"    :   "\u0BA4", // த TAMIL LETTER TA ** Manual Change ***
         "t"     :   "\u0BA4", // த TAMIL LETTER TA
-        "th"    :   "\u0BA4", // த TAMIL LETTER TA
-        "d"     :   "\u0BA4", // த TAMIL LETTER TA
-        "dh"    :   "\u0BA4", // த TAMIL LETTER TA
         //""    :   "\u0BA5", // " <reserved>
         //""    :   "\u0BA6", // " <reserved>
         //""    :   "\u0BA7", // " <reserved>
         "n"     :   "\u0BA8", // ந TAMIL LETTER NA
         "^n"    :   "\u0BA9", // ன TAMIL LETTER NNNA
+        "ph"    :   "\u0BAA", // ப TAMIL LETTER PA ** Manual Change ***
+        "b"     :   "\u0BAA", // ப TAMIL LETTER PA ** Manual Change ***
+        "bh"    :   "\u0BAA", // ப TAMIL LETTER PA ** Manual Change ***
         "p"     :   "\u0BAA", // ப TAMIL LETTER PA
-        "ph"    :   "\u0BAA", // ப TAMIL LETTER PA
-        "b"     :   "\u0BAA", // ப TAMIL LETTER PA
-        "bh"    :   "\u0BAA", // ப TAMIL LETTER PA
         //""    :   "\u0BAB", // " <reserved>
         //""    :   "\u0BAC", // " <reserved>
         //""    :   "\u0BAD", // " <reserved>
@@ -1146,6 +1148,7 @@ var bengali_dict = {
         "y"     :   "\u09AF", // য BENGALI LETTER YA
         "r"     :   "\u09B0", // র BENGALI LETTER RA
         //""    :   "\u09B1", // " <reserved>
+        "L"     :   "\u09B2", // ল BENGALI LETTER LA ** Manual Change ***
         "l"     :   "\u09B2", // ল BENGALI LETTER LA
         //""    :   "\u09B3", // " <reserved>
         //""    :   "\u09B4", // " <reserved>
