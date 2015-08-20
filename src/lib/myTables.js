@@ -244,6 +244,8 @@ var devanagari_dict = {
     },
 
     "Accent_marks": {
+        "\u200B":   "\u200B", // ZERO WIDTH SPACE (ZWSP)
+        "\u200D":   "\u200D", // ZERO WIDTH JOINER (ZWJ)
         // Hack to handle accent marks, if used in Indian scripts or if language specific accent marks does not exist
         "\u0300":   "\u0300", // $॓ GRAVE ACCENT → 0300 $̀   combining grave accent
         "\u0301":   "\u0301", // $॔ ACUTE ACCENT → 0301 $́   combining acute accent
@@ -444,6 +446,8 @@ var telugu_dict = {
     },
 
     "Accent_marks": {
+        "\u200B":   "\u200B", // ZERO WIDTH SPACE (ZWSP)
+        "\u200D":   "\u200D", // ZERO WIDTH JOINER (ZWJ)
         // Hack to handle accent marks, if used in Indian scripts or if language specific accent marks does not exist
         "\u0300":   "\u0300", // $॓ GRAVE ACCENT → 0300 $̀   combining grave accent
         "\u0301":   "\u0301", // $॔ ACUTE ACCENT → 0301 $́   combining acute accent
@@ -644,6 +648,8 @@ var gujarati_dict = {
     },
 
     "Accent_marks": {
+        "\u200B":   "\u200B", // ZERO WIDTH SPACE (ZWSP)
+        "\u200D":   "\u200D", // ZERO WIDTH JOINER (ZWJ)
         // Hack to handle accent marks, if used in Indian scripts or if language specific accent marks does not exist
         "\u0300":   "\u0300", // $॓ GRAVE ACCENT → 0300 $̀   combining grave accent
         "\u0301":   "\u0301", // $॔ ACUTE ACCENT → 0301 $́   combining acute accent
@@ -829,6 +835,8 @@ var tamil_dict = {
     },
 
     "Accent_marks": {
+        "\u200B":   "\u200B", // ZERO WIDTH SPACE (ZWSP)
+        "\u200D":   "\u200D", // ZERO WIDTH JOINER (ZWJ)
         // Hack to handle accent marks, if used in Indian scripts or if language specific accent marks does not exist
         "\u0300":   "\u0300", // $॓ GRAVE ACCENT → 0300 $̀   combining grave accent
         "\u0301":   "\u0301", // $॔ ACUTE ACCENT → 0301 $́   combining acute accent
@@ -1029,6 +1037,8 @@ var kannada_dict = {
     },
 
     "Accent_marks": {
+        "\u200B":   "\u200B", // ZERO WIDTH SPACE (ZWSP)
+        "\u200D":   "\u200D", // ZERO WIDTH JOINER (ZWJ)
         // Hack to handle accent marks, if used in Indian scripts or if language specific accent marks does not exist
         "\u0300":   "\u0300", // $॓ GRAVE ACCENT → 0300 $̀   combining grave accent
         "\u0301":   "\u0301", // $॔ ACUTE ACCENT → 0301 $́   combining acute accent
@@ -1231,6 +1241,8 @@ var bengali_dict = {
     },
 
     "Accent_marks": {
+        "\u200B":   "\u200B", // ZERO WIDTH SPACE (ZWSP)
+        "\u200D":   "\u200D", // ZERO WIDTH JOINER (ZWJ)
         // Hack to handle accent marks, if used in Indian scripts or if language specific accent marks does not exist
         "\u0300":   "\u0300", // $॓ GRAVE ACCENT → 0300 $̀   combining grave accent
         "\u0301":   "\u0301", // $॔ ACUTE ACCENT → 0301 $́   combining acute accent
@@ -1421,6 +1433,8 @@ var gurmukhi_dict = {
     },
 
     "Accent_marks": {
+        "\u200B":   "\u200B", // ZERO WIDTH SPACE (ZWSP)
+        "\u200D":   "\u200D", // ZERO WIDTH JOINER (ZWJ)
         // Hack to handle accent marks, if used in Indian scripts or if language specific accent marks does not exist
         "\u0300":   "\u0300", // $॓ GRAVE ACCENT → 0300 $̀   combining grave accent
         "\u0301":   "\u0301", // $॔ ACUTE ACCENT → 0301 $́   combining acute accent
@@ -1606,6 +1620,8 @@ var malayalam_dict = {
     },
 
     "Accent_marks": {
+        "\u200B":   "\u200B", // ZERO WIDTH SPACE (ZWSP)
+        "\u200D":   "\u200D", // ZERO WIDTH JOINER (ZWJ)
         // Hack to handle accent marks, if used in Indian scripts or if language specific accent marks does not exist
         "\u0300":   "\u0300", // $॓ GRAVE ACCENT → 0300 $̀   combining grave accent
         "\u0301":   "\u0301", // $॔ ACUTE ACCENT → 0301 $́   combining acute accent
@@ -1817,6 +1833,8 @@ var oriya_dict = {
     },
 
     "Accent_marks": {
+        "\u200B":   "\u200B", // ZERO WIDTH SPACE (ZWSP)
+        "\u200D":   "\u200D", // ZERO WIDTH JOINER (ZWJ)
         // Hack to handle accent marks, if used in Indian scripts or if language specific accent marks does not exist
         "\u0300":   "\u0300", // $॓ GRAVE ACCENT → 0300 $̀   combining grave accent
         "\u0301":   "\u0301", // $॔ ACUTE ACCENT → 0301 $́   combining acute accent
