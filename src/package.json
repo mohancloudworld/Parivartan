@@ -1,23 +1,25 @@
 {
-    "license": "",
-    "preferences":
-    [{
+    "title": "Parivartan",
+    "name": "parivartan",
+    "description": "A text converter (not translator) from an Indian language to English and vice versa. Also supports Katapayadi sankhya system",
+    "version": "0.9.2",
+    "engines": {
+        "firefox": ">=38.0a1"
+        },
+    "main": "lib/main.js",
+    "dependencies": ["api-utils", "addon-kit"],
+    "preferences": [{
         "description": "Always convert digits to ASCII format",
         "type": "bool",
         "name": "preferASCIIDigits",
         "value": true,
         "title": "Prefer ASCII Digits"
-    }],
-    "contributors": [],
-    "author": "mohancloudworld",
-    "url": "https://github.com/mohancloudworld/Parivartan",
-    "description": "A text converter (not translator) from an Indian language to English and vice versa. Supports Devanagari (Sanskrit/Hindi/Marathi), Telugu, Kannada, Gujarati, Tamil, Bengali, Gurmukhi (Punjabi), Malayalam and Oriya (Odia).",
-    "name": "parivartan",
-    "dependencies": ["api-utils", "addon-kit"],
-    "version": "0.9.2",
-    "lib": "lib",
-    "fullName": "Parivartan",
-    "main": "main",
-    "id": "jid0-ZWPhsBicHWg3t63dOl6VIsrZYoE",
-    "permissions": {"private-browsing": true}
+        }],
+    "permissions": {
+        "private-browsing": true
+        },
+    "author": "Mohan G",
+    "homepage": "https://github.com/mohancloudworld/Parivartan",
+    "license": "MPL-2.0",
+    "id": "jid0-ZWPhsBicHWg3t63dOl6VIsrZYoE@jetpack"
 }
