@@ -1,12 +1,13 @@
 Parivartan
 ==========
-A Mozilla Firefox Extension to converter text from an Indian language to English and vice versa.
+A Mozilla Firefox Extension to converter text from an Indian language to English and vice versa. Also supports Katapayadi sankhya system.
 
-This can be installed/downloaded from <a href="https://addons.mozilla.org/en-US/firefox/addon/parivartan/" target="_blank">Firefox addons page</a>.
+This can be installed from <a href="https://addons.mozilla.org/en-US/firefox/addon/parivartan/" target="_blank">Firefox addons page</a>.
 
 <b>Supported formats:</b><ul>
 <li>Indian: Devanagari (Sanskrit/Hindi/Marathi), Telugu, Kannada, Gujarati, Tamil, Bengali, Gurmukhi (Punjabi), Malayalam and Oriya (Odia).</li>
-<li>English: ITRANS, ISO-15919 and IAST.</li></ul>
+<li>English: ITRANS, ISO-15919 and IAST.</li>
+<li>Other: Katapayadi sankhya system.</li></ul>
 
 <b>Purpose:</b>
 India is a multi linguistic nation yet have common sacred/religious texts. But it is not an easy task to maintain all these scripts in all the Indian languages. "Parivartan" add-on converts the Indian Scripts in Indian/English language to various Indian languages. This facilitates maintaining the scripts in a single language and still reach out all Indian linguistic users.
@@ -19,13 +20,13 @@ This add-on converts the text in the text-boxes also, so this can be used to typ
 
 <b>Options:</b>
 
-1. "Indian/English(ITRANS)" option <ul> <li> converts the text in English (ITRANS only) to the selected Indian language</li> <li> converts the text in any Indian language to English (ITRANS only)</li><li> converts the text in any Indian language to the selected Indian language</li></ul>
+1. "Indian/English(ITRANS)" option <ul> <li> converts the text in English (ITRANS only) to the selected Indian language or Katapayadi sankhya.</li> <li> converts the text in any Indian language to English (ITRANS only) or Katapayadi sankhya.</li><li> converts the text in any Indian language to the selected Indian language or Katapayadi sankhya</li></ul>
 
-2. "English (ISO 15919)" option converts the text from English (ISO 15919) to the selected Indian language.
+2. "English (ISO 15919)" option converts the text from English (ISO 15919) to the selected Indian language or Katapayadi sankhya.
 
-3. "English (IAST)" option converts the text from English (IAST) to the selected Indian language.
+3. "English (IAST)" option converts the text from English (IAST) to the selected Indian language or Katapayadi sankhya.
 
-4. "General English" mode also converts the text that is not strictly ITRANS, ISO-15919 or IAST, to the selected Indian language. But the conversion in this mode may not be very precise. So, it is recommended to use the appropriate (ITRANS/ISO-15919/IAST) format relevant to the input text, for precise conversion.
+4. "General English" mode also converts the text that is not strictly ITRANS, ISO-15919 or IAST, to the selected Indian language or Katapayadi sankhya. But the conversion in this mode may not be very precise. So, it is recommended to use the appropriate (ITRANS/ISO-15919/IAST) format relevant to the input text, for precise conversion.
 
 <b>Configurable Options:</b>
 
@@ -33,8 +34,9 @@ This add-on converts the text in the text-boxes also, so this can be used to typ
 
 <b>Technical Details:</b>
 
-1. <a href="http://en.wikipedia.org/wiki/ITRANS" target="_blank">ITRANS</a> Tables: <a href="http://www.aczoom.com/itrans/html/dvng/node3.html" target="_blank">Devanagari/Sanskrit/Hindi/Marahti</a>, <a href="http://www.aczoom.com/itrans/html/tlgutx/node3.html" target="_blank">Telugu</a>, <a href="http://www.aczoom.com/itrans/html/kantex/node2.html" target="_blank">Kannada</a>, <a href="http://www.aczoom.com/itrans/html/gujdoc/node4.html" target="_blank">Gujarati</a>, <a href="http://www.aczoom.com/itrans/html/tamil/node5.html" target="_blank">Tamil</a>, <a href="http://www.aczoom.com/itrans/html/beng/node4.html" target="_blank">Bengali</a>
-2. <a href="http://en.wikipedia.org/wiki/Wikipedia:Indic_transliteration" target="_blank">ISO-15919</a>
-3. <a href="http://en.wikipedia.org/wiki/IAST" target="_blank">IAST</a>
+1. <a href="https://en.wikipedia.org/wiki/ITRANS" target="_blank">ITRANS</a> Tables: <a href="http://www.aczoom.com/itrans/html/dvng/node3.html" target="_blank">Devanagari/Sanskrit/Hindi/Marahti</a>, <a href="http://www.aczoom.com/itrans/html/tlgutx/node3.html" target="_blank">Telugu</a>, <a href="http://www.aczoom.com/itrans/html/kantex/node2.html" target="_blank">Kannada</a>, <a href="http://www.aczoom.com/itrans/html/gujdoc/node4.html" target="_blank">Gujarati</a>, <a href="http://www.aczoom.com/itrans/html/tamil/node5.html" target="_blank">Tamil</a>, <a href="http://www.aczoom.com/itrans/html/beng/node4.html" target="_blank">Bengali</a>, <a href="http://www.aczoom.com/itrans/html/pundoc/node5.html" target="_blank">Gurmukhi (Punjabi)</a>
+2. <a href="https://en.wikipedia.org/wiki/Wikipedia:Indic_transliteration" target="_blank">ISO-15919</a>
+3. <a href="https://en.wikipedia.org/wiki/IAST" target="_blank">IAST</a>
+4. <a href="https://en.wikipedia.org/wiki/Katapayadi_system" target="_blank">Katapayadi sankhya</a>
 
 <b>P.S.:</b> Please feel free to post your comments or suggestion to improve this add-on.
