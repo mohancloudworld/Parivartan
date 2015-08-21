@@ -98,7 +98,7 @@ exports.main= function() {
                     for (var subselection in selection) {
                         if(indicScript == "Katapayadi"){
                             var resultIndicScript = myMod.convert2IndicScript(subselection.html||subselection.text,
-                                                                              "IAST",
+                                                                              "ISO",
                                                                               "Devanagari",
                                                                               1,
                                                                               0,
@@ -178,16 +178,16 @@ exports.main= function() {
                     for (var subselection in selection) {
                         if(indicScript == "Katapayadi"){
                             var resultIndicScript = myMod.convert2IndicScript(subselection.html||subselection.text,
-                                                                              "IAST",
+                                                                              "ISO",
                                                                               "Devanagari",
-                                                                              1,
+                                                                              0,
                                                                               0,
                                                                               preferences.prefs.preferASCIIDigits);
                             subselection.html = myMod.convert2Katapayadi(resultIndicScript);
                         }
                         else {
                             subselection.html = myMod.convert2IndicScript(subselection.html||subselection.text,
-                                                                          "ITRANS",
+                                                                          "ISO",
                                                                           indicScript,
                                                                           0,
                                                                           0,
