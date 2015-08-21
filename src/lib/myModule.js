@@ -25,6 +25,8 @@ var malayalam_dict_rev  = {};
 var oriya_dict_rev      = {};
 var english_dict_rev    = {};
 
+var katapayadi_dict = myTable.katapayadi_dict;
+
 function init()
 {
     // new modified/extended dictionaries
@@ -182,7 +184,6 @@ function convert2IndicScript(inp_txt, encoding_type, indicScript, modeStrict, re
 
 function convert2ITRANS(inp_txt, encoding_type)
 {
-    var myTab = require("myTables");
     var insideTag_p = false;
     var indx=0;
     var out = "";
@@ -191,10 +192,10 @@ function convert2ITRANS(inp_txt, encoding_type)
 
     // selecting appropriate dict to convert to ITRANS
     if(encoding_type == "ISO") {
-        decoding_dict = myTab.iso2itrans_dict;
+        decoding_dict = myTable.iso2itrans_dict;
     }
     else if(encoding_type == "IAST") {
-        decoding_dict = myTab.iast2itrans_dict;
+        decoding_dict = myTable.iast2itrans_dict;
     }
     else {
         return inp_txt;
@@ -482,6 +483,49 @@ function isASCIIDigit(n) {
   return ((n>=0) && (n<=9));
 }
 
+function convert2Katapayadi(inp_txt) {
+    var indx=0, dict_indx;
+    var out = "";
+    var insideTag = false;
+
+    while (indx <  inp_txt.length){
+
+        // skip space charecter "&nbsp;"
+        if(inp_txt.substring(indx,indx+6) == "&nbsp;"){
+            out += "&nbsp;";
+            indx += 6;
+            continue;
+        }
+        else if( (!insideTag) && (inp_txt.charAt(indx) == "<") ){
+            insideTag = true;
+            out += inp_txt.charAt(indx);
+            ++indx;
+        }
+        else if( (insideTag) && (inp_txt.charAt(indx) == ">") ){
+            insideTag = false;
+            out += inp_txt.charAt(indx);
+            ++indx;
+        }
+        else if(insideTag){
+            out += inp_txt.charAt(indx);
+            ++indx;
+        }
+        else{
+            for(dict_indx=0; dict_indx<=9; ++dict_indx) {
+                // if next charecter is VIRAMA, this char should be neglected
+                if((katapayadi_dict[dict_indx].indexOf(inp_txt.charAt(indx)) >= 0) &&
+                   (katapayadi_dict[10].indexOf(inp_txt.charAt(indx+1)) == -1)){
+                    out += dict_indx.toString();
+                    break;
+                }
+            }
+            ++indx;
+        }
+    }
+    return out;
+}
+
 exports.init = init;
 exports.detectLanguage = detectLanguage;
 exports.convert2IndicScript = convert2IndicScript;
+exports.convert2Katapayadi = convert2Katapayadi;
