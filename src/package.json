@@ -2,7 +2,7 @@
     "title": "Parivartan",
     "name": "parivartan",
     "description": "A text converter (not translator) from an Indian language to English and vice versa. Also supports Katapayadi sankhya system.",
-    "version": "0.9.2",
+    "version": "0.9.3",
     "engines": {
         "firefox": ">=38.0a1"
         },
