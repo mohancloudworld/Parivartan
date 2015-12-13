@@ -1,6 +1,6 @@
 "use strict";
 
-var myTable = require("../data/myTables.js");
+var myTable = require("../data/myTables.json");
 
 // Dictionaries to modify/extend the original dictionaries
 var devanagari_dict_mod = {};

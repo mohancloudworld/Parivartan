@@ -1,0 +1,8 @@
+.*
+*
+!/lib/main.js
+!/lib/myModule.js
+!/data/myTables.json
+!/package.json
+!/bootstrap.js
+!/install.rdf
