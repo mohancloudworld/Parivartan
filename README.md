@@ -20,17 +20,15 @@ Another interesting usage of this add-on: There are many people who talk/underst
 
 This add-on converts the text in the text-boxes also, so this can be used to type the text in a language and then convert to any other preferred language while posting on social networks, blogs, forums or even writing emails.
 
-<b>Usage:</b> Select the text on the web-page, right click and select the appropriate option from the "Parivartan" menu.
+<b>Usage:</b> Select the text on a web page, right-click, and choose from the "Parivartan" menu.
 
-<b>Options:</b>
+<b>Menu layout:</b>
 
-1. "Indian/English(ITRANS)" option <ul> <li> converts the text in English (ITRANS only) to the selected Indian language or Katapayadi sankhya.</li> <li> converts the text in any Indian language to English (ITRANS only) or Katapayadi sankhya.</li><li> converts the text in any Indian language to the selected Indian language or Katapayadi sankhya</li></ul>
+1. The "Parivartan" menu lists the target scripts directly. Picking one converts the selection using <b>ITRANS</b> with automatic input-script detection &mdash; this is the default and handles most cases: <ul><li>English (ITRANS) text &rarr; the selected Indian language or Katapayadi sankhya.</li><li>Any Indian language &rarr; English (ITRANS) or Katapayadi sankhya.</li><li>Any Indian language &rarr; another Indian language or Katapayadi sankhya.</li></ul>
 
-2. "English (ISO 15919)" option converts the text from English (ISO 15919) to the selected Indian language or Katapayadi sankhya.
+2. Once you have used Parivartan at least once, a <b>"Convert to ..."</b> shortcut appears at the top of the menu and repeats your most recent conversion in one step.
 
-3. "English (IAST)" option converts the text from English (IAST) to the selected Indian language or Katapayadi sankhya.
-
-4. "General English" mode also converts the text that is not strictly ITRANS, ISO-15919 or IAST, to the selected Indian language or Katapayadi sankhya. But the conversion in this mode may not be very precise. So, it is recommended to use the appropriate (ITRANS/ISO-15919/IAST) format relevant to the input text, for precise conversion.
+3. The <b>"Other input formats"</b> submenu holds the encoding-specific conversions: <ul><li><b>English (ISO 15919)</b> &rarr; the selected Indian language or Katapayadi sankhya.</li><li><b>English (IAST)</b> &rarr; the selected Indian language or Katapayadi sankhya.</li><li><b>General English</b> &mdash; also converts text that is not strictly ITRANS, ISO-15919 or IAST. Conversion in this mode may be less precise, so prefer the matching ITRANS/ISO-15919/IAST option for accurate results.</li></ul>
 
 <b>Configurable Options:</b>
 
