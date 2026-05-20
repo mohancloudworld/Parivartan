@@ -1,8 +1,12 @@
 Parivartan
 ==========
-A Mozilla Firefox Extension to converter text from an Indian language to English and vice versa. Also supports Katapayadi sankhya system.
+A cross-browser extension (Chrome, Edge, Firefox) to convert text from an Indian language to English and vice versa. Also supports the Katapayadi sankhya system.
 
-This can be installed from <a href="https://addons.mozilla.org/en-US/firefox/addon/parivartan/" target="_blank">Firefox addons page</a>.
+Parivartan is a Manifest V3 WebExtension and runs on any Chromium-based browser as well as Firefox 115+.
+
+<b>Installation (unpacked / development):</b><ul>
+<li><b>Chrome / Edge:</b> open <code>chrome://extensions</code>, enable "Developer mode", click "Load unpacked" and select the <code>src/</code> directory.</li>
+<li><b>Firefox:</b> open <code>about:debugging#/runtime/this-firefox</code>, click "Load Temporary Add-on" and select <code>src/manifest.json</code>.</li></ul>
 
 <b>Supported formats:</b><ul>
 <li>Indian: Devanagari (Sanskrit/Hindi/Marathi), Telugu, Kannada, Gujarati, Tamil, Bengali, Gurmukhi (Punjabi), Malayalam and Oriya (Odia).</li>

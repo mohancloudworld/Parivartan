@@ -1,6 +1,7 @@
 "use strict";
 
-var myTable = require("../data/myTables.json");
+// PARIVARTAN_TABLES is provided by data/tables.js, injected before this file.
+var myTable = PARIVARTAN_TABLES;
 
 // Dictionaries to modify/extend the original dictionaries
 var devanagari_dict_mod = {};
@@ -525,7 +526,10 @@ function convert2Katapayadi(inp_txt) {
     return out;
 }
 
-exports.init = init;
-exports.detectLanguage = detectLanguage;
-exports.convert2IndicScript = convert2IndicScript;
-exports.convert2Katapayadi = convert2Katapayadi;
+// Exposed to the content script as a global within the isolated world.
+var Parivartan = {
+    init: init,
+    detectLanguage: detectLanguage,
+    convert2IndicScript: convert2IndicScript,
+    convert2Katapayadi: convert2Katapayadi
+};

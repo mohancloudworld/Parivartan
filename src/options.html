@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Parivartan Settings</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 14px;
+      margin: 20px;
+      min-width: 320px;
+      color: #1a1a1a;
+    }
+    h1 { font-size: 18px; margin: 0 0 16px; }
+    .option { display: flex; gap: 8px; align-items: flex-start; }
+    .option input { margin-top: 2px; }
+    .hint { color: #666; font-size: 12px; margin: 4px 0 0 24px; }
+    #status { color: #1a7f37; font-size: 12px; height: 16px; margin-top: 12px; }
+  </style>
+</head>
+<body>
+  <h1>Parivartan Settings</h1>
+  <label class="option">
+    <input type="checkbox" id="preferASCIIDigits">
+    <span>Prefer ASCII digits</span>
+  </label>
+  <p class="hint">When checked, digits 0&ndash;9 are left as-is instead of being converted to the Indian script.</p>
+  <p id="status"></p>
+  <script src="options.js"></script>
+</body>
+</html>

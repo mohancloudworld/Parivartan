@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "Parivartan",
+  "version": "1.0.0",
+  "description": "A text converter (not translator) between Indian languages and English (ITRANS / ISO-15919 / IAST). Also supports the Katapayadi sankhya system.",
+  "author": "Mohan G",
+  "homepage_url": "https://github.com/mohancloudworld/Parivartan",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "permissions": ["contextMenus", "storage", "scripting", "activeTab"],
+  "background": {
+    "service_worker": "background.js",
+    "scripts": ["background.js"]
+  },
+  "action": {
+    "default_title": "Parivartan settings",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png"
+    }
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "jid0-ZWPhsBicHWg3t63dOl6VIsrZYoE@jetpack",
+      "strict_min_version": "115.0"
+    }
+  }
+}
