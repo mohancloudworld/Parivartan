@@ -158,7 +158,7 @@ api.contextMenus.onClicked.addListener(async (info, tab) => {
   try {
     await api.scripting.executeScript({
       target: injectTarget,
-      files: ["data/tables.js", "lib/myModule.js", "content.js"],
+      files: ["data/tables.js", "lib/myModule.js", "lib/convert.js", "content.js"],
     });
     await api.scripting.executeScript({
       target: injectTarget,
@@ -180,8 +180,3 @@ api.contextMenus.onClicked.addListener(async (info, tab) => {
     // non-fatal — the conversion itself already succeeded
   }
 });
-
-// Toolbar button opens the settings page (the action has no popup).
-if (api.action && api.action.onClicked) {
-  api.action.onClicked.addListener(() => api.runtime.openOptionsPage());
-}

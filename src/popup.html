@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Parivartan</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 13px;
+      width: 340px;
+      margin: 0;
+      padding: 12px;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 10px;
+    }
+    h1 { font-size: 15px; margin: 0; }
+    header a { font-size: 12px; }
+    .row { margin-bottom: 8px; }
+    label { display: block; font-weight: 600; margin-bottom: 3px; }
+    select, textarea {
+      width: 100%;
+      box-sizing: border-box;
+      font-size: 13px;
+    }
+    textarea { resize: vertical; font-family: inherit; }
+    .hint { font-size: 11px; opacity: 0.65; margin-top: 3px; min-height: 14px; }
+    .result-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3px;
+    }
+    .result-head label { margin: 0; }
+    button { font-size: 12px; cursor: pointer; }
+    #output { background: rgba(127, 127, 127, 0.10); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Parivartan</h1>
+    <a href="#" id="settings-link">Settings</a>
+  </header>
+
+  <div class="row">
+    <label for="format">Input format</label>
+    <select id="format">
+      <option value="itrans">Auto-detect (Indian script or ITRANS)</option>
+      <option value="iso">English &mdash; ISO 15919</option>
+      <option value="iast">English &mdash; IAST</option>
+      <option value="general">English &mdash; General / loose</option>
+    </select>
+    <div class="hint" id="format-hint"></div>
+  </div>
+
+  <div class="row">
+    <label for="target">Convert to</label>
+    <select id="target"></select>
+  </div>
+
+  <div class="row">
+    <label for="input">Input</label>
+    <textarea id="input" rows="4" placeholder="Type or paste text here…"></textarea>
+  </div>
+
+  <div class="row">
+    <div class="result-head">
+      <label for="output">Result</label>
+      <button id="copy" type="button">Copy</button>
+    </div>
+    <textarea id="output" rows="4" readonly></textarea>
+  </div>
+
+  <script src="data/tables.js"></script>
+  <script src="lib/myModule.js"></script>
+  <script src="lib/convert.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

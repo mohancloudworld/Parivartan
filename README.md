@@ -30,6 +30,8 @@ This add-on converts the text in the text-boxes also, so this can be used to typ
 
 3. The <b>"Other input formats"</b> submenu holds the encoding-specific conversions: <ul><li><b>English (ISO 15919)</b> &rarr; the selected Indian language or Katapayadi sankhya.</li><li><b>English (IAST)</b> &rarr; the selected Indian language or Katapayadi sankhya.</li><li><b>General English</b> &mdash; also converts text that is not strictly ITRANS, ISO-15919 or IAST. Conversion in this mode may be less precise, so prefer the matching ITRANS/ISO-15919/IAST option for accurate results.</li></ul>
 
+<b>Toolbar popup:</b> Click the Parivartan toolbar button to open a popup where you can type or paste text, choose the input format and target script, watch the result update live, and copy it &mdash; all without altering any page content.
+
 <b>Configurable Options:</b>
 
 1. Prefer ASCII Digits: When selected, excludes ASCII numbers/digits from converting into Indian format. The default behaviour is to exclude. 

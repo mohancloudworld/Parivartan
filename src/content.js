@@ -45,39 +45,6 @@
     return null;
   }
 
-  // Replicates the per-menu conversion logic from the original add-on's main.js.
-  // Returns the converted string, or null when no conversion applies.
-  function runConversion(mode, target, inpHTML, inpText, preferASCIIDigits) {
-    const P = Parivartan;
-    const inpData = inpHTML || inpText;
-
-    if (mode === "itrans") {
-      const inpLang = P.detectLanguage(inpText);
-      if (target === "Katapayadi") {
-        const indic =
-          inpLang === "English"
-            ? P.convert2IndicScript(inpData, "ITRANS", "Devanagari", 1, 0, preferASCIIDigits)
-            : inpData;
-        return P.convert2Katapayadi(indic);
-      }
-      if (inpLang !== target) {
-        const itrans = P.convert2IndicScript(inpData, "ITRANS", inpLang, 1, 1, preferASCIIDigits);
-        if (target === "English") return itrans;
-        return P.convert2IndicScript(itrans, "ITRANS", target, 1, 0, preferASCIIDigits);
-      }
-      return null; // input already in the requested script
-    }
-
-    // iso / iast / general
-    const encoding = mode === "iast" ? "IAST" : "ISO";
-    const modeStrict = mode === "general" ? 0 : 1;
-    if (target === "Katapayadi") {
-      const indic = P.convert2IndicScript(inpData, encoding, "Devanagari", modeStrict, 0, preferASCIIDigits);
-      return P.convert2Katapayadi(indic);
-    }
-    return P.convert2IndicScript(inpData, encoding, target, modeStrict, 0, preferASCIIDigits);
-  }
-
   function htmlToPlainText(html) {
     const d = document.createElement("div");
     d.innerHTML = html;
@@ -115,7 +82,8 @@
     if (!ctx) return;
 
     Parivartan.init();
-    const result = runConversion(mode, target, ctx.html, ctx.text, preferASCIIDigits);
+    // parivartanRunConversion is provided by lib/convert.js, injected before this file.
+    const result = parivartanRunConversion(mode, target, ctx.html, ctx.text, preferASCIIDigits);
     if (result == null) return;
 
     applyResult(ctx, result);
