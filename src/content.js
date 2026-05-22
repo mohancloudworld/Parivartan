@@ -46,9 +46,8 @@
   }
 
   function htmlToPlainText(html) {
-    const d = document.createElement("div");
-    d.innerHTML = html;
-    return d.textContent;
+    // DOMParser yields an inert document, so no innerHTML assignment is needed.
+    return new DOMParser().parseFromString(html, "text/html").body.textContent;
   }
 
   function applyResult(ctx, result) {
@@ -68,10 +67,14 @@
     }
 
     // Range context: replace the selected nodes with the converted HTML.
-    const template = document.createElement("template");
-    template.innerHTML = result;
+    // DOMParser produces an inert document — no script execution or resource loads.
+    const parsed = new DOMParser().parseFromString(result, "text/html");
+    const fragment = document.createDocumentFragment();
+    while (parsed.body.firstChild) {
+      fragment.appendChild(parsed.body.firstChild);
+    }
     ctx.range.deleteContents();
-    ctx.range.insertNode(template.content);
+    ctx.range.insertNode(fragment);
 
     const sel = window.getSelection();
     if (sel) sel.removeAllRanges();
