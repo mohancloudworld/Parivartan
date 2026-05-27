@@ -238,12 +238,16 @@ function convertNextBlk2ITRANS(trans_dict, inp_txt, insideTag_p){
             break;
         }
         blk= inp_txt.substring(0, blkLen);
+        // ISO 15919 and IAST distinguish phonemes by diacritics, not letter
+        // case, so normalize to lowercase for the lookup. The original `blk`
+        // is preserved for the no-match fallthrough below.
+        var lowerCaseBlk = blk.toLowerCase();
         //if(debug){document.write( "<br>blk...:"+blk+" "+word_start+" "+vovel_needed+"<br>");}
 
-        if( array_key_exists(blk, trans_dict) ){
+        if( array_key_exists(lowerCaseBlk, trans_dict) ){
             Type = "Match";
-            out += trans_dict[blk];
-            //if(debug){document.write( "5: "+"-"+blk+" "+trans_dict[blk]);}
+            out += trans_dict[lowerCaseBlk];
+            //if(debug){document.write( "5: "+"-"+blk+" "+trans_dict[lowerCaseBlk]);}
             break;
         }
         // No match for the taken block
@@ -252,7 +256,12 @@ function convertNextBlk2ITRANS(trans_dict, inp_txt, insideTag_p){
         }
     }
     if(Type == "NoMatch"){// no match found
-        out += inp_txt[0];
+        // ASCII letters that have no direct entry in iso2itrans / iast2itrans
+        // pass through here unchanged. The downstream ITRANS pipeline is
+        // case-sensitive, so a stray uppercase letter would break the next
+        // lookup. Lowercase on the way out, but leave tag content (attribute
+        // values etc.) alone to keep markup intact.
+        out += insideTag ? inp_txt[0] : inp_txt[0].toLowerCase();
     }
     else{
         //if(debug){document.write( "Match "+vovel_needed+"<br>");}
