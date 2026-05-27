@@ -18,30 +18,36 @@ const LANGUAGES = [
 ];
 const KATAPAYADI = ["Katapayadi", "Katapayadi sankhya"];
 
-// The ITRANS path auto-detects the input script, so it is the default: its
-// targets sit flat at the top level of the menu, and it also offers English.
+// ITRANS auto-detects the input script and uniquely supports converting an
+// Indian script back to English, so its target list also includes "English".
 const ITRANS_TARGETS = [["English", "English"], ...LANGUAGES, KATAPAYADI];
-// ISO / IAST / General require the user to know the input encoding, so they are
-// grouped one level deeper under "Other input formats".
 const SCRIPT_TARGETS = [...LANGUAGES, KATAPAYADI];
-const OTHER_MENUS = [
-  { mode: "iso", label: "English (ISO 15919) to" },
-  { mode: "iast", label: "English (IAST) to" },
-  { mode: "general", label: "General English to" },
-];
 
-// value -> display label, used to title the "Convert to ..." repeat shortcut.
-const TARGET_LABELS = {};
-for (const [value, label] of ITRANS_TARGETS) {
-  TARGET_LABELS[value] = label;
-}
-// mode -> suffix, so the repeat shortcut is unambiguous about the input format.
-const MODE_SUFFIX = {
-  itrans: "",
-  iso: " — ISO 15919",
-  iast: " — IAST",
-  general: " — General English",
-};
+// Full hierarchy: one submenu per input format, in display order.
+// The same label is used both as the submenu title and as the hoisted-shortcut
+// header so the two paths read identically.
+const ALL_MENUS = [
+  {
+    mode: "itrans",
+    label: "From English (ITRANS) or any Indian script to",
+    targets: ITRANS_TARGETS,
+  },
+  {
+    mode: "iso",
+    label: "From English (ISO 15919) to",
+    targets: SCRIPT_TARGETS,
+  },
+  {
+    mode: "iast",
+    label: "From English (IAST) to",
+    targets: SCRIPT_TARGETS,
+  },
+  {
+    mode: "general",
+    label: "From General English to",
+    targets: SCRIPT_TARGETS,
+  },
+];
 
 async function buildMenus() {
   await api.contextMenus.removeAll();
@@ -52,62 +58,51 @@ async function buildMenus() {
     contexts: ["selection"],
   });
 
-  // Shortcut that repeats the most recent conversion, shown first when one exists.
-  let last = {};
+  // After the user picks any conversion, hoist that input format's targets
+  // flat to the top of the Parivartan menu, with a disabled header that
+  // names the format. The full hierarchy below stays available for switching.
+  let lastMode = "";
   try {
-    last = await api.storage.sync.get({ lastMode: "", lastTarget: "" });
+    const stored = await api.storage.sync.get({ lastMode: "" });
+    lastMode = stored.lastMode;
   } catch (e) {
     // storage unavailable — skip the shortcut
   }
-  if (last.lastMode && last.lastTarget) {
-    const label = TARGET_LABELS[last.lastTarget] || last.lastTarget;
-    const suffix = MODE_SUFFIX[last.lastMode] || "";
+  const lastMenu = ALL_MENUS.find((m) => m.mode === lastMode);
+  if (lastMenu) {
     api.contextMenus.create({
-      id: "repeat",
+      id: "fast-hdr",
       parentId: "parivartan",
-      title: "Convert to " + label + suffix,
+      title: lastMenu.label,
+      enabled: false,
       contexts: ["selection"],
     });
+    for (const [value, label] of lastMenu.targets) {
+      api.contextMenus.create({
+        id: "fast|" + lastMenu.mode + "|" + value,
+        parentId: "parivartan",
+        title: label,
+        contexts: ["selection"],
+      });
+    }
     api.contextMenus.create({
-      id: "sep-repeat",
+      id: "fast-sep",
       parentId: "parivartan",
       type: "separator",
       contexts: ["selection"],
     });
   }
 
-  // Default ITRANS / auto-detecting targets, flat at the top level.
-  for (const [value, label] of ITRANS_TARGETS) {
-    api.contextMenus.create({
-      id: "itrans|" + value,
-      parentId: "parivartan",
-      title: label,
-      contexts: ["selection"],
-    });
-  }
-
-  // Encoding-specific conversions, grouped one level deeper.
-  api.contextMenus.create({
-    id: "sep-other",
-    parentId: "parivartan",
-    type: "separator",
-    contexts: ["selection"],
-  });
-  api.contextMenus.create({
-    id: "other",
-    parentId: "parivartan",
-    title: "Other input formats",
-    contexts: ["selection"],
-  });
-  for (const menu of OTHER_MENUS) {
+  // Full hierarchy: each input format gets its own submenu.
+  for (const menu of ALL_MENUS) {
     const subId = "sub:" + menu.mode;
     api.contextMenus.create({
       id: subId,
-      parentId: "other",
+      parentId: "parivartan",
       title: menu.label,
       contexts: ["selection"],
     });
-    for (const [value, label] of SCRIPT_TARGETS) {
+    for (const [value, label] of menu.targets) {
       api.contextMenus.create({
         id: menu.mode + "|" + value,
         parentId: subId,
@@ -129,25 +124,28 @@ api.contextMenus.onClicked.addListener(async (info, tab) => {
 
   const id = String(info.menuItemId);
 
-  let stored = { preferASCIIDigits: true, lastMode: "", lastTarget: "" };
+  let stored = { preferASCIIDigits: true, lastMode: "" };
   try {
     stored = await api.storage.sync.get({
       preferASCIIDigits: true,
       lastMode: "",
-      lastTarget: "",
     });
   } catch (e) {
     // storage unavailable — fall back to defaults
   }
 
+  // Both id shapes encode (mode, target):
+  //   "fast|<mode>|<target>"  — flat shortcut at the top of the menu
+  //   "<mode>|<target>"       — full hierarchy submenu leaf
   let mode, target;
-  if (id === "repeat") {
-    if (!stored.lastMode || !stored.lastTarget) return;
-    mode = stored.lastMode;
-    target = stored.lastTarget;
+  if (id.startsWith("fast|")) {
+    const parts = id.split("|");
+    if (parts.length < 3) return;
+    mode = parts[1];
+    target = parts.slice(2).join("|");
   } else {
     const sep = id.indexOf("|");
-    if (sep < 0) return; // a parent or separator entry, not an action
+    if (sep < 0) return; // a parent, separator, or header — not an action
     mode = id.slice(0, sep);
     target = id.slice(sep + 1);
   }
@@ -172,11 +170,14 @@ api.contextMenus.onClicked.addListener(async (info, tab) => {
     return;
   }
 
-  // Remember this conversion and refresh the "Convert to ..." shortcut.
-  try {
-    await api.storage.sync.set({ lastMode: mode, lastTarget: target });
-    await buildMenus();
-  } catch (e) {
-    // non-fatal — the conversion itself already succeeded
+  // Rebuild only when the input format changed — picking another target in
+  // the same category leaves the hoisted shortcut block unchanged.
+  if (mode !== stored.lastMode) {
+    try {
+      await api.storage.sync.set({ lastMode: mode });
+      await buildMenus();
+    } catch (e) {
+      // non-fatal — the conversion itself already succeeded
+    }
   }
 });
