@@ -17,20 +17,27 @@ const LANGUAGES = [
   ["Oriya", "Oriya (ଓଡ଼ିଆ)"],
 ];
 const KATAPAYADI = ["Katapayadi", "Katapayadi sankhya"];
+const ENGLISH_TARGET = ["English", "English"];
 
-// ITRANS auto-detects the input script and uniquely supports converting an
-// Indian script back to English, so its target list also includes "English".
-const ITRANS_TARGETS = [["English", "English"], ...LANGUAGES, KATAPAYADI];
+// Targets for English-input formats: all Indic scripts + Katapayadi.
 const SCRIPT_TARGETS = [...LANGUAGES, KATAPAYADI];
+// Targets for the "any Indian script" reverse path: any other Indic script,
+// English (ITRANS), or Katapayadi.
+const INDIC_TARGETS = [ENGLISH_TARGET, ...LANGUAGES, KATAPAYADI];
 
 // Full hierarchy: one submenu per input format, in display order.
 // The same label is used both as the submenu title and as the hoisted-shortcut
 // header so the two paths read identically.
 const ALL_MENUS = [
   {
+    mode: "indic",
+    label: "From any Indian script to",
+    targets: INDIC_TARGETS,
+  },
+  {
     mode: "itrans",
-    label: "From English (ITRANS) or any Indian script to",
-    targets: ITRANS_TARGETS,
+    label: "From English (ITRANS) to",
+    targets: SCRIPT_TARGETS,
   },
   {
     mode: "iso",

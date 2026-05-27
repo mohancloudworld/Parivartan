@@ -25,12 +25,13 @@ This add-on converts the text in the text-boxes also, so this can be used to typ
 <b>Menu layout:</b>
 
 1. The "Parivartan" menu has one submenu per input format, each listing the available target scripts:<ul>
-<li><b>"From English (ITRANS) or any Indian script to"</b> &mdash; the bidirectional path, with automatic input-script detection. Handles most cases:<ul><li>English (ITRANS) text &rarr; the selected Indian language or Katapayadi sankhya.</li><li>Any Indian language &rarr; English (ITRANS) or Katapayadi sankhya.</li><li>Any Indian language &rarr; another Indian language or Katapayadi sankhya.</li></ul></li>
+<li><b>"From any Indian script to"</b> &mdash; auto-detects the input Indian language. Targets: another Indian language, English (ITRANS) or Katapayadi sankhya.</li>
+<li><b>"From English (ITRANS) to"</b> &rarr; the selected Indian language or Katapayadi sankhya.</li>
 <li><b>"From English (ISO 15919) to"</b> &rarr; the selected Indian language or Katapayadi sankhya.</li>
 <li><b>"From English (IAST) to"</b> &rarr; the selected Indian language or Katapayadi sankhya.</li>
 <li><b>"From General English to"</b> &mdash; also converts text that is not strictly ITRANS, ISO-15919 or IAST. Conversion in this mode may be less precise, so prefer the matching ITRANS/ISO-15919/IAST option for accurate results.</li></ul>
 
-2. After your first conversion, the targets for that input format are also <b>hoisted flat to the top</b> of the Parivartan menu under a greyed-out header that names the format (for example, "From English (ITRANS) or any Indian script to"). Subsequent conversions in the same category take one click less; switching to a different input format from one of the submenus updates the hoisted list.
+2. After your first conversion, the targets for that input format are also <b>hoisted flat to the top</b> of the Parivartan menu under a greyed-out header that names the format (for example, "From English (ITRANS) to"). Subsequent conversions in the same category take one click less; switching to a different input format from one of the submenus updates the hoisted list.
 
 <b>Toolbar popup:</b> Click the Parivartan toolbar button to open a popup where you can type or paste text, choose the input format and target script, watch the result update live, and copy it &mdash; all without altering any page content.
 

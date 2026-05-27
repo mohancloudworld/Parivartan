@@ -3,7 +3,8 @@
 const api = globalThis.browser || globalThis.chrome;
 
 const FORMAT_HINTS = {
-  itrans: "Auto-detects the input: an Indian script, or English typed in ITRANS.",
+  indic: "Input is in an Indian script — auto-detects which one (Devanagari, Telugu, Kannada, …).",
+  itrans: "Input is English typed in the ITRANS transliteration scheme.",
   iso: "Input is English in the ISO 15919 transliteration standard.",
   iast: "Input is English in IAST (transliteration with diacritic marks).",
   general: "Loose English spelling — handy, but less accurate than ITRANS / ISO 15919 / IAST.",
@@ -36,9 +37,9 @@ let preferASCIIDigits = true;
 
 function rebuildTargetOptions() {
   const previous = targetSel.value || DEFAULT_TARGET;
-  // English is a valid target only for the auto-detecting ITRANS mode.
+  // English is a valid target only for the reverse "any Indian script" path.
   const targets =
-    formatSel.value === "itrans"
+    formatSel.value === "indic"
       ? [ENGLISH_TARGET, ...LANGUAGE_TARGETS]
       : LANGUAGE_TARGETS;
 
