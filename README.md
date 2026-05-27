@@ -24,11 +24,13 @@ This add-on converts the text in the text-boxes also, so this can be used to typ
 
 <b>Menu layout:</b>
 
-1. The "Parivartan" menu lists the target scripts directly. Picking one converts the selection using <b>ITRANS</b> with automatic input-script detection &mdash; this is the default and handles most cases: <ul><li>English (ITRANS) text &rarr; the selected Indian language or Katapayadi sankhya.</li><li>Any Indian language &rarr; English (ITRANS) or Katapayadi sankhya.</li><li>Any Indian language &rarr; another Indian language or Katapayadi sankhya.</li></ul>
+1. The "Parivartan" menu has one submenu per input format, each listing the available target scripts:<ul>
+<li><b>"From English (ITRANS) or any Indian script to"</b> &mdash; the bidirectional path, with automatic input-script detection. Handles most cases:<ul><li>English (ITRANS) text &rarr; the selected Indian language or Katapayadi sankhya.</li><li>Any Indian language &rarr; English (ITRANS) or Katapayadi sankhya.</li><li>Any Indian language &rarr; another Indian language or Katapayadi sankhya.</li></ul></li>
+<li><b>"From English (ISO 15919) to"</b> &rarr; the selected Indian language or Katapayadi sankhya.</li>
+<li><b>"From English (IAST) to"</b> &rarr; the selected Indian language or Katapayadi sankhya.</li>
+<li><b>"From General English to"</b> &mdash; also converts text that is not strictly ITRANS, ISO-15919 or IAST. Conversion in this mode may be less precise, so prefer the matching ITRANS/ISO-15919/IAST option for accurate results.</li></ul>
 
-2. Once you have used Parivartan at least once, a <b>"Convert to ..."</b> shortcut appears at the top of the menu and repeats your most recent conversion in one step.
-
-3. The <b>"Other input formats"</b> submenu holds the encoding-specific conversions: <ul><li><b>English (ISO 15919)</b> &rarr; the selected Indian language or Katapayadi sankhya.</li><li><b>English (IAST)</b> &rarr; the selected Indian language or Katapayadi sankhya.</li><li><b>General English</b> &mdash; also converts text that is not strictly ITRANS, ISO-15919 or IAST. Conversion in this mode may be less precise, so prefer the matching ITRANS/ISO-15919/IAST option for accurate results.</li></ul>
+2. After your first conversion, the targets for that input format are also <b>hoisted flat to the top</b> of the Parivartan menu under a greyed-out header that names the format (for example, "From English (ITRANS) or any Indian script to"). Subsequent conversions in the same category take one click less; switching to a different input format from one of the submenus updates the hoisted list.
 
 <b>Toolbar popup:</b> Click the Parivartan toolbar button to open a popup where you can type or paste text, choose the input format and target script, watch the result update live, and copy it &mdash; all without altering any page content.
 
