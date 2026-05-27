@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Parivartan",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A text converter (not translator) between Indian scripts and English: ITRANS, ISO-15919, IAST. Also Katapayadi sankhya.",
   "author": "Mohan G",
   "homepage_url": "https://github.com/mohancloudworld/Parivartan",
