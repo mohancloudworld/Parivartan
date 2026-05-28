@@ -459,7 +459,10 @@ var telugu_dict = {
         "\u030A":   "\u030A", // ॰ ABBREVIATION SIGN • intended for Devanagari-specific abbreviations
         "\u030D":   "\u030D", // $॑ STRESS SIGN UDATTA = Vedic tone svarita
         "\u0323":   "\u0323", // $़ SIGN NUKTA • for extending the alphabet to new letters
-        "\u0332":   "\u0332"  // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta
+        "\u0332":   "\u0332", // $॒ STRESS SIGN ANUDATTA = Vedic tone anudatta
+
+        // Sign
+        "\u0323":   "\u0C3C"  // $఼ TELUGU SIGN NUKTA • used for Tamil transliteration and Perso-Arabic phonemes • can also appear as a large dot, should be placed sufficiently below the baseline of a consonant to avoid confusion/collision with the aspiration marker
     },
 
     "Others": { // ()

@@ -201,6 +201,19 @@ const tests = [
     expected: String.fromCodePoint(0x0C15, 0x200D, 0x0C30),
   },
 
+  {
+    name: "nukta: Telugu maps generic U+0323 to native nukta U+0C3C",
+    mode: "itrans", target: "Telugu",
+    input: "ka" + String.fromCodePoint(0x0323),
+    expected: String.fromCodePoint(0x0C15, 0x0C3C),
+  },
+  {
+    name: "nukta: Devanagari maps U+0323 to its own nukta U+093C (per-script)",
+    mode: "itrans", target: "Devanagari",
+    input: "ka" + String.fromCodePoint(0x0323),
+    expected: String.fromCodePoint(0x0915, 0x093C),
+  },
+
   // ----- HTML preservation -----
   {
     name: "HTML: ITRANS phrase with <b> and <i> tags preserved",
