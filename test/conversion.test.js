@@ -171,6 +171,36 @@ const tests = [
     expected: null,
   },
 
+  // ----- Accent & control marks (Accent_marks handling) -----
+  // Inputs/outputs use String.fromCodePoint so combining marks are not
+  // silently normalized to precomposed forms. Combining accent marks convert
+  // to native signs in Devanagari but are preserved unchanged in scripts with
+  // no native equivalent; zero-width controls are preserved everywhere.
+  {
+    name: "accent: combining acute (U+0301) -> Devanagari acute (U+0954)",
+    mode: "itrans", target: "Devanagari",
+    input: "ka" + String.fromCodePoint(0x0301),
+    expected: String.fromCodePoint(0x0915, 0x0954),
+  },
+  {
+    name: "accent: combining acute (U+0301) preserved in Telugu (no native sign)",
+    mode: "itrans", target: "Telugu",
+    input: "ka" + String.fromCodePoint(0x0301),
+    expected: String.fromCodePoint(0x0C15, 0x0301),
+  },
+  {
+    name: "accent: vertical line (U+030D) -> Devanagari udatta (U+0951)",
+    mode: "itrans", target: "Devanagari",
+    input: "ra" + String.fromCodePoint(0x030D),
+    expected: String.fromCodePoint(0x0930, 0x0951),
+  },
+  {
+    name: "control: ZWJ (U+200D) preserved across the conversion",
+    mode: "itrans", target: "Telugu",
+    input: "ka" + String.fromCodePoint(0x200D) + "ra",
+    expected: String.fromCodePoint(0x0C15, 0x200D, 0x0C30),
+  },
+
   // ----- HTML preservation -----
   {
     name: "HTML: ITRANS phrase with <b> and <i> tags preserved",

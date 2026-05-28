@@ -5,10 +5,10 @@
 <title>Parivartan — Transliteration ↔ Script Mapping</title>
 <style>
   :root{--bg:#fff;--fg:#1a1a1a;--muted:#5b6b73;--line:#d8dde2;--head:#eef2f6;
-    --green:#cdeccd;--yellow:#fbf3c4;--red:#f6cccc;--na:#f0f0f0;--ref:#dfe7f0;--tipbg:#222;--tipfg:#fff;}
+    --green:#cdeccd;--yellow:#fbf3c4;--red:#f6cccc;--na:#f0f0f0;--ref:#dfe7f0;--pass:#d3ecec;--tipbg:#222;--tipfg:#fff;}
   @media(prefers-color-scheme:dark){:root{--bg:#181a1c;--fg:#e6e8eb;--muted:#98a2a8;
     --line:#353a3f;--head:#22262a;--green:#2c4a2c;--yellow:#4a431d;--red:#522a2a;--na:#202428;
-    --ref:#2a323d;--tipbg:#0c0c0c;--tipfg:#f2f2f2;}}
+    --ref:#2a323d;--pass:#213a3a;--tipbg:#0c0c0c;--tipfg:#f2f2f2;}}
   html{box-sizing:border-box}*,*::before,*::after{box-sizing:inherit}
   body{background:var(--bg);color:var(--fg);font-family:-apple-system,"Segoe UI",Roboto,sans-serif;
     margin:0 auto;max-width:1100px;padding:28px 20px 120px;line-height:1.5}
@@ -18,7 +18,7 @@
   .legend span{display:inline-flex;align-items:center;gap:6px}
   .sw{width:15px;height:15px;border-radius:3px;border:1px solid var(--line);display:inline-block}
   .sw.green{background:var(--green)}.sw.yellow{background:var(--yellow)}
-  .sw.red{background:var(--red)}.sw.na{background:var(--na)}.sw.ref{background:var(--ref)}
+  .sw.red{background:var(--red)}.sw.na{background:var(--na)}.sw.ref{background:var(--ref)}.sw.pass{background:var(--pass)}
   table{border-collapse:collapse;width:100%;font-size:.95em}
   th,td{border:1px solid var(--line);padding:5px 8px;text-align:center}
   thead th{position:sticky;top:0;background:var(--head);z-index:2}
@@ -30,7 +30,7 @@
   td.cell{font-size:1.5em;line-height:1}
   td.green{background:var(--green)}td.yellow{background:var(--yellow)}
   td.red{background:var(--red)}td.na{background:var(--na);color:var(--muted);font-size:1em}
-  td.ref{background:var(--ref)}td.blank{background:transparent}
+  td.ref{background:var(--ref)}td.pass{background:var(--pass)}td.blank{background:transparent}
   .sym{position:relative;cursor:help}
   .sym:hover::after{content:attr(data-tip);white-space:pre;position:absolute;left:50%;
     transform:translateX(-50%);bottom:135%;background:var(--tipbg);color:var(--tipfg);
@@ -77,10 +77,11 @@
   <span><i class="sw yellow"></i> missing</span>
   <span><i class="sw na"></i> not in this script</span>
   <span><i class="sw ref"></i> untransliterable (no ITRANS/ISO/IAST/Katapayadi)</span>
+  <span><i class="sw pass"></i> mark preserved (no native sign)</span>
 </div>
 <div class="summary">Validated against <code>src/data/tables.js</code> &mdash;
-  green: 699, yellow (missing): 8, red (wrong): 2,
-  grey (n/a): 182, untransliterable: 296. Unicode metadata from the official UCD.</div>
+  green: 706, yellow (missing): 9, red (wrong): 2,
+  grey (n/a): 182, untransliterable: 296, preserved-mark: 64. Unicode metadata from the official UCD.</div>
 <div class="toolbar">
   <div class="search-wrap">
     <input id="search" type="text" placeholder="Search symbol, ITRANS/ISO/IAST, codepoint (e.g. 0c15 or U+0C15), Unicode name, block…" autocomplete="off" spellcheck="false">
@@ -93,6 +94,7 @@
     <label><input type="checkbox" class="stf" value="yellow" checked> yellow</label>
     <label><input type="checkbox" class="stf" value="na" checked> n/a</label>
     <label><input type="checkbox" class="stf" value="ref" checked> untransliterable</label>
+    <label><input type="checkbox" class="stf" value="pass" checked> preserved</label>
   </div>
   <label class="sortlabel">Sort
     <select id="sort">
@@ -3763,6 +3765,407 @@ Oriya
 Unicode 1.1 (1993)
 — ITRANS keys: 9
 click to copy codepoint" data-cphex="U+0B6F">୯</span></td></tr>
+<tr class="group-head"><td colspan="13">Accent &amp; control marks — extension's Accent_marks (input mark → per-script output; ◌ = dotted circle)</td></tr>
+<tr data-search="200b u+200b zero width space general punctuation accent 200b u+200b zero width space 200b u+200b zero width space 200b u+200b zero width space 200b u+200b zero width space 200b u+200b zero width space 200b u+200b zero width space 200b u+200b zero width space 200b u+200b zero width space 200b u+200b zero width space" data-visible="◌​" data-status="pass" data-cp="8203"><td class="itrans" data-col="itrans"><span class="sym" data-tip="U+200B
+ZERO WIDTH SPACE
+General Punctuation
+Unicode 1.1 (1993)
+input mark" data-cphex="U+200B">◌​</span></td><td class="lat" data-col="iso">&mdash;</td><td class="lat" data-col="iast">&mdash;</td><td class="kata" data-col="kata">&mdash;</td><td class="cell pass" data-col="devanagari"><span class="sym" data-tip="U+200B
+ZERO WIDTH SPACE
+General Punctuation
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+200B">◌​</span></td><td class="cell pass" data-col="telugu"><span class="sym" data-tip="U+200B
+ZERO WIDTH SPACE
+General Punctuation
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+200B">◌​</span></td><td class="cell pass" data-col="kannada"><span class="sym" data-tip="U+200B
+ZERO WIDTH SPACE
+General Punctuation
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+200B">◌​</span></td><td class="cell pass" data-col="gujarati"><span class="sym" data-tip="U+200B
+ZERO WIDTH SPACE
+General Punctuation
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+200B">◌​</span></td><td class="cell pass" data-col="tamil"><span class="sym" data-tip="U+200B
+ZERO WIDTH SPACE
+General Punctuation
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+200B">◌​</span></td><td class="cell pass" data-col="bengali"><span class="sym" data-tip="U+200B
+ZERO WIDTH SPACE
+General Punctuation
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+200B">◌​</span></td><td class="cell pass" data-col="gurmukhi"><span class="sym" data-tip="U+200B
+ZERO WIDTH SPACE
+General Punctuation
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+200B">◌​</span></td><td class="cell pass" data-col="malayalam"><span class="sym" data-tip="U+200B
+ZERO WIDTH SPACE
+General Punctuation
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+200B">◌​</span></td><td class="cell pass" data-col="oriya"><span class="sym" data-tip="U+200B
+ZERO WIDTH SPACE
+General Punctuation
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+200B">◌​</span></td></tr>
+<tr data-search="200d u+200d zero width joiner general punctuation accent 200d u+200d zero width joiner 200d u+200d zero width joiner 200d u+200d zero width joiner 200d u+200d zero width joiner 200d u+200d zero width joiner 200d u+200d zero width joiner 200d u+200d zero width joiner 200d u+200d zero width joiner 200d u+200d zero width joiner" data-visible="◌‍" data-status="pass" data-cp="8205"><td class="itrans" data-col="itrans"><span class="sym" data-tip="U+200D
+ZERO WIDTH JOINER
+General Punctuation
+Unicode 1.1 (1993)
+input mark" data-cphex="U+200D">◌‍</span></td><td class="lat" data-col="iso">&mdash;</td><td class="lat" data-col="iast">&mdash;</td><td class="kata" data-col="kata">&mdash;</td><td class="cell pass" data-col="devanagari"><span class="sym" data-tip="U+200D
+ZERO WIDTH JOINER
+General Punctuation
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+200D">◌‍</span></td><td class="cell pass" data-col="telugu"><span class="sym" data-tip="U+200D
+ZERO WIDTH JOINER
+General Punctuation
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+200D">◌‍</span></td><td class="cell pass" data-col="kannada"><span class="sym" data-tip="U+200D
+ZERO WIDTH JOINER
+General Punctuation
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+200D">◌‍</span></td><td class="cell pass" data-col="gujarati"><span class="sym" data-tip="U+200D
+ZERO WIDTH JOINER
+General Punctuation
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+200D">◌‍</span></td><td class="cell pass" data-col="tamil"><span class="sym" data-tip="U+200D
+ZERO WIDTH JOINER
+General Punctuation
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+200D">◌‍</span></td><td class="cell pass" data-col="bengali"><span class="sym" data-tip="U+200D
+ZERO WIDTH JOINER
+General Punctuation
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+200D">◌‍</span></td><td class="cell pass" data-col="gurmukhi"><span class="sym" data-tip="U+200D
+ZERO WIDTH JOINER
+General Punctuation
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+200D">◌‍</span></td><td class="cell pass" data-col="malayalam"><span class="sym" data-tip="U+200D
+ZERO WIDTH JOINER
+General Punctuation
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+200D">◌‍</span></td><td class="cell pass" data-col="oriya"><span class="sym" data-tip="U+200D
+ZERO WIDTH JOINER
+General Punctuation
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+200D">◌‍</span></td></tr>
+<tr data-search="300 u+0300 combining grave accent combining diacritical marks accent 953 u+0953 devanagari grave accent 300 u+0300 combining grave accent 300 u+0300 combining grave accent 300 u+0300 combining grave accent 300 u+0300 combining grave accent 300 u+0300 combining grave accent 300 u+0300 combining grave accent 300 u+0300 combining grave accent 300 u+0300 combining grave accent" data-visible="◌̀" data-status="green pass" data-cp="768"><td class="itrans" data-col="itrans"><span class="sym" data-tip="U+0300
+COMBINING GRAVE ACCENT
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+input mark" data-cphex="U+0300">◌̀</span></td><td class="lat" data-col="iso">&mdash;</td><td class="lat" data-col="iast">&mdash;</td><td class="kata" data-col="kata">&mdash;</td><td class="cell green" data-col="devanagari"><span class="sym" data-tip="U+0953
+DEVANAGARI GRAVE ACCENT
+Devanagari
+Unicode 1.1 (1993)
+— converted to native sign
+click to copy codepoint" data-cphex="U+0953">◌॓</span></td><td class="cell pass" data-col="telugu"><span class="sym" data-tip="U+0300
+COMBINING GRAVE ACCENT
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0300">◌̀</span></td><td class="cell pass" data-col="kannada"><span class="sym" data-tip="U+0300
+COMBINING GRAVE ACCENT
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0300">◌̀</span></td><td class="cell pass" data-col="gujarati"><span class="sym" data-tip="U+0300
+COMBINING GRAVE ACCENT
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0300">◌̀</span></td><td class="cell pass" data-col="tamil"><span class="sym" data-tip="U+0300
+COMBINING GRAVE ACCENT
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0300">◌̀</span></td><td class="cell pass" data-col="bengali"><span class="sym" data-tip="U+0300
+COMBINING GRAVE ACCENT
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0300">◌̀</span></td><td class="cell pass" data-col="gurmukhi"><span class="sym" data-tip="U+0300
+COMBINING GRAVE ACCENT
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0300">◌̀</span></td><td class="cell pass" data-col="malayalam"><span class="sym" data-tip="U+0300
+COMBINING GRAVE ACCENT
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0300">◌̀</span></td><td class="cell pass" data-col="oriya"><span class="sym" data-tip="U+0300
+COMBINING GRAVE ACCENT
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0300">◌̀</span></td></tr>
+<tr data-search="301 u+0301 combining acute accent combining diacritical marks accent 954 u+0954 devanagari acute accent 301 u+0301 combining acute accent 301 u+0301 combining acute accent 301 u+0301 combining acute accent 301 u+0301 combining acute accent 301 u+0301 combining acute accent 301 u+0301 combining acute accent 301 u+0301 combining acute accent 301 u+0301 combining acute accent" data-visible="◌́" data-status="green pass" data-cp="769"><td class="itrans" data-col="itrans"><span class="sym" data-tip="U+0301
+COMBINING ACUTE ACCENT
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+input mark" data-cphex="U+0301">◌́</span></td><td class="lat" data-col="iso">&mdash;</td><td class="lat" data-col="iast">&mdash;</td><td class="kata" data-col="kata">&mdash;</td><td class="cell green" data-col="devanagari"><span class="sym" data-tip="U+0954
+DEVANAGARI ACUTE ACCENT
+Devanagari
+Unicode 1.1 (1993)
+— converted to native sign
+click to copy codepoint" data-cphex="U+0954">◌॔</span></td><td class="cell pass" data-col="telugu"><span class="sym" data-tip="U+0301
+COMBINING ACUTE ACCENT
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0301">◌́</span></td><td class="cell pass" data-col="kannada"><span class="sym" data-tip="U+0301
+COMBINING ACUTE ACCENT
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0301">◌́</span></td><td class="cell pass" data-col="gujarati"><span class="sym" data-tip="U+0301
+COMBINING ACUTE ACCENT
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0301">◌́</span></td><td class="cell pass" data-col="tamil"><span class="sym" data-tip="U+0301
+COMBINING ACUTE ACCENT
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0301">◌́</span></td><td class="cell pass" data-col="bengali"><span class="sym" data-tip="U+0301
+COMBINING ACUTE ACCENT
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0301">◌́</span></td><td class="cell pass" data-col="gurmukhi"><span class="sym" data-tip="U+0301
+COMBINING ACUTE ACCENT
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0301">◌́</span></td><td class="cell pass" data-col="malayalam"><span class="sym" data-tip="U+0301
+COMBINING ACUTE ACCENT
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0301">◌́</span></td><td class="cell pass" data-col="oriya"><span class="sym" data-tip="U+0301
+COMBINING ACUTE ACCENT
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0301">◌́</span></td></tr>
+<tr data-search="307 u+0307 combining dot above combining diacritical marks accent 971 u+0971 devanagari sign high spacing dot 307 u+0307 combining dot above 307 u+0307 combining dot above 307 u+0307 combining dot above 307 u+0307 combining dot above 307 u+0307 combining dot above 307 u+0307 combining dot above 307 u+0307 combining dot above 307 u+0307 combining dot above" data-visible="◌̇" data-status="green pass" data-cp="775"><td class="itrans" data-col="itrans"><span class="sym" data-tip="U+0307
+COMBINING DOT ABOVE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+input mark" data-cphex="U+0307">◌̇</span></td><td class="lat" data-col="iso">&mdash;</td><td class="lat" data-col="iast">&mdash;</td><td class="kata" data-col="kata">&mdash;</td><td class="cell green" data-col="devanagari"><span class="sym" data-tip="U+0971
+DEVANAGARI SIGN HIGH SPACING DOT
+Devanagari
+Unicode 5.1 (2008)
+— converted to native sign
+click to copy codepoint" data-cphex="U+0971">◌ॱ</span></td><td class="cell pass" data-col="telugu"><span class="sym" data-tip="U+0307
+COMBINING DOT ABOVE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0307">◌̇</span></td><td class="cell pass" data-col="kannada"><span class="sym" data-tip="U+0307
+COMBINING DOT ABOVE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0307">◌̇</span></td><td class="cell pass" data-col="gujarati"><span class="sym" data-tip="U+0307
+COMBINING DOT ABOVE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0307">◌̇</span></td><td class="cell pass" data-col="tamil"><span class="sym" data-tip="U+0307
+COMBINING DOT ABOVE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0307">◌̇</span></td><td class="cell pass" data-col="bengali"><span class="sym" data-tip="U+0307
+COMBINING DOT ABOVE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0307">◌̇</span></td><td class="cell pass" data-col="gurmukhi"><span class="sym" data-tip="U+0307
+COMBINING DOT ABOVE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0307">◌̇</span></td><td class="cell pass" data-col="malayalam"><span class="sym" data-tip="U+0307
+COMBINING DOT ABOVE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0307">◌̇</span></td><td class="cell pass" data-col="oriya"><span class="sym" data-tip="U+0307
+COMBINING DOT ABOVE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0307">◌̇</span></td></tr>
+<tr data-search="30a u+030a combining ring above combining diacritical marks accent 970 u+0970 devanagari abbreviation sign 30a u+030a combining ring above 30a u+030a combining ring above 30a u+030a combining ring above 30a u+030a combining ring above 30a u+030a combining ring above 30a u+030a combining ring above 30a u+030a combining ring above 30a u+030a combining ring above" data-visible="◌̊" data-status="green pass yellow" data-cp="778"><td class="itrans" data-col="itrans"><span class="sym" data-tip="U+030A
+COMBINING RING ABOVE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+input mark" data-cphex="U+030A">◌̊</span></td><td class="lat" data-col="iso">&mdash;</td><td class="lat" data-col="iast">&mdash;</td><td class="kata" data-col="kata">&mdash;</td><td class="cell green" data-col="devanagari"><span class="sym" data-tip="U+0970
+DEVANAGARI ABBREVIATION SIGN
+Devanagari
+Unicode 1.1 (1993)
+— converted to native sign
+click to copy codepoint" data-cphex="U+0970">◌॰</span></td><td class="cell pass" data-col="telugu"><span class="sym" data-tip="U+030A
+COMBINING RING ABOVE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+030A">◌̊</span></td><td class="cell pass" data-col="kannada"><span class="sym" data-tip="U+030A
+COMBINING RING ABOVE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+030A">◌̊</span></td><td class="cell yellow" data-col="gujarati"><span class="sym" data-tip="U+030A
+COMBINING RING ABOVE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved — but native U+0AF0 exists (should convert)
+click to copy codepoint" data-cphex="U+030A">◌̊</span></td><td class="cell pass" data-col="tamil"><span class="sym" data-tip="U+030A
+COMBINING RING ABOVE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+030A">◌̊</span></td><td class="cell pass" data-col="bengali"><span class="sym" data-tip="U+030A
+COMBINING RING ABOVE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+030A">◌̊</span></td><td class="cell pass" data-col="gurmukhi"><span class="sym" data-tip="U+030A
+COMBINING RING ABOVE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+030A">◌̊</span></td><td class="cell pass" data-col="malayalam"><span class="sym" data-tip="U+030A
+COMBINING RING ABOVE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+030A">◌̊</span></td><td class="cell pass" data-col="oriya"><span class="sym" data-tip="U+030A
+COMBINING RING ABOVE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+030A">◌̊</span></td></tr>
+<tr data-search="30d u+030d combining vertical line above combining diacritical marks accent 951 u+0951 devanagari stress sign udatta 30d u+030d combining vertical line above 30d u+030d combining vertical line above 30d u+030d combining vertical line above 30d u+030d combining vertical line above 30d u+030d combining vertical line above a51 u+0a51 gurmukhi sign udaat 30d u+030d combining vertical line above 30d u+030d combining vertical line above" data-visible="◌̍" data-status="green pass" data-cp="781"><td class="itrans" data-col="itrans"><span class="sym" data-tip="U+030D
+COMBINING VERTICAL LINE ABOVE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+input mark" data-cphex="U+030D">◌̍</span></td><td class="lat" data-col="iso">&mdash;</td><td class="lat" data-col="iast">&mdash;</td><td class="kata" data-col="kata">&mdash;</td><td class="cell green" data-col="devanagari"><span class="sym" data-tip="U+0951
+DEVANAGARI STRESS SIGN UDATTA
+Devanagari
+Unicode 1.1 (1993)
+— converted to native sign
+click to copy codepoint" data-cphex="U+0951">◌॑</span></td><td class="cell pass" data-col="telugu"><span class="sym" data-tip="U+030D
+COMBINING VERTICAL LINE ABOVE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+030D">◌̍</span></td><td class="cell pass" data-col="kannada"><span class="sym" data-tip="U+030D
+COMBINING VERTICAL LINE ABOVE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+030D">◌̍</span></td><td class="cell pass" data-col="gujarati"><span class="sym" data-tip="U+030D
+COMBINING VERTICAL LINE ABOVE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+030D">◌̍</span></td><td class="cell pass" data-col="tamil"><span class="sym" data-tip="U+030D
+COMBINING VERTICAL LINE ABOVE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+030D">◌̍</span></td><td class="cell pass" data-col="bengali"><span class="sym" data-tip="U+030D
+COMBINING VERTICAL LINE ABOVE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+030D">◌̍</span></td><td class="cell green" data-col="gurmukhi"><span class="sym" data-tip="U+0A51
+GURMUKHI SIGN UDAAT
+Gurmukhi
+Unicode 5.1 (2008)
+— converted to native sign
+click to copy codepoint" data-cphex="U+0A51">◌ੑ</span></td><td class="cell pass" data-col="malayalam"><span class="sym" data-tip="U+030D
+COMBINING VERTICAL LINE ABOVE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+030D">◌̍</span></td><td class="cell pass" data-col="oriya"><span class="sym" data-tip="U+030D
+COMBINING VERTICAL LINE ABOVE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+030D">◌̍</span></td></tr>
+<tr data-search="332 u+0332 combining low line combining diacritical marks accent 952 u+0952 devanagari stress sign anudatta 332 u+0332 combining low line 332 u+0332 combining low line 332 u+0332 combining low line 332 u+0332 combining low line 332 u+0332 combining low line 332 u+0332 combining low line 332 u+0332 combining low line 332 u+0332 combining low line" data-visible="◌̲" data-status="green pass" data-cp="818"><td class="itrans" data-col="itrans"><span class="sym" data-tip="U+0332
+COMBINING LOW LINE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+input mark" data-cphex="U+0332">◌̲</span></td><td class="lat" data-col="iso">&mdash;</td><td class="lat" data-col="iast">&mdash;</td><td class="kata" data-col="kata">&mdash;</td><td class="cell green" data-col="devanagari"><span class="sym" data-tip="U+0952
+DEVANAGARI STRESS SIGN ANUDATTA
+Devanagari
+Unicode 1.1 (1993)
+— converted to native sign
+click to copy codepoint" data-cphex="U+0952">◌॒</span></td><td class="cell pass" data-col="telugu"><span class="sym" data-tip="U+0332
+COMBINING LOW LINE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0332">◌̲</span></td><td class="cell pass" data-col="kannada"><span class="sym" data-tip="U+0332
+COMBINING LOW LINE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0332">◌̲</span></td><td class="cell pass" data-col="gujarati"><span class="sym" data-tip="U+0332
+COMBINING LOW LINE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0332">◌̲</span></td><td class="cell pass" data-col="tamil"><span class="sym" data-tip="U+0332
+COMBINING LOW LINE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0332">◌̲</span></td><td class="cell pass" data-col="bengali"><span class="sym" data-tip="U+0332
+COMBINING LOW LINE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0332">◌̲</span></td><td class="cell pass" data-col="gurmukhi"><span class="sym" data-tip="U+0332
+COMBINING LOW LINE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0332">◌̲</span></td><td class="cell pass" data-col="malayalam"><span class="sym" data-tip="U+0332
+COMBINING LOW LINE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0332">◌̲</span></td><td class="cell pass" data-col="oriya"><span class="sym" data-tip="U+0332
+COMBINING LOW LINE
+Combining Diacritical Marks
+Unicode 1.1 (1993)
+— preserved (no native equivalent)
+click to copy codepoint" data-cphex="U+0332">◌̲</span></td></tr>
 <tr class="group-head"><td colspan="13">Devanagari — untransliterable (script-specific characters)</td></tr>
 <tr data-search="ऀ 900 u+0900 devanagari sign inverted candrabindu devanagari" data-visible="ऀ" data-status="ref" data-cp="2304"><td class="itrans" data-col="itrans">&mdash;</td><td class="lat" data-col="iso">&mdash;</td><td class="lat" data-col="iast">&mdash;</td><td class="kata" data-col="kata">&mdash;</td><td class="cell ref" data-col="devanagari"><span class="sym" data-tip="U+0900
 DEVANAGARI SIGN INVERTED CANDRABINDU
@@ -5306,7 +5709,7 @@ click to copy codepoint" data-cphex="U+1CFA">ᳺ</span></td><td class="cell blan
     if(mode==="cp"){
       rows.sort(function(a,b){return (+a.dataset.cp)-(+b.dataset.cp);});
     }else if(mode==="issues"){
-      var rank={red:0,yellow:1,green:2,na:3,ref:4};
+      var rank={red:0,yellow:1,green:2,pass:3,na:4,ref:5};
       var sev=function(tr){
         var arr=(tr.dataset.status||"").split(" ").map(function(x){return rank[x]==null?9:rank[x];});
         return Math.min.apply(null,arr.concat([9]));

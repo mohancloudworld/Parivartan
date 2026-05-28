@@ -30,6 +30,16 @@ No npm dependencies. Needs Node and the trimmed UCD data in `tools/ucd/`
 | yellow | missing — no mapping produces this codepoint |
 | grey | the script has no such character (codepoint unassigned in Unicode) |
 | blue-grey (*untransliterable*) | script-specific character with **no** ITRANS/ISO/IAST/Katapayadi equivalent (Vedic marks, Tamil numerals, etc.) — shown for reference only |
+| teal (*preserved*) | in the accent-marks rows: the extension passes the mark through unchanged because the script has no native sign (correct) |
+
+### Accent & control marks rows
+
+A dedicated group shows how the extension's `Accent_marks` table handles
+combining accent/tone marks and zero-width controls. Each row is keyed by the
+**input** mark; each script cell shows the **output**: green where it converts
+to the script's native sign (e.g. Devanagari udatta U+0951), teal where it is
+correctly preserved (no native sign), and yellow where a native sign exists but
+the mark is preserved anyway (a should-convert inconsistency).
 
 ### In-page controls
 
@@ -65,6 +75,11 @@ at the top of that script.
   per-row guard. **Known unresolved case:** Malayalam `U+0D3C` is a CIRCULAR
   VIRAMA (not a nukta), so it currently shows a false *red* in the nukta row.
   Planned fix: a per-row UCD-name check (`requireName: "NUKTA"`).
+- Genuine extension findings the table surfaces (real, not artifacts), left for
+  a separate `tables.js` change: **Telugu nukta** preserves the generic
+  `U+0323` instead of converting to `U+0C3C` (the red nukta cell), and
+  **Gujarati abbreviation** preserves `U+030A` instead of converting to its
+  native `U+0AF0` (yellow in the accent-marks rows).
 
 ## See also
 

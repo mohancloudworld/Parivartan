@@ -404,7 +404,7 @@ function esc(s) {
 }
 
 const rowsHtml = [];
-let counts = { green: 0, yellow: 0, red: 0, na: 0, ref: 0 };
+let counts = { green: 0, yellow: 0, red: 0, na: 0, ref: 0, pass: 0 };
 // Per script, the codepoints the aligned rows already use — so the
 // untransliterable scan below doesn't re-list an already-shown character.
 const covered = {};
@@ -480,6 +480,78 @@ for (const group of groups) {
       cells.join("") + "</tr>"
     );
   }
+}
+
+// ---- Accent & control marks (the extension's Accent_marks input → output) ----
+// Keyed by the INPUT combining/control mark; each script cell shows the OUTPUT
+// the converter produces in that script. Verdict per cell:
+//   green = converted to the script's native sign
+//   pass  = preserved unchanged because the script has no native equivalent (correct)
+//   yellow= preserved although the script DOES have a native sign (should convert)
+// The nukta (U+0323) is omitted here — it is already the offset-0x3C row above.
+const DOT = "◌"; // dotted circle so a lone combining mark renders visibly
+const ACCENT_MARKS = [
+  { mark: "​", nativeOff: null, kw: null }, // ZERO WIDTH SPACE
+  { mark: "‍", nativeOff: null, kw: null }, // ZERO WIDTH JOINER
+  { mark: "̀", nativeOff: 0x53, kw: /GRAVE/ },
+  { mark: "́", nativeOff: 0x54, kw: /ACUTE/ },
+  { mark: "̇", nativeOff: 0x71, kw: /HIGH SPACING DOT/ },
+  { mark: "̊", nativeOff: 0x70, kw: /ABBREVIATION/ },
+  { mark: "̍", nativeOff: 0x51, kw: /UDATTA|UDAAT/ },
+  { mark: "̲", nativeOff: 0x52, kw: /ANUDATTA/ },
+];
+rowsHtml.push(
+  '<tr class="group-head"><td colspan="' + (4 + SCRIPTS.length) + '">' +
+  esc("Accent & control marks — extension's Accent_marks (input mark → per-script output; ◌ = dotted circle)") +
+  "</td></tr>"
+);
+for (const am of ACCENT_MARKS) {
+  const inCp = am.mark.codePointAt(0);
+  const rowStatuses = new Set();
+  const tokens = [];
+  const addTok = (t) => { if (t) tokens.push(String(t).toLowerCase()); };
+  addTok(am.mark.codePointAt(0).toString(16));
+  addTok(cpHex(inCp)); addTok(ucdNames.get(inCp)); addTok(lookupBlock(inCp)); addTok("accent");
+  const cells = [
+    '<td class="itrans" data-col="itrans"><span class="sym" data-tip="' +
+      esc(metaTooltip(inCp) + "\ninput mark") + '" data-cphex="' + esc(cpHex(inCp)) + '">' +
+      esc(DOT + am.mark) + "</span></td>",
+    '<td class="lat" data-col="iso">&mdash;</td>',
+    '<td class="lat" data-col="iast">&mdash;</td>',
+    '<td class="kata" data-col="kata">&mdash;</td>',
+  ];
+  for (const script of SCRIPTS) {
+    const out = (script.dict.Accent_marks || {})[am.mark];
+    if (out === undefined) {
+      cells.push('<td class="cell blank" data-col="' + script.key + '"></td>');
+      continue;
+    }
+    const converted = out !== am.mark;
+    let nativeExists = false, nativeCp = null;
+    if (am.nativeOff != null) {
+      nativeCp = script.base + am.nativeOff;
+      nativeExists = am.kw.test(ucdNames.get(nativeCp) || "");
+    }
+    const status = converted ? "green" : (nativeExists ? "yellow" : "pass");
+    rowStatuses.add(status);
+    counts[status]++;
+    const outCp = out.codePointAt(0);
+    const note = converted
+      ? "converted to native sign"
+      : (nativeExists ? "preserved — but native " + cpHex(nativeCp) + " exists (should convert)"
+                      : "preserved (no native equivalent)");
+    addTok(outCp.toString(16)); addTok(cpHex(outCp)); addTok(ucdNames.get(outCp));
+    cells.push(
+      '<td class="cell ' + status + '" data-col="' + script.key + '"><span class="sym" data-tip="' +
+      esc(metaTooltip(outCp) + "\n— " + note + "\nclick to copy codepoint") +
+      '" data-cphex="' + esc(cpHex(outCp)) + '">' + esc(DOT + out) + "</span></td>"
+    );
+  }
+  rowsHtml.push(
+    '<tr data-search="' + esc(tokens.join(" ")) + '" data-visible="' + esc((DOT + am.mark).toLowerCase()) +
+    '" data-status="' + esc(Array.from(rowStatuses).join(" ")) + '" data-cp="' + inCp + '">' +
+    cells.join("") + "</tr>"
+  );
 }
 
 // Emit one untransliterable row: the symbol sits only in `ownerKey`'s column.
@@ -576,10 +648,10 @@ const html = `<!DOCTYPE html>
 <title>Parivartan — Transliteration ↔ Script Mapping</title>
 <style>
   :root{--bg:#fff;--fg:#1a1a1a;--muted:#5b6b73;--line:#d8dde2;--head:#eef2f6;
-    --green:#cdeccd;--yellow:#fbf3c4;--red:#f6cccc;--na:#f0f0f0;--ref:#dfe7f0;--tipbg:#222;--tipfg:#fff;}
+    --green:#cdeccd;--yellow:#fbf3c4;--red:#f6cccc;--na:#f0f0f0;--ref:#dfe7f0;--pass:#d3ecec;--tipbg:#222;--tipfg:#fff;}
   @media(prefers-color-scheme:dark){:root{--bg:#181a1c;--fg:#e6e8eb;--muted:#98a2a8;
     --line:#353a3f;--head:#22262a;--green:#2c4a2c;--yellow:#4a431d;--red:#522a2a;--na:#202428;
-    --ref:#2a323d;--tipbg:#0c0c0c;--tipfg:#f2f2f2;}}
+    --ref:#2a323d;--pass:#213a3a;--tipbg:#0c0c0c;--tipfg:#f2f2f2;}}
   html{box-sizing:border-box}*,*::before,*::after{box-sizing:inherit}
   body{background:var(--bg);color:var(--fg);font-family:-apple-system,"Segoe UI",Roboto,sans-serif;
     margin:0 auto;max-width:1100px;padding:28px 20px 120px;line-height:1.5}
@@ -589,7 +661,7 @@ const html = `<!DOCTYPE html>
   .legend span{display:inline-flex;align-items:center;gap:6px}
   .sw{width:15px;height:15px;border-radius:3px;border:1px solid var(--line);display:inline-block}
   .sw.green{background:var(--green)}.sw.yellow{background:var(--yellow)}
-  .sw.red{background:var(--red)}.sw.na{background:var(--na)}.sw.ref{background:var(--ref)}
+  .sw.red{background:var(--red)}.sw.na{background:var(--na)}.sw.ref{background:var(--ref)}.sw.pass{background:var(--pass)}
   table{border-collapse:collapse;width:100%;font-size:.95em}
   th,td{border:1px solid var(--line);padding:5px 8px;text-align:center}
   thead th{position:sticky;top:0;background:var(--head);z-index:2}
@@ -601,7 +673,7 @@ const html = `<!DOCTYPE html>
   td.cell{font-size:1.5em;line-height:1}
   td.green{background:var(--green)}td.yellow{background:var(--yellow)}
   td.red{background:var(--red)}td.na{background:var(--na);color:var(--muted);font-size:1em}
-  td.ref{background:var(--ref)}td.blank{background:transparent}
+  td.ref{background:var(--ref)}td.pass{background:var(--pass)}td.blank{background:transparent}
   .sym{position:relative;cursor:help}
   .sym:hover::after{content:attr(data-tip);white-space:pre;position:absolute;left:50%;
     transform:translateX(-50%);bottom:135%;background:var(--tipbg);color:var(--tipfg);
@@ -648,10 +720,11 @@ const html = `<!DOCTYPE html>
   <span><i class="sw yellow"></i> missing</span>
   <span><i class="sw na"></i> not in this script</span>
   <span><i class="sw ref"></i> untransliterable (no ITRANS/ISO/IAST/Katapayadi)</span>
+  <span><i class="sw pass"></i> mark preserved (no native sign)</span>
 </div>
 <div class="summary">Validated against <code>src/data/tables.js</code> &mdash;
   green: ${counts.green}, yellow (missing): ${counts.yellow}, red (wrong): ${counts.red},
-  grey (n/a): ${counts.na}, untransliterable: ${counts.ref}. Unicode metadata from the official UCD.</div>
+  grey (n/a): ${counts.na}, untransliterable: ${counts.ref}, preserved-mark: ${counts.pass}. Unicode metadata from the official UCD.</div>
 <div class="toolbar">
   <div class="search-wrap">
     <input id="search" type="text" placeholder="Search symbol, ITRANS/ISO/IAST, codepoint (e.g. 0c15 or U+0C15), Unicode name, block…" autocomplete="off" spellcheck="false">
@@ -664,6 +737,7 @@ const html = `<!DOCTYPE html>
     <label><input type="checkbox" class="stf" value="yellow" checked> yellow</label>
     <label><input type="checkbox" class="stf" value="na" checked> n/a</label>
     <label><input type="checkbox" class="stf" value="ref" checked> untransliterable</label>
+    <label><input type="checkbox" class="stf" value="pass" checked> preserved</label>
   </div>
   <label class="sortlabel">Sort
     <select id="sort">
@@ -737,7 +811,7 @@ ${rowsHtml.join("\n")}
     if(mode==="cp"){
       rows.sort(function(a,b){return (+a.dataset.cp)-(+b.dataset.cp);});
     }else if(mode==="issues"){
-      var rank={red:0,yellow:1,green:2,na:3,ref:4};
+      var rank={red:0,yellow:1,green:2,pass:3,na:4,ref:5};
       var sev=function(tr){
         var arr=(tr.dataset.status||"").split(" ").map(function(x){return rank[x]==null?9:rank[x];});
         return Math.min.apply(null,arr.concat([9]));
