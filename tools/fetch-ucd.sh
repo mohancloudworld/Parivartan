@@ -8,9 +8,11 @@
 # the table can still be regenerated offline on any machine afterwards.
 #
 # Ranges kept (decimal codepoints):
+#   0-591       0000-024F  Latin (Basic, Latin-1, Extended-A/B) — ITRANS/ISO/IAST letters
 #   768-879     0300-036F  Combining Diacritical Marks
 #   2304-4095   0900-0FFF  the nine main Indic blocks (Devanagari..Malayalam, +margin)
 #   7376-7423   1CD0-1CFF  Vedic Extensions
+#   7680-7935   1E00-1EFF  Latin Extended Additional (ṣ ṭ ṇ ḥ ṛ ṅ … for ISO/IAST)
 #   8192-8303   2000-206F  General Punctuation (for ZWSP U+200B, ZWJ U+200D)
 #   43232-43263 A8E0-A8FF  Devanagari Extended
 #   69632-73727 11000-11FFF Brahmic supplements (Devanagari Extended-A, Tamil Supplement, …)
@@ -30,11 +32,11 @@ for f in UnicodeData.txt DerivedAge.txt Blocks.txt; do
 done
 
 # UnicodeData.txt: one row per codepoint — keep rows whose codepoint is in range.
-awk -F';' 'function inr(cp){return (cp>=768&&cp<=879)||(cp>=2304&&cp<=4095)||(cp>=7376&&cp<=7423)||(cp>=8192&&cp<=8303)||(cp>=43232&&cp<=43263)||(cp>=69632&&cp<=73727)} {cp=strtonum("0x"$1); if(inr(cp)) print}' \
+awk -F';' 'function inr(cp){return (cp<=591)||(cp>=768&&cp<=879)||(cp>=2304&&cp<=4095)||(cp>=7376&&cp<=7423)||(cp>=7680&&cp<=7935)||(cp>=8192&&cp<=8303)||(cp>=43232&&cp<=43263)||(cp>=69632&&cp<=73727)} {cp=strtonum("0x"$1); if(inr(cp)) print}' \
   "$tmp/UnicodeData.txt" > "$DIR/UnicodeData.txt"
 
 # DerivedAge.txt: range-per-line — keep ranges that intersect any kept range.
-awk 'function ov(s,e,a,b){return s<=b&&e>=a} function keep(s,e){return ov(s,e,768,879)||ov(s,e,2304,4095)||ov(s,e,7376,7423)||ov(s,e,8192,8303)||ov(s,e,43232,43263)||ov(s,e,69632,73727)} /^[0-9A-Fa-f]/{split($0,a,";");r=a[1];gsub(/ /,"",r);n=split(r,b,/\.\./);s=strtonum("0x"b[1]);e=(n>1)?strtonum("0x"b[2]):s;if(keep(s,e))print}' \
+awk 'function ov(s,e,a,b){return s<=b&&e>=a} function keep(s,e){return ov(s,e,0,591)||ov(s,e,768,879)||ov(s,e,2304,4095)||ov(s,e,7376,7423)||ov(s,e,7680,7935)||ov(s,e,8192,8303)||ov(s,e,43232,43263)||ov(s,e,69632,73727)} /^[0-9A-Fa-f]/{split($0,a,";");r=a[1];gsub(/ /,"",r);n=split(r,b,/\.\./);s=strtonum("0x"b[1]);e=(n>1)?strtonum("0x"b[2]):s;if(keep(s,e))print}' \
   "$tmp/DerivedAge.txt" > "$DIR/DerivedAge.txt"
 
 # Blocks.txt: small — keep whole.

@@ -403,6 +403,29 @@ function esc(s) {
     .replace(/"/g, "&quot;");
 }
 
+// Per-character Unicode info for a transliteration cell (ITRANS/ISO/IAST/Katapayadi):
+// one "U+XXXX  NAME" line per distinct character, skipping spaces/commas/em-dash.
+function charsTip(text) {
+  if (!text) return "";
+  const seen = new Set();
+  const lines = [];
+  for (const ch of String(text)) {
+    const cp = ch.codePointAt(0);
+    if (cp === 0x20 || cp === 0x2c || cp === 0x2014) continue; // space, comma, em-dash
+    if (seen.has(cp)) continue;
+    seen.add(cp);
+    lines.push(cpHex(cp) + "  " + (ucdNames.get(cp) || "(unnamed)"));
+  }
+  return lines.join("\n");
+}
+
+// A transliteration cell that carries a per-character metadata tooltip.
+function transCell(cls, col, raw, displayHtml) {
+  const t = charsTip(raw);
+  const tip = t ? ' data-tip="' + esc(t) + '"' : "";
+  return '<td class="' + cls + '" data-col="' + col + '"' + tip + ">" + displayHtml + "</td>";
+}
+
 const rowsHtml = [];
 let counts = { green: 0, yellow: 0, red: 0, na: 0, ref: 0, pass: 0 };
 // Per script, the codepoints the aligned rows already use — so the
@@ -428,10 +451,11 @@ for (const group of groups) {
     addVis(r.iso); addVis(r.iast); addVis(r.kata);
 
     const cells = [];
-    cells.push('<td class="itrans" data-col="itrans">' + itransDisplay + "</td>");
-    cells.push('<td class="lat" data-col="iso">' + (r.iso ? esc(r.iso) : "&mdash;") + "</td>");
-    cells.push('<td class="lat" data-col="iast">' + (r.iast ? esc(r.iast) : "&mdash;") + "</td>");
-    cells.push('<td class="kata" data-col="kata">' + (r.kata != null && r.kata !== "" ? esc(r.kata) : "&mdash;") + "</td>");
+    const kataVal = r.kata != null && r.kata !== "" ? r.kata : "";
+    cells.push(transCell("itrans", "itrans", canonical.join(" "), itransDisplay));
+    cells.push(transCell("lat", "iso", r.iso || "", r.iso ? esc(r.iso) : "&mdash;"));
+    cells.push(transCell("lat", "iast", r.iast || "", r.iast ? esc(r.iast) : "&mdash;"));
+    cells.push(transCell("kata", "kata", kataVal, kataVal ? esc(kataVal) : "&mdash;"));
 
     for (const script of SCRIPTS) {
       const v = validateCell(script, group, r.off, canonical);
@@ -673,7 +697,8 @@ const html = `<!DOCTYPE html>
   td.green{background:var(--green)}td.yellow{background:var(--yellow)}
   td.red{background:var(--red)}td.na{background:var(--na);color:var(--muted);font-size:1em}
   td.ref{background:var(--ref)}td.pass{background:var(--pass)}td.blank{background:transparent}
-  td[data-tip]{position:relative;cursor:pointer}
+  td[data-tip]{position:relative;cursor:help}
+  td[data-cphex]{cursor:pointer}
   td[data-tip]:hover::after{content:attr(data-tip);white-space:pre;position:absolute;left:50%;
     transform:translateX(-50%);bottom:135%;background:var(--tipbg);color:var(--tipfg);
     padding:7px 10px;border-radius:6px;font-size:11px;font-style:normal;font-weight:400;
