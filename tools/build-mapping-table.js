@@ -403,27 +403,34 @@ function esc(s) {
     .replace(/"/g, "&quot;");
 }
 
-// Per-character Unicode info for a transliteration cell (ITRANS/ISO/IAST/Katapayadi):
-// one "U+XXXX  NAME" line per distinct character, skipping spaces/commas/em-dash.
-function charsTip(text) {
-  if (!text) return "";
+// Distinct meaningful codepoints in a transliteration string (skips spaces,
+// commas and the em-dash placeholder). Returns an array of ints.
+function distinctCps(text) {
   const seen = new Set();
-  const lines = [];
-  for (const ch of String(text)) {
+  const out = [];
+  for (const ch of String(text || "")) {
     const cp = ch.codePointAt(0);
     if (cp === 0x20 || cp === 0x2c || cp === 0x2014) continue; // space, comma, em-dash
     if (seen.has(cp)) continue;
     seen.add(cp);
-    lines.push(cpHex(cp) + "  " + (ucdNames.get(cp) || "(unnamed)"));
+    out.push(cp);
   }
-  return lines.join("\n");
+  return out;
 }
 
-// A transliteration cell that carries a per-character metadata tooltip.
+// Per-character "U+XXXX  NAME" lines for a transliteration cell's tooltip.
+function charsTip(text) {
+  return distinctCps(text).map((cp) => cpHex(cp) + "  " + (ucdNames.get(cp) || "(unnamed)")).join("\n");
+}
+
+// A transliteration cell that carries a per-character metadata tooltip and is
+// click-to-copy (copies the cell's codepoint(s), like the script cells).
 function transCell(cls, col, raw, displayHtml) {
+  const cps = distinctCps(raw);
   const t = charsTip(raw);
   const tip = t ? ' data-tip="' + esc(t) + '"' : "";
-  return '<td class="' + cls + '" data-col="' + col + '"' + tip + ">" + displayHtml + "</td>";
+  const cphex = cps.length ? ' data-cphex="' + esc(cps.map(cpHex).join(" ")) + '"' : "";
+  return '<td class="' + cls + '" data-col="' + col + '"' + tip + cphex + ">" + displayHtml + "</td>";
 }
 
 const rowsHtml = [];
