@@ -461,9 +461,9 @@ for (const group of groups) {
       else if (v.status === "red") extra = "Extension maps a key to " + cpHex(v.actual.codePointAt(0));
       const fullTip = tip + (extra ? "\n— " + extra : "") + "\nclick to copy codepoint";
       cells.push(
-        '<td class="cell ' + v.status + '" data-col="' + script.key + '">' +
-        '<span class="sym" data-tip="' + esc(fullTip) + '" data-cphex="' + esc(cpHex(v.cp)) + '">' +
-        esc(v.ch) + "</span></td>"
+        '<td class="cell ' + v.status + '" data-col="' + script.key +
+        '" data-tip="' + esc(fullTip) + '" data-cphex="' + esc(cpHex(v.cp)) + '">' +
+        esc(v.ch) + "</td>"
       );
     }
 
@@ -513,9 +513,9 @@ for (const am of ACCENT_MARKS) {
   addTok(am.mark.codePointAt(0).toString(16));
   addTok(cpHex(inCp)); addTok(ucdNames.get(inCp)); addTok(lookupBlock(inCp)); addTok("accent");
   const cells = [
-    '<td class="itrans" data-col="itrans"><span class="sym" data-tip="' +
+    '<td class="itrans" data-col="itrans" data-tip="' +
       esc(metaTooltip(inCp) + "\ninput mark") + '" data-cphex="' + esc(cpHex(inCp)) + '">' +
-      esc(DOT + am.mark) + "</span></td>",
+      esc(DOT + am.mark) + "</td>",
     '<td class="lat" data-col="iso">&mdash;</td>',
     '<td class="lat" data-col="iast">&mdash;</td>',
     '<td class="kata" data-col="kata">&mdash;</td>',
@@ -542,9 +542,9 @@ for (const am of ACCENT_MARKS) {
                       : "preserved (no native equivalent)");
     addTok(outCp.toString(16)); addTok(cpHex(outCp)); addTok(ucdNames.get(outCp));
     cells.push(
-      '<td class="cell ' + status + '" data-col="' + script.key + '"><span class="sym" data-tip="' +
+      '<td class="cell ' + status + '" data-col="' + script.key + '" data-tip="' +
       esc(metaTooltip(outCp) + "\n— " + note + "\nclick to copy codepoint") +
-      '" data-cphex="' + esc(cpHex(outCp)) + '">' + esc(DOT + out) + "</span></td>"
+      '" data-cphex="' + esc(cpHex(outCp)) + '">' + esc(DOT + out) + "</td>"
     );
   }
   rowsHtml.push(
@@ -567,9 +567,8 @@ function pushExtraRow(cp, ownerKey) {
     if (s2.key === ownerKey) {
       const tip = metaTooltip(cp) + "\nclick to copy codepoint";
       cells.push(
-        '<td class="cell ref" data-col="' + s2.key + '">' +
-        '<span class="sym" data-tip="' + esc(tip) + '" data-cphex="' + esc(cpHex(cp)) + '">' +
-        esc(ch) + "</span></td>"
+        '<td class="cell ref" data-col="' + s2.key + '" data-tip="' + esc(tip) +
+        '" data-cphex="' + esc(cpHex(cp)) + '">' + esc(ch) + "</td>"
       );
     } else {
       cells.push('<td class="cell blank" data-col="' + s2.key + '"></td>');
@@ -674,13 +673,13 @@ const html = `<!DOCTYPE html>
   td.green{background:var(--green)}td.yellow{background:var(--yellow)}
   td.red{background:var(--red)}td.na{background:var(--na);color:var(--muted);font-size:1em}
   td.ref{background:var(--ref)}td.pass{background:var(--pass)}td.blank{background:transparent}
-  .sym{position:relative;cursor:help}
-  .sym:hover::after{content:attr(data-tip);white-space:pre;position:absolute;left:50%;
+  td[data-tip]{position:relative;cursor:pointer}
+  td[data-tip]:hover::after{content:attr(data-tip);white-space:pre;position:absolute;left:50%;
     transform:translateX(-50%);bottom:135%;background:var(--tipbg);color:var(--tipfg);
     padding:7px 10px;border-radius:6px;font-size:11px;font-style:normal;font-weight:400;
     font-family:-apple-system,sans-serif;text-align:left;line-height:1.45;z-index:10;
     box-shadow:0 3px 10px rgba(0,0,0,.3);min-width:200px}
-  .sym:hover::before{content:"";position:absolute;left:50%;transform:translateX(-50%);
+  td[data-tip]:hover::before{content:"";position:absolute;left:50%;transform:translateX(-50%);
     bottom:125%;border:6px solid transparent;border-top-color:var(--tipbg);z-index:10}
   .summary{margin:1.2em 0;font-size:.95em;color:var(--muted)}
   code{background:var(--head);padding:1px 5px;border-radius:4px;font-size:.9em}
@@ -704,8 +703,7 @@ const html = `<!DOCTYPE html>
   details.cols .filters{margin-top:8px;padding:8px 10px;border:1px solid var(--line);
     border-radius:8px;background:var(--head)}
   .vislabel{font-size:.9em;color:var(--muted);display:inline-flex;align-items:center;gap:5px;cursor:pointer;user-select:none}
-  .sym{cursor:pointer}
-  .sym.copied::after{content:attr(data-copied);position:absolute;left:50%;transform:translateX(-50%);
+  td.copied::after{content:attr(data-copied);position:absolute;left:50%;transform:translateX(-50%);
     bottom:135%;background:#2e7d32;color:#fff;padding:3px 7px;border-radius:5px;font-size:11px;
     font-style:normal;white-space:nowrap;z-index:11}
 </style>
@@ -902,15 +900,15 @@ ${rowsHtml.join("\n")}
     else if(e.key==="Escape"&&document.activeElement===search){search.value="";refresh();}
   });
   tbody.addEventListener("click",function(e){
-    var sym=e.target.closest?e.target.closest(".sym"):null;
-    if(!sym)return;
-    var cp=sym.getAttribute("data-cphex");
+    var cell=e.target.closest?e.target.closest("td[data-cphex]"):null;
+    if(!cell)return;
+    var cp=cell.getAttribute("data-cphex");
     if(!cp)return;
     if(navigator.clipboard&&navigator.clipboard.writeText){
       navigator.clipboard.writeText(cp).then(function(){
-        sym.setAttribute("data-copied","copied "+cp);
-        sym.classList.add("copied");
-        setTimeout(function(){sym.classList.remove("copied");},900);
+        cell.setAttribute("data-copied","copied "+cp);
+        cell.classList.add("copied");
+        setTimeout(function(){cell.classList.remove("copied");},900);
       }).catch(function(){});
     }
   });
