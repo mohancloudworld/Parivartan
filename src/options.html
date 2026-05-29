@@ -12,13 +12,16 @@
       color: #1a1a1a;
     }
     h1 { font-size: 18px; margin: 0 0 16px; }
+    /* Hide until the saved value is loaded, so the checkbox doesn't flash its
+       default state before snapping to the stored one. */
+    body.loading { visibility: hidden; }
     .option { display: flex; gap: 8px; align-items: flex-start; }
     .option input { margin-top: 2px; }
     .hint { color: #666; font-size: 12px; margin: 4px 0 0 24px; }
     #status { color: #1a7f37; font-size: 12px; height: 16px; margin-top: 12px; }
   </style>
 </head>
-<body>
+<body class="loading">
   <h1>Parivartan Settings</h1>
   <label class="option">
     <input type="checkbox" id="preferASCIIDigits">
