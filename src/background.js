@@ -4,6 +4,23 @@
 // Modern Chrome (MV3) and Firefox 109+ both return Promises from this surface.
 const api = globalThis.browser || globalThis.chrome;
 
+// Show the menu only where the converter can actually run: real web pages
+// (http/https/ws/wss/ftp via "*://*/*") and local files ("file:///*"). This
+// hides it on privileged pages — chrome://, about:, view-source:, the add-on
+// store, other extensions — where script injection is refused anyway, so the
+// user never sees a menu item that would silently do nothing. Including
+// file:/// also lets it work on local HTML files (see the notes in README:
+// Chrome/Edge additionally need "Allow access to file URLs" enabled).
+const MENU_URL_PATTERNS = ["*://*/*", "file:///*"];
+
+// Wrapper so every menu item is gated by MENU_URL_PATTERNS without repeating it.
+function createMenu(props) {
+  return api.contextMenus.create({
+    documentUrlPatterns: MENU_URL_PATTERNS,
+    ...props,
+  });
+}
+
 // Target scripts, in display order.
 const LANGUAGES = [
   ["Devanagari", "Devanagari (देवनागरी)"],
@@ -59,7 +76,7 @@ const ALL_MENUS = [
 async function buildMenus() {
   await api.contextMenus.removeAll();
 
-  api.contextMenus.create({
+  createMenu({
     id: "parivartan",
     title: "Parivartan",
     contexts: ["selection"],
@@ -77,7 +94,7 @@ async function buildMenus() {
   }
   const lastMenu = ALL_MENUS.find((m) => m.mode === lastMode);
   if (lastMenu) {
-    api.contextMenus.create({
+    createMenu({
       id: "fast-hdr",
       parentId: "parivartan",
       title: lastMenu.label,
@@ -85,14 +102,14 @@ async function buildMenus() {
       contexts: ["selection"],
     });
     for (const [value, label] of lastMenu.targets) {
-      api.contextMenus.create({
+      createMenu({
         id: "fast|" + lastMenu.mode + "|" + value,
         parentId: "parivartan",
         title: label,
         contexts: ["selection"],
       });
     }
-    api.contextMenus.create({
+    createMenu({
       id: "fast-sep",
       parentId: "parivartan",
       type: "separator",
@@ -103,14 +120,14 @@ async function buildMenus() {
   // Full hierarchy: each input format gets its own submenu.
   for (const menu of ALL_MENUS) {
     const subId = "sub:" + menu.mode;
-    api.contextMenus.create({
+    createMenu({
       id: subId,
       parentId: "parivartan",
       title: menu.label,
       contexts: ["selection"],
     });
     for (const [value, label] of menu.targets) {
-      api.contextMenus.create({
+      createMenu({
         id: menu.mode + "|" + value,
         parentId: subId,
         title: label,

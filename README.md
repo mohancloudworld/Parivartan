@@ -20,7 +20,11 @@ Another interesting usage of this add-on: There are many people who talk/underst
 
 This add-on converts the text in the text-boxes also, so this can be used to type the text in a language and then convert to any other preferred language while posting on social networks, blogs, forums or even writing emails.
 
-<b>Usage:</b> Select the text on a web page, right-click, and choose from the "Parivartan" menu.
+<b>Usage:</b> Select the text on a web page, right-click, and choose from the "Parivartan" menu. The menu appears on normal web pages and on local files (<code>file://</code>); it is intentionally hidden on browser-internal pages (<code>chrome://</code>, <code>about:</code>, the extension stores, <code>view-source:</code>) where extensions are not permitted to run.
+
+<b>Local files (<code>file://</code>):</b><ul>
+<li><b>Chrome / Edge:</b> open <code>chrome://extensions</code> &rarr; Parivartan &rarr; <b>Details</b>, and turn on <b>"Allow access to file URLs"</b>. This is a browser security setting that only you can enable; the extension cannot grant it itself. Once enabled, right-click conversion works on local HTML files.</li>
+<li><b>Firefox:</b> works on local files via the <code>activeTab</code> permission when you invoke it from the right-click menu &mdash; no extra setting required.</li></ul>
 
 <b>Menu layout:</b>
 
