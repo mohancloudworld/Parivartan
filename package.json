@@ -1,0 +1,8 @@
+{
+  "name": "parivartan",
+  "private": true,
+  "description": "Build-free WebExtension. This package.json only provides the test runner; the extension itself needs no npm install, bundler or transpiler.",
+  "scripts": {
+    "test": "node test/conversion.test.js"
+  }
+}
