@@ -80,11 +80,17 @@
     if (sel) sel.removeAllRanges();
   }
 
+  let inited = false;
   globalThis.__parivartanConvert = function (mode, target, preferASCIIDigits) {
     const ctx = getSelectionContext();
     if (!ctx) return;
 
-    Parivartan.init();
+    // Build the dictionaries once per page; the content world persists across
+    // conversions, so there is no need to rebuild them on every call.
+    if (!inited) {
+      Parivartan.init();
+      inited = true;
+    }
     // parivartanRunConversion is provided by lib/convert.js, injected before this file.
     const result = parivartanRunConversion(mode, target, ctx.html, ctx.text, preferASCIIDigits);
     if (result == null) return;

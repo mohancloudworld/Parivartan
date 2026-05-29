@@ -177,16 +177,29 @@ api.contextMenus.onClicked.addListener(async (info, tab) => {
   // Inject into the exact frame that holds the selection (handles iframes).
   const injectTarget = { tabId: tab.id, frameIds: [info.frameId || 0] };
 
-  try {
-    await api.scripting.executeScript({
+  // The content world persists with the page across conversions. Try calling
+  // the already-injected function first; only (re)inject the ~125 KB of
+  // converter files on a miss (first conversion in the frame, or after reload).
+  const callConvert = () =>
+    api.scripting.executeScript({
       target: injectTarget,
-      files: ["data/tables.js", "lib/myModule.js", "lib/convert.js", "content.js"],
-    });
-    await api.scripting.executeScript({
-      target: injectTarget,
-      func: (m, t, p) => globalThis.__parivartanConvert(m, t, p),
+      func: (m, t, p) => {
+        if (typeof globalThis.__parivartanConvert !== "function") return false;
+        globalThis.__parivartanConvert(m, t, p);
+        return true;
+      },
       args: [mode, target, stored.preferASCIIDigits],
     });
+
+  try {
+    const [res] = await callConvert();
+    if (!res || !res.result) {
+      await api.scripting.executeScript({
+        target: injectTarget,
+        files: ["data/tables.js", "lib/myModule.js", "lib/convert.js", "content.js"],
+      });
+      await callConvert();
+    }
   } catch (e) {
     // Pages such as the browser's own settings or the extension store
     // disallow script injection; nothing actionable to do here.
