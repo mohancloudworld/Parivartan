@@ -29,7 +29,7 @@ This add-on converts the text in the text-boxes also, so this can be used to typ
 <b>Menu layout:</b>
 
 1. The "Parivartan" menu has one submenu per input format, each listing the available target scripts:<ul>
-<li><b>"From any Indian script to"</b> &mdash; auto-detects the input Indian language. Targets: another Indian language, English (ITRANS) or Katapayadi sankhya.</li>
+<li><b>"From any Indian script to"</b> &mdash; auto-detects the input Indian language. Targets: another Indian language, English (ITRANS) or Katapayadi sankhya. <i>Detection assumes the whole selection is in one script; if a selection mixes scripts, only the first detected script is converted and text in other scripts is left unchanged.</i></li>
 <li><b>"From English (ITRANS) to"</b> &rarr; the selected Indian language or Katapayadi sankhya.</li>
 <li><b>"From English (ISO 15919) to"</b> &rarr; the selected Indian language or Katapayadi sankhya.</li>
 <li><b>"From English (IAST) to"</b> &rarr; the selected Indian language or Katapayadi sankhya.</li>
