@@ -46,6 +46,59 @@ function run(mode, target, input, opts) {
 }
 
 const tests = [
+  // ----- Fallbacks for signs a script does not have -----
+  // Each of these produced raw ITRANS in the output before the forward
+  // dictionaries gained fallbacks: ".c" surfaced as a danda plus a Latin "c",
+  // and "RRi" split into pieces. A script that HAS the sign must still use it.
+  {
+    name: "candra O: Devanagari keeps its own sign",
+    mode: "itrans", target: "Devanagari",
+    input: "baa.clee", expected: "बॉले",
+  },
+  {
+    name: "candra O: Telugu falls back to short o, no ITRANS leak",
+    mode: "itrans", target: "Telugu",
+    input: "baa.clee", expected: "బొలే",
+  },
+  {
+    name: "candra O: Bengali falls back to its o sign",
+    mode: "itrans", target: "Bengali",
+    input: "baa.clee", expected: "বোলে",
+  },
+  {
+    name: "chandrabindu: Telugu has its own sign",
+    mode: "itrans", target: "Telugu",
+    input: "maa.N", expected: "మాఁ",
+  },
+  {
+    name: "chandrabindu: Malayalam falls back to anusvara",
+    mode: "itrans", target: "Malayalam",
+    input: "maa.N", expected: "മാം",
+  },
+  {
+    name: "vocalic R: Devanagari keeps its own sign",
+    mode: "itrans", target: "Devanagari",
+    input: "dhRRita", expected: "धृत",
+  },
+  {
+    name: "vocalic R: Gurmukhi falls back to ra + i",
+    mode: "itrans", target: "Gurmukhi",
+    input: "dhRRita", expected: "ਧਰਿਤ",
+  },
+  {
+    name: "vocalic R: Tamil falls back to ra + i",
+    mode: "itrans", target: "Tamil",
+    input: "dhRRita", expected: "தரித",
+  },
+  // The fallbacks are forward-only: reverse() is built from the untouched
+  // tables, so a sign a script already uses for e/o must still come back as
+  // e/o rather than as the candra spelling that now also maps to it.
+  {
+    name: "fallbacks do not repoint the reverse mapping for short e/o",
+    mode: "indic", target: "English",
+    input: "కెర పొర", expected: "kera pora",
+  },
+
   // ----- ITRANS forward (English ITRANS -> Indic) -----
   {
     name: "ITRANS -> Devanagari (Hare Krishna mantra, long-e via 'E')",

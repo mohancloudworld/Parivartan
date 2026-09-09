@@ -15,6 +15,17 @@ var malayalam_dict_mod  = {};
 var oriya_dict_mod      = {};
 var english_dict_mod    = {};
 
+var devanagari_dict_fwd = {};
+var telugu_dict_fwd     = {};
+var kannada_dict_fwd    = {};
+var gujarati_dict_fwd   = {};
+var tamil_dict_fwd      = {};
+var bengali_dict_fwd    = {};
+var gurmukhi_dict_fwd   = {};
+var malayalam_dict_fwd  = {};
+var oriya_dict_fwd      = {};
+var english_dict_fwd    = {};
+
 var devanagari_dict_rev = {};
 var telugu_dict_rev     = {};
 var kannada_dict_rev    = {};
@@ -30,17 +41,30 @@ var katapayadi_dict = myTable.katapayadi_dict;
 
 function init()
 {
-    // new modified/extended dictionaries
-    devanagari_dict_mod = extend(myTable.devanagari_dict);
-    telugu_dict_mod     = extend(myTable.telugu_dict);
-    kannada_dict_mod    = extend(myTable.kannada_dict);
-    gujarati_dict_mod   = extend(myTable.gujarati_dict);
-    tamil_dict_mod      = extend(myTable.tamil_dict);
-    bengali_dict_mod    = extend(myTable.bengali_dict);
-    gurmukhi_dict_mod   = extend(myTable.gurmukhi_dict);
-    malayalam_dict_mod  = extend(myTable.malayalam_dict);
-    oriya_dict_mod      = extend(myTable.oriya_dict);
-    english_dict_mod    = extend(myTable.english_dict);
+    // forward dictionaries: the tables plus candra-vowel fallbacks
+    devanagari_dict_fwd = withCandraFallback(myTable.devanagari_dict);
+    telugu_dict_fwd     = withCandraFallback(myTable.telugu_dict);
+    kannada_dict_fwd    = withCandraFallback(myTable.kannada_dict);
+    gujarati_dict_fwd   = withCandraFallback(myTable.gujarati_dict);
+    tamil_dict_fwd      = withCandraFallback(myTable.tamil_dict);
+    bengali_dict_fwd    = withCandraFallback(myTable.bengali_dict);
+    gurmukhi_dict_fwd   = withCandraFallback(myTable.gurmukhi_dict);
+    malayalam_dict_fwd  = withCandraFallback(myTable.malayalam_dict);
+    oriya_dict_fwd      = withCandraFallback(myTable.oriya_dict);
+    english_dict_fwd    = withCandraFallback(myTable.english_dict);
+
+    // new modified/extended dictionaries, built on the forward ones so the
+    // lenient mode inherits the same fallbacks
+    devanagari_dict_mod = extend(devanagari_dict_fwd);
+    telugu_dict_mod     = extend(telugu_dict_fwd);
+    kannada_dict_mod    = extend(kannada_dict_fwd);
+    gujarati_dict_mod   = extend(gujarati_dict_fwd);
+    tamil_dict_mod      = extend(tamil_dict_fwd);
+    bengali_dict_mod    = extend(bengali_dict_fwd);
+    gurmukhi_dict_mod   = extend(gurmukhi_dict_fwd);
+    malayalam_dict_mod  = extend(malayalam_dict_fwd);
+    oriya_dict_mod      = extend(oriya_dict_fwd);
+    english_dict_mod    = extend(english_dict_fwd);
 
     // reverse dictionaries
     devanagari_dict_rev = reverse(myTable.devanagari_dict);
@@ -119,16 +143,16 @@ function convert2IndicScript(inp_txt, encoding_type, indicScript, modeStrict, re
         else {lang_dict = english_dict_rev;}
     }
     else if(modeStrict){ // orignal dictionaries if modeStrict
-        if(indicScript == "Devanagari"){lang_dict = myTable.devanagari_dict;}
-        else if(indicScript == "Telugu"){lang_dict = myTable.telugu_dict;}
-        else if(indicScript == "Kannada"){lang_dict = myTable.kannada_dict;}
-        else if(indicScript == "Gujarati"){lang_dict = myTable.gujarati_dict;}
-        else if(indicScript == "Tamil"){lang_dict = myTable.tamil_dict;}
-        else if(indicScript == "Bengali"){lang_dict = myTable.bengali_dict;}
-        else if(indicScript == "Gurmukhi"){lang_dict = myTable.gurmukhi_dict;}
-        else if(indicScript == "Malayalam"){lang_dict = myTable.malayalam_dict;}
-        else if(indicScript == "Oriya"){lang_dict = myTable.oriya_dict;}
-        else {lang_dict = myTable.english_dict;}
+        if(indicScript == "Devanagari"){lang_dict = devanagari_dict_fwd;}
+        else if(indicScript == "Telugu"){lang_dict = telugu_dict_fwd;}
+        else if(indicScript == "Kannada"){lang_dict = kannada_dict_fwd;}
+        else if(indicScript == "Gujarati"){lang_dict = gujarati_dict_fwd;}
+        else if(indicScript == "Tamil"){lang_dict = tamil_dict_fwd;}
+        else if(indicScript == "Bengali"){lang_dict = bengali_dict_fwd;}
+        else if(indicScript == "Gurmukhi"){lang_dict = gurmukhi_dict_fwd;}
+        else if(indicScript == "Malayalam"){lang_dict = malayalam_dict_fwd;}
+        else if(indicScript == "Oriya"){lang_dict = oriya_dict_fwd;}
+        else {lang_dict = english_dict_fwd;}
     }
     else { // modified/extended dictionaries if not modeStrict
         if(indicScript == "Devanagari"){lang_dict = devanagari_dict_mod;}
@@ -449,6 +473,68 @@ function extend(org_dict) {
     }
     return new_dict;
 };
+
+// Adds fallbacks for signs a script does not have, to a FORWARD dictionary.
+//
+// ITRANS writes the candra vowels as "a.c" and "A.c"/"aa.c". Only Devanagari
+// and Gujarati have a sign for them; the other scripts have no entry at all, so
+// the block fails to match and conversion falls through to emitting the raw
+// ITRANS - ".c" surfacing as a danda followed by a Latin "c" in the middle of a
+// word. Falling back to the script's own short e/o writes the nearest sound it
+// has, which is what those scripts use for the vowels these represent.
+//
+// Applied only to the forward direction. The reverse dictionaries are built
+// from the untouched tables on purpose: reverse() inverts value to key and the
+// last key wins, so adding a second key for a sign the script already uses for
+// e/o would silently repoint that sign away from e/o when converting back.
+function withCandraFallback(org_dict) {
+    var new_dict = cloneDict(org_dict);
+    var groups = ["Independent_vowels", "Dependent_vowel"];
+    for (var i = 0; i < groups.length; i++) {
+        var g = new_dict[groups[i]];
+        if (!g) continue;
+        if (!g["a.c"]  && g["e"]) g["a.c"]  = g["e"];
+        if (!g["A.c"]  && g["o"]) g["A.c"]  = g["o"];
+        if (!g["aa.c"] && g["o"]) g["aa.c"] = g["o"];
+    }
+    // Vocalic R and L. Several scripts have no sign for these Sanskrit vowels,
+    // and write them as the corresponding consonant plus a short vowel instead
+    // - Sanskrit "dhRRita" becomes "dharita". Without this the block matching
+    // splits "RRi" into pieces and produces either raw ITRANS (Gurmukhi) or a
+    // doubled consonant that reads as a different word (Tamil).
+    var cons = new_dict["Consonants"];
+    var dep = new_dict["Dependent_vowel"];
+    var ind = new_dict["Independent_vowels"];
+    if (cons && dep && ind) {
+        var vocalic = [
+            ["R^i", "RRi", "r", "i"],
+            ["R^I", "RRI", "r", "I"],
+            ["L^i", "LLi", "l", "i"],
+            ["L^I", "LLI", "l", "I"]
+        ];
+        for (var v = 0; v < vocalic.length; v++) {
+            var altKey = vocalic[v][0], key = vocalic[v][1];
+            var c = cons[vocalic[v][2]], vowel = dep[vocalic[v][3]];
+            if (!c || !vowel) continue;
+            // The same spelling serves both slots: a vowel sign standing after
+            // a consonant and an independent vowel both become "ra"+"i" here.
+            if (!dep[key]) dep[key] = c + vowel;
+            if (!dep[altKey]) dep[altKey] = c + vowel;
+            if (!ind[key]) ind[key] = c + vowel;
+            if (!ind[altKey]) ind[altKey] = c + vowel;
+        }
+    }
+
+    // Chandrabindu, the same problem in the Others group: Kannada, Tamil and
+    // Malayalam have no sign for it, and anusvara is the substitution those
+    // scripts use for the nasalisation it marks. Without this, a word as
+    // ordinary as "maa.N" breaks mid-word in three scripts.
+    var others = new_dict["Others"];
+    if (others && !others[".N"] && others[".m"]) {
+        others[".N"] = others[".m"];
+    }
+    return new_dict;
+}
 
 // clone dictionaries
 function cloneDict(dict) {
