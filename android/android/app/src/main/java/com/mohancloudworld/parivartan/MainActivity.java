@@ -1,6 +1,8 @@
 package com.mohancloudworld.parivartan;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.core.graphics.Insets;
@@ -10,6 +12,8 @@ import androidx.core.view.WindowInsetsCompat;
 import com.getcapacitor.BridgeActivity;
 
 public class MainActivity extends BridgeActivity {
+
+    private static final String TAG = "ParivartanInsets";
 
     // From targetSdk 35 Android enforces edge-to-edge with no real opt-out, so
     // the WebView draws underneath the status bar and the system takes any tap
@@ -38,7 +42,27 @@ public class MainActivity extends BridgeActivity {
                     WindowInsetsCompat.Type.systemBars()
                             | WindowInsetsCompat.Type.displayCutout());
             v.setPadding(bars.left, bars.top, bars.right, bars.bottom);
+            // Whether this worked can only be judged on Android 15 or newer,
+            // where edge-to-edge is enforced. Log what was applied so that can
+            // be read off logcat instead of inferred from whether a tap felt
+            // like it landed:
+            //     adb logcat -s ParivartanInsets
+            // A top inset of 0 on such a device means the listener ran but had
+            // nothing to apply, which is the case that silently loses taps.
+            Log.i(TAG, "insets applied: left=" + bars.left + " top=" + bars.top
+                    + " right=" + bars.right + " bottom=" + bars.bottom
+                    + " (sdk=" + Build.VERSION.SDK_INT + ")");
             return WindowInsetsCompat.CONSUMED;
         });
+
+        // Logged separately from the callback above so the two cases can be
+        // told apart. Before Android 15 the system still fits the window
+        // itself, so insets are consumed above this view and the callback never
+        // runs - seeing only this line is correct there, and proves onCreate
+        // installed the listener. On Android 15+ both lines must appear; this
+        // one alone would mean the listener is installed but never invoked,
+        // which is exactly the state that loses taps.
+        Log.i(TAG, "inset listener installed (sdk=" + Build.VERSION.SDK_INT + ")");
+        ViewCompat.requestApplyInsets(content);
     }
 }
