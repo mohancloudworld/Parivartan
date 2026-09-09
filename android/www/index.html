@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Parivartan</title>
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<!-- Library -->
+<section id="view-library" class="view">
+  <header class="bar">
+    <h1>Parivartan</h1>
+    <div class="bar-actions">
+      <button id="btn-reorder" class="icon" title="Reorder">⇅</button>
+      <button id="btn-settings" class="icon" title="Settings">⚙</button>
+    </div>
+  </header>
+  <div class="pad">
+    <input id="search" type="search" placeholder="Search titles (any script, or type in English)">
+  </div>
+  <ul id="content-list" class="list"></ul>
+  <p id="empty" class="empty">No content yet.<br>Tap + to add your first passage.</p>
+  <button id="btn-add" class="fab" title="Add content">+</button>
+</section>
+
+<!-- Reader -->
+<section id="view-reader" class="view hidden">
+  <header class="bar">
+    <button class="icon back" data-back="library">‹</button>
+    <h1 id="reader-title"></h1>
+    <div class="bar-actions">
+      <button id="btn-smaller" class="icon" title="Smaller text">A−</button>
+      <button id="btn-larger" class="icon" title="Larger text">A+</button>
+      <button id="btn-edit" class="icon" title="Edit">✎</button>
+    </div>
+  </header>
+  <p id="reader-note" class="note hidden"></p>
+  <article id="reader-body" class="reader"></article>
+</section>
+
+<!-- Add / edit -->
+<section id="view-edit" class="view hidden">
+  <header class="bar">
+    <button class="icon back" data-back="library">‹</button>
+    <h1 id="edit-heading">Add content</h1>
+    <div class="bar-actions">
+      <button id="btn-save" class="text-btn">Save</button>
+    </div>
+  </header>
+  <div class="pad form">
+    <label for="edit-title">Title</label>
+    <input id="edit-title" type="text" placeholder="Any script — English, Telugu, Devanagari…">
+    <p class="hint">Titles are shown exactly as you type them and are never converted.</p>
+
+    <label for="edit-body">Content</label>
+    <textarea id="edit-body" rows="10" placeholder="Paste or type the passage here"></textarea>
+
+    <label for="edit-script">Script of this content</label>
+    <select id="edit-script"></select>
+    <p id="detect-hint" class="hint"></p>
+    <p id="lossy-warning" class="warning hidden"></p>
+
+    <button id="btn-delete" class="danger hidden">Delete this content</button>
+  </div>
+</section>
+
+<!-- Settings -->
+<section id="view-settings" class="view hidden">
+  <header class="bar">
+    <button class="icon back" data-back="library">‹</button>
+    <h1>Settings</h1>
+  </header>
+  <div class="pad form">
+    <label for="set-script">Display all content in</label>
+    <select id="set-script"></select>
+    <p class="hint">Content written in this script is shown exactly as saved; everything else is converted for display.</p>
+
+    <label class="row">
+      <input id="set-digits" type="checkbox">
+      <span>Show numbers in the display script</span>
+    </label>
+    <p class="hint">Off means numbers stay as roman digits (0–9).</p>
+
+    <h2>Your library</h2>
+    <button id="btn-export">Export library to a file</button>
+    <button id="btn-import">Import from a file</button>
+    <input id="import-file" type="file" accept="application/json" hidden>
+    <p class="hint">Your content lives only on this device. Export regularly.</p>
+  </div>
+</section>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="vendor/tables.js"></script>
+<script src="vendor/myModule.js"></script>
+<script src="js/typography.js"></script>
+<script src="js/render.js"></script>
+<script src="js/store.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

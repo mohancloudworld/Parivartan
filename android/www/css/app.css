@@ -1,0 +1,136 @@
+/* Parivartan — mobile-first reader.
+   Per-script font size and line height are set on #reader-body from
+   js/typography.js at render time; everything here is chrome around it. */
+
+:root {
+  --bg: #fbf9f4;
+  --surface: #ffffff;
+  --ink: #1f1b16;
+  --ink-soft: #6b6257;
+  --line: #e6e0d5;
+  --accent: #8c5a2b;
+  --warn-bg: #fdf3e3;
+  --warn-ink: #7a5320;
+  --danger: #a33;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #16130f; --surface: #1f1b16; --ink: #f0eae0; --ink-soft: #a89e90;
+    --line: #332c24; --accent: #d69b5e; --warn-bg: #2a2114; --warn-ink: #e0b877;
+  }
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* Keep content clear of the status bar / gesture area on Android 15+. */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+           env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+.view { display: flex; flex-direction: column; min-height: 100vh; }
+.hidden { display: none !important; }
+.pad { padding: 12px 16px; }
+
+/* Header ------------------------------------------------------------- */
+.bar {
+  display: flex; align-items: center; gap: 4px;
+  padding: 10px 8px; border-bottom: 1px solid var(--line);
+  background: var(--surface); position: sticky; top: 0; z-index: 5;
+}
+.bar h1 {
+  font-size: 17px; font-weight: 600; margin: 0 4px; flex: 1;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.bar-actions { display: flex; gap: 2px; flex-shrink: 0; }
+.icon {
+  min-width: 44px; min-height: 44px;   /* comfortable touch target */
+  border: 0; background: none; color: var(--ink);
+  font-size: 17px; border-radius: 10px; cursor: pointer;
+}
+.icon:active { background: var(--line); }
+.icon.back { font-size: 30px; line-height: 1; }
+.text-btn {
+  border: 0; background: var(--accent); color: #fff;
+  padding: 10px 18px; border-radius: 10px; font-size: 15px;
+  font-weight: 600; cursor: pointer; min-height: 44px;
+}
+
+/* Library ------------------------------------------------------------ */
+#search {
+  width: 100%; padding: 12px 14px; font-size: 15px;
+  border: 1px solid var(--line); border-radius: 12px;
+  background: var(--surface); color: var(--ink);
+}
+.list { list-style: none; margin: 0; padding: 0 16px 96px; flex: 1; }
+.list li {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: 12px; padding: 14px 16px; margin-bottom: 8px;
+}
+.list .title {
+  flex: 1; font-size: 17px; cursor: pointer;
+  /* A library mixes scripts, so the title stack must cover all of them
+     at once — unlike the reader, which shows one script at a time. */
+  font-family: "Noto Serif", "Noto Sans", system-ui, sans-serif;
+}
+.list .meta { font-size: 12px; color: var(--ink-soft); margin-top: 3px; }
+.move { min-width: 40px; min-height: 40px; border: 1px solid var(--line);
+        background: var(--surface); color: var(--ink);
+        border-radius: 8px; font-size: 15px; cursor: pointer; }
+.empty { text-align: center; color: var(--ink-soft); margin-top: 22vh; padding: 0 32px; line-height: 1.7; }
+.fab {
+  position: fixed; right: 20px; font-size: 30px;
+  bottom: calc(20px + env(safe-area-inset-bottom));
+  width: 60px; height: 60px; border-radius: 30px; border: 0;
+  background: var(--accent); color: #fff; cursor: pointer;
+  box-shadow: 0 3px 12px rgba(0,0,0,.28);
+}
+
+/* Reader ------------------------------------------------------------- */
+.reader {
+  padding: 20px 22px calc(48px + env(safe-area-inset-bottom));
+  white-space: pre-wrap;      /* preserve the verse line breaks as entered */
+  word-wrap: break-word;
+  /* font-size, line-height and font-family are applied from typography.js */
+}
+.note {
+  margin: 0; padding: 10px 16px; font-size: 13px;
+  background: var(--warn-bg); color: var(--warn-ink);
+  border-bottom: 1px solid var(--line);
+}
+
+/* Forms -------------------------------------------------------------- */
+.form label { display: block; font-size: 13px; font-weight: 600;
+              color: var(--ink-soft); margin: 18px 0 6px; }
+.form label.row { display: flex; align-items: center; gap: 10px;
+                  font-size: 15px; color: var(--ink); font-weight: 400; }
+.form label.row input { width: 20px; height: 20px; }
+.form input[type=text], .form textarea, .form select {
+  width: 100%; padding: 12px 14px; font-size: 16px;  /* 16px avoids zoom-on-focus */
+  border: 1px solid var(--line); border-radius: 10px;
+  background: var(--surface); color: var(--ink); font-family: inherit;
+}
+.form textarea { line-height: 1.75; resize: vertical; }
+.form button {
+  width: 100%; padding: 14px; margin-top: 10px; font-size: 15px;
+  border: 1px solid var(--line); border-radius: 10px;
+  background: var(--surface); color: var(--ink); cursor: pointer;
+}
+.form button.danger { color: var(--danger); border-color: var(--danger); margin-top: 32px; }
+.hint { font-size: 12.5px; color: var(--ink-soft); margin: 6px 0 0; line-height: 1.55; }
+.warning {
+  font-size: 13px; background: var(--warn-bg); color: var(--warn-ink);
+  padding: 10px 12px; border-radius: 10px; margin-top: 10px; line-height: 1.55;
+}
+.form h2 { font-size: 15px; margin: 32px 0 4px; }
+
+/* Toast -------------------------------------------------------------- */
+.toast {
+  position: fixed; left: 50%; transform: translateX(-50%);
+  bottom: calc(28px + env(safe-area-inset-bottom));
+  background: var(--ink); color: var(--bg);
+  padding: 12px 20px; border-radius: 24px; font-size: 14px; z-index: 50;
+}

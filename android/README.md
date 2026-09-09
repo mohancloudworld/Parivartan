@@ -1,0 +1,124 @@
+# Parivartan for Android
+
+A personal library of passages, stored once and displayed in whichever Indian
+script the reader prefers. It reuses the browser extension's conversion engine
+unchanged.
+
+## Why it lives here and not on a branch
+
+`src/data/tables.js` and `src/lib/myModule.js` are the single source of truth
+for conversion, shared by the extension and this app. On a long-lived branch
+those shared files become a permanent merge surface and drift apart — which is
+the one thing this design exists to prevent. So the app sits beside the
+extension on `master`, and `tools/sync-engine.sh` copies the engine in at build
+time. A fix to the tables reaches both, with the root test suite guarding it.
+
+Use short-lived feature branches for chunks of work and merge them back quickly.
+
+## Layout
+
+```
+android/
+  www/                 the app; plain HTML/CSS/JS, no build step
+    vendor/            engine copied from ../src — never edit here
+    js/typography.js   per-script size and leading
+    js/render.js       the display pipeline (see below)
+    js/store.js        content + settings persistence, export/import
+    js/app.js          UI wiring
+    fonts/             bundled Noto — see fonts/README.md
+  test/render.test.js  pipeline tests, no browser needed
+  tools/sync-engine.sh copies the engine from ../src
+```
+
+## Running it
+
+```sh
+android/tools/sync-engine.sh     # pull in the engine (required once)
+node android/test/render.test.js # 27 tests, no browser
+cd android && npm run serve      # http://localhost:8080 in any browser
+```
+
+The app is a plain web page, so the whole thing is testable in a browser before
+Android is involved. To build the APK:
+
+```sh
+cd android
+npm install
+npx cap add android      # first time only
+npm run sync             # sync engine + copy web assets into the Android project
+npm run open             # opens Android Studio
+```
+
+## How content is stored and displayed
+
+Each item keeps the **original exactly as pasted**, plus a normalised ITRANS
+**pivot**:
+
+```
+{ id, title, searchKey, original, sourceScript, pivotItrans, createdAt, updatedAt }
+```
+
+Display follows one rule, in `js/render.js`:
+
+```
+if displayScript == sourceScript:  show `original` verbatim   (no round-trip)
+else:                              convert `pivotItrans` → displayScript
+then, always:                      apply the digit preference
+```
+
+The original is rendered verbatim in its own script because round-tripping
+through ITRANS is *stable* but not byte-identical — it normalises `A`→`aa`,
+`E`→`ee` — and for some scripts it loses real distinctions (below). Keeping the
+original means a reader never sees an approximation of their own text.
+
+Digits are handled by a **separate pass** rather than the engine's
+`preferASCIIDigits` flag, because the verbatim path runs no transliteration at
+all and the flag would never fire there. Digits are a self-contained, lossless
+ASCII↔script map in each script's own table, so the pass is exact, normalises
+mixed input, and puts the digit policy in exactly one place.
+
+## The fidelity ceiling
+
+Some scripts cannot round-trip through ITRANS because the writing system lacks
+the letters. Such content still displays perfectly in **its own** script; only
+other scripts are approximate. `LOSSY_SOURCE_SCRIPTS` in `js/render.js` drives a
+warning on the add screen and a note in the reader.
+
+| Source | Lost | Cause |
+| --- | --- | --- |
+| Tamil | `bh→p`, `dh→t`, `gh→k` | no voiced/aspirated consonants |
+| Bengali | `v→b` | ব serves both |
+| Gurmukhi | sibilant distinctions | — |
+
+Devanagari, Telugu, Kannada, Gujarati and Oriya are full-fidelity sources.
+
+Note this is about the **source**, not the display. Showing full-fidelity Telugu
+content *in* Tamil also collapses those distinctions, but that is simply Tamil
+orthography and is what a Tamil reader expects, so no warning is shown. The
+warning fires only when content was **added** in a lossy script, because then
+every other script is rendered from a pivot that never held the information.
+
+Also note `"."` maps to `॥` (double danda) by ITRANS convention, so an ordinary
+period inside content becomes a danda when shown in another script.
+
+## Titles
+
+Titles are stored and shown **verbatim** in whatever script the user typed and
+are never converted. A hidden `searchKey` holds a romanisation, so a title
+written in Telugu is still findable by typing Latin letters. Alphabetical order
+is undefined across scripts, so the list uses the user's own manual order.
+
+## Storage
+
+`localStorage`, which behaves the same in a browser and in the Capacitor
+WebView. Content typed by hand is irreplaceable, so JSON export/import ships in
+the first version. If libraries grow large enough that re-parsing the whole
+store hurts, move to SQLite behind the same `store.js` interface — nothing
+outside that file knows where content lives.
+
+## Still to do
+
+- Drop the font files into `www/fonts/` and add the `@font-face` rules.
+- Tune the per-script sizes in `js/typography.js` on a real device.
+- App icon and splash screen.
+- Play Store release — see the `capacitor-play-release` skill.

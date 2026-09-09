@@ -1,0 +1,8 @@
+# Engine copied from ../src by tools/sync-engine.sh. Committing it would create
+# a second copy of the conversion tables in git and defeat the single source of
+# truth. Run the sync script after cloning.
+www/vendor/
+
+# Capacitor-generated native project and dependencies
+android/
+node_modules/

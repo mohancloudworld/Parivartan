@@ -1,0 +1,19 @@
+{
+  "name": "parivartan-android",
+  "private": true,
+  "description": "Capacitor shell for Parivartan. The app code under www/ has no build step; npm is only used for Capacitor and the tests.",
+  "scripts": {
+    "sync-engine": "tools/sync-engine.sh",
+    "test": "node test/render.test.js",
+    "serve": "python3 -m http.server 8080 --directory www",
+    "sync": "npm run sync-engine && npx cap sync android",
+    "open": "npx cap open android"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.0.0"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.0.0",
+    "@capacitor/core": "^6.0.0"
+  }
+}
