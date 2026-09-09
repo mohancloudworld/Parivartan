@@ -145,6 +145,29 @@ between faces and a wrong range makes browsers synthesise weights. Each rule is
 scoped by `unicode-range`, so a reader downloads only the face for the script
 they are reading. See `www/fonts/README.md`.
 
+## Icon and splash
+
+Source images live in `assets/` and are rendered from `../Misc/Parivartan-icon.svg`.
+Regenerate the density variants with:
+
+```sh
+cd android && npx @capacitor/assets generate --android --assetPath assets
+```
+
+Two things that are deliberate, not accidents:
+
+- `assets/icon-foreground.png` is the **glyphs and arrows only**, not the whole
+  card. Android masks the adaptive icon to a circle or squircle, and the full
+  card ends up as a bordered square floating inside that mask, with the ruled
+  panel clipped. The glyphs sit directly on the ground instead.
+- The adaptive XML in `res/mipmap-anydpi-v26/` has a **full-bleed background**.
+  The generator insets that layer as well as the foreground, which leaves the
+  canvas corners transparent so the mask clips into nothing. **Re-apply that
+  edit after every regeneration** — the generator overwrites it.
+
+`assets/icon.png` keeps the whole card, which is correct for the legacy square
+icon and for the 512×512 Play listing asset, where nothing is masked.
+
 ## Still to do
 
 - Tune the per-script sizes in `js/typography.js` on a real device.

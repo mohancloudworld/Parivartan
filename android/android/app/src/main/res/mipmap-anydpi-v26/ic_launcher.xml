@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
-    <background android:drawable="@color/ic_launcher_background"/>
-    <foreground android:drawable="@mipmap/ic_launcher_foreground"/>
+    <!-- Full-bleed on purpose. @capacitor/assets insets this layer too, which
+         leaves the canvas corners transparent so the launcher's circular or
+         squircle mask clips into nothing instead of the icon's ground.
+         Re-apply this after running `npx @capacitor/assets generate`. -->
+    <background android:drawable="@mipmap/ic_launcher_background" />
+    <foreground>
+        <inset android:drawable="@mipmap/ic_launcher_foreground" android:inset="16.7%" />
+    </foreground>
 </adaptive-icon>
