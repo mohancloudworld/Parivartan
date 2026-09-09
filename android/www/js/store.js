@@ -10,6 +10,10 @@
 
 var STORAGE_KEY = "parivartan.contents";
 var SETTINGS_KEY = "parivartan.settings";
+// Records that the shipped content has been offered once. Kept separate from
+// the library itself so that deleting those passages is final: an empty library
+// is a choice the user made, not a state to be repaired on next launch.
+var SEEDED_KEY = "parivartan.seeded";
 
 var DEFAULT_SETTINGS = {
   displayScript: "Devanagari",  // preferred script for all content
@@ -72,6 +76,33 @@ function updateContent(item, title, body, sourceScript) {
   item.pivotItrans = toPivot(body, sourceScript);
   item.updatedAt = Date.now();
   return item;
+}
+
+// Puts the shipped passages in on first run only. Requires Parivartan.init()
+// to have run, since makeContent computes the ITRANS pivot.
+function seedDefaultsIfNeeded() {
+  var seeded = false;
+  try {
+    seeded = localStorage.getItem(SEEDED_KEY) === "1";
+  } catch (e) {
+    // Storage unavailable: seed in memory so the app still opens with content.
+  }
+  if (seeded) return loadContents();
+
+  var contents = loadContents();
+  // Only seed a genuinely empty library - never push shipped content in
+  // alongside a user's own, which is what an import into an existing library
+  // would look like to them.
+  if (contents.length === 0 && typeof PARIVARTAN_DEFAULT_CONTENT !== "undefined") {
+    contents = PARIVARTAN_DEFAULT_CONTENT.map(function (d) {
+      return makeContent(d.title, d.body, d.sourceScript);
+    });
+    saveContents(contents);
+  }
+  try {
+    localStorage.setItem(SEEDED_KEY, "1");
+  } catch (e) {}
+  return contents;
 }
 
 // Manual ordering. Sorting titles alphabetically is undefined across scripts,

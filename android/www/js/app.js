@@ -279,5 +279,7 @@ Array.prototype.forEach.call(document.querySelectorAll("[data-back]"), function 
 });
 
 Parivartan.init();
+// After init(), so the pivot can be computed for the shipped passages.
+contents = seedDefaultsIfNeeded();
 renderLibrary();
 showView("library");

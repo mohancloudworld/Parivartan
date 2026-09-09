@@ -16,6 +16,7 @@ const files = [
   "www/vendor/myModule.js",
   "www/js/typography.js",
   "www/js/render.js",
+  "www/js/defaults.js",
 ];
 
 const ctx = {};
@@ -113,6 +114,41 @@ for (const s of ctx.INDIC_SCRIPTS) {
   const hasType = !!ctx.PARIVARTAN_TYPOGRAPHY[s];
   const hasDigits = ctx.digitPass("5", s, true) !== "5";
   check(s + ": typography + native digits present", hasType && hasDigits, true);
+}
+
+console.log("\n-- shipped default content --");
+// These are national symbols reproduced from the Government of India's own
+// order, so the checks are about fidelity, not formatting: the stored text must
+// come back byte-identical in its own script, and must be recognised as the
+// script it claims to be.
+for (const d of ctx.PARIVARTAN_DEFAULT_CONTENT) {
+  const name = d.title.replace(/\s*\(.*/, "");
+  check(name + ": declared script matches detection",
+    ctx.detectScript(d.body), d.sourceScript);
+  const item = {
+    original: d.body,
+    sourceScript: d.sourceScript,
+    pivotItrans: ctx.toPivot(d.body, d.sourceScript),
+  };
+  check(name + ": renders byte-identical in its own script",
+    ctx.renderContent(item, d.sourceScript, false), d.body);
+  check(name + ": title yields a latin search key",
+    /^[a-z0-9 ().|-]+$/.test(ctx.titleSearchKey(d.title)), true);
+}
+
+// The anthem must be clean in every script the app offers - it is the most
+// visible text in the app and the least acceptable place for an artefact.
+{
+  const anthem = ctx.PARIVARTAN_DEFAULT_CONTENT[0];
+  const item = {
+    original: anthem.body,
+    sourceScript: anthem.sourceScript,
+    pivotItrans: ctx.toPivot(anthem.body, anthem.sourceScript),
+  };
+  for (const s of ctx.INDIC_SCRIPTS) {
+    check("anthem: no latin leaks into " + s,
+      /[A-Za-z]/.test(ctx.renderContent(item, s, false)), false);
+  }
 }
 
 console.log("\n" + pass + "/" + (pass + fail) + " passed");
