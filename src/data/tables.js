@@ -1543,6 +1543,7 @@ var malayalam_dict = {
     "Dependent_vowel": { // +()
         // Dependent vowel signs
         "a"     :   "",       // ADDED
+        "A"     :   "\u0D3E", // $ ാ MALAYALAM VOWEL SIGN AA
         "aa"    :   "\u0D3E", // $ ാ MALAYALAM VOWEL SIGN AA
         "i"     :   "\u0D3F", // $ ി MALAYALAM VOWEL SIGN I
         "I"     :   "\u0D40", // $ ീ MALAYALAM VOWEL SIGN II
