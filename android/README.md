@@ -42,14 +42,31 @@ cd android && npm run serve      # http://localhost:8080 in any browser
 ```
 
 The app is a plain web page, so the whole thing is testable in a browser before
-Android is involved. To build the APK:
+Android is involved.
+
+## Building the APK
+
+**Needs a JDK 21** — exactly 21, and it must be a JDK, not a JRE. Capacitor
+generates `android/app/capacitor.build.gradle` with source and target
+compatibility 21, which JDK 17 cannot compile; and Gradle cannot yet run on
+Java 25, which fails earlier still with `Unsupported class file major version 69`.
+Fedora's default `java` is a JRE, so check the compiler rather than the runtime:
+
+```sh
+sudo dnf install java-21-openjdk-devel
+export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
+export ANDROID_HOME=$HOME/Android/Sdk
+javac -version                   # must print 21.x
+```
+
+Then:
 
 ```sh
 cd android
 npm install
-npx cap add android      # first time only
-npm run sync             # sync engine + copy web assets into the Android project
-npm run open             # opens Android Studio
+npm run sync         # sync engine + copy web assets into the native project
+npm run build:debug  # → android/app/build/outputs/apk/debug/app-debug.apk
+npm run open         # or open it in Android Studio
 ```
 
 ## How content is stored and displayed

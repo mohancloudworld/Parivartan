@@ -7,13 +7,15 @@
     "test": "node test/render.test.js",
     "serve": "python3 -m http.server 8080 --directory www",
     "sync": "npm run sync-engine && npx cap sync android",
-    "open": "npx cap open android"
+    "open": "npx cap open android",
+    "build:debug": "cd android && ./gradlew assembleDebug",
+    "build:release": "cd android && ./gradlew bundleRelease"
   },
   "devDependencies": {
-    "@capacitor/cli": "^6.0.0"
+    "@capacitor/cli": "^8.5.1"
   },
   "dependencies": {
-    "@capacitor/android": "^6.0.0",
-    "@capacitor/core": "^6.0.0"
+    "@capacitor/android": "^8.5.1",
+    "@capacitor/core": "^8.5.1"
   }
 }

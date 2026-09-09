@@ -3,6 +3,8 @@
 # truth. Run the sync script after cloning.
 www/vendor/
 
-# Capacitor-generated native project and dependencies
-android/
 node_modules/
+
+# The native android/ project IS committed: it carries the edge-to-edge fix in
+# MainActivity, the manifest, icons and signing config. Its own .gitignore
+# excludes build output and the web assets Capacitor copies in.
