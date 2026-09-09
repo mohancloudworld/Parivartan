@@ -8,8 +8,8 @@
     "serve": "python3 -m http.server 8080 --directory www",
     "sync": "npm run sync-engine && npx cap sync android",
     "open": "npx cap open android",
-    "build:debug": "cd android && ./gradlew assembleDebug",
-    "build:release": "cd android && ./gradlew bundleRelease"
+    "build:debug": "JAVA_HOME=\"$(tools/find-jdk.sh)\" ANDROID_HOME=\"${ANDROID_HOME:-$HOME/Android/Sdk}\" sh -c 'cd android && ./gradlew assembleDebug'",
+    "build:release": "JAVA_HOME=\"$(tools/find-jdk.sh)\" ANDROID_HOME=\"${ANDROID_HOME:-$HOME/Android/Sdk}\" sh -c 'cd android && ./gradlew bundleRelease'"
   },
   "devDependencies": {
     "@capacitor/assets": "^3.0.5",
