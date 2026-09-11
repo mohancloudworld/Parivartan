@@ -31,22 +31,20 @@ function findContent(id) {
   return contents.filter(function (c) { return c.id === id; })[0] || null;
 }
 
-// `withRoman` is false for the add/edit screen: content is always stored in an
-// Indian script, so Latin is a way to read it, never a way to enter it.
-function scriptOptions(select, selected, withRoman) {
+// kind: "source"  - what content can be written in (scripts + notations)
+//       "display" - what it can be read as (scripts + Latin readings)
+//       "convert" - what the master can be rewritten into
+function scriptOptions(select, selected, kind) {
+  var values;
+  if (kind === "source") values = sourceFormats();
+  else if (kind === "convert") values = convertTargets();
+  else values = INDIC_SCRIPTS.concat(Object.keys(ROMAN_SCHEMES));
+
   select.textContent = "";
-  var values = INDIC_SCRIPTS.slice();
-  var labels = {};
-  if (withRoman) {
-    Object.keys(ROMAN_SCHEMES).forEach(function (k) {
-      values.push(k);
-      labels[k] = ROMAN_SCHEMES[k];
-    });
-  }
   values.forEach(function (s) {
     var opt = document.createElement("option");
     opt.value = s;
-    opt.textContent = labels[s] || s;
+    opt.textContent = formatLabel(s);
     if (s === selected) opt.selected = true;
     select.appendChild(opt);
   });
@@ -153,26 +151,54 @@ function openEditor(id) {
   $("edit-body").value = item ? item.original : "";
   var editScript = item ? item.sourceScript
     : (isRoman(settings.displayScript) ? "Devanagari" : settings.displayScript);
-  scriptOptions($("edit-script"), editScript, false);
+  scriptOptions($("edit-script"), editScript, "source");
+  scriptOptions($("convert-target"), null, "convert");
   $("btn-delete").classList.toggle("hidden", !item);
+  // Converting the master only makes sense for content that already exists.
+  $("convert-block").classList.toggle("hidden", !item);
   $("detect-hint").textContent = "";
   updateLossyWarning();
+  updateSourceWarning();
   showView("edit");
 }
 
 // Auto-detect is a suggestion the user can override, not a decision.
+// Suggests an Indian script, and deliberately suggests nothing for Latin text.
+// Detection cannot tell ITRANS from ISO from IAST from ordinary spelling, and a
+// wrong guess there is invisible in the result, so the choice stays the user's
+// and validateSource only objects if the text contradicts it.
 function autoDetect() {
   var body = $("edit-body").value.trim();
-  if (!body) { $("detect-hint").textContent = ""; return; }
+  if (!body) {
+    $("detect-hint").textContent = "";
+    updateSourceWarning();
+    return;
+  }
   var detected = detectScript(body);
   if (detected === "English") {
     $("detect-hint").textContent =
-      "No Indian script detected — pick the script this content is written in.";
-    return;
+      "Not an Indian script. Choose the notation this is written in — ITRANS, " +
+      "ISO 15919 or IAST — since these cannot be told apart automatically.";
+  } else {
+    $("edit-script").value = detected;
+    $("detect-hint").textContent = "Detected " + detected + ". Change it if that is wrong.";
   }
-  $("edit-script").value = detected;
-  $("detect-hint").textContent = "Detected " + detected + ". Change it if that is wrong.";
   updateLossyWarning();
+  updateSourceWarning();
+}
+
+// Live feedback: the text is checked against whatever it is declared to be.
+function updateSourceWarning() {
+  var el = $("source-warning");
+  var result = validateSource($("edit-body").value, $("edit-script").value);
+  el.classList.toggle("error", !!result && result.level === "error");
+  if (result) {
+    el.textContent = result.message;
+    el.classList.remove("hidden");
+  } else {
+    el.classList.add("hidden");
+  }
+  return result;
 }
 
 function updateLossyWarning() {
@@ -193,6 +219,13 @@ function saveEditor() {
   var script = $("edit-script").value;
   if (!body.trim()) { toast("Add some content first."); return; }
   if (!title) { toast("Give it a title."); return; }
+  var problem = validateSource(body, script);
+  if (problem && problem.level === "error") {
+    // Saving this would leave the item showing one script whatever the reader
+    // picks, so it is refused rather than warned about.
+    toast(problem.message);
+    return;
+  }
 
   if (editingId) {
     updateContent(findContent(editingId), title, body, script);
@@ -220,7 +253,7 @@ function deleteCurrent() {
 // --- Settings --------------------------------------------------------------
 
 function openSettings() {
-  scriptOptions($("set-script"), settings.displayScript, true);
+  scriptOptions($("set-script"), settings.displayScript, "display");
   $("set-digits").checked = settings.nativeDigits;
   showView("settings");
 }
@@ -251,7 +284,30 @@ $("btn-larger").addEventListener("click", function () { nudgeFont(1); });
 $("btn-edit").addEventListener("click", function () { openEditor(currentId); });
 
 $("edit-body").addEventListener("blur", autoDetect);
-$("edit-script").addEventListener("change", updateLossyWarning);
+$("edit-script").addEventListener("change", function () {
+  updateLossyWarning();
+  updateSourceWarning();
+});
+$("btn-convert").addEventListener("click", function () {
+  var target = $("convert-target").value;
+  var body = $("edit-body").value;
+  var script = $("edit-script").value;
+  if (!body.trim()) { toast("Nothing to convert."); return; }
+  if (target === script) { toast("Already written in " + formatLabel(target) + "."); return; }
+  var problem = validateSource(body, script);
+  if (problem && problem.level === "error") { toast(problem.message); return; }
+  if (!confirm("Replace the text with its " + formatLabel(target) +
+               " conversion? What you typed will be gone.")) return;
+  // Convert through a pivot built from the text as it stands, not from the
+  // saved item, so unsaved edits are included.
+  var converted = convertMaster({ pivotItrans: toPivot(body, script) }, target);
+  $("edit-body").value = converted;
+  $("edit-script").value = target;
+  scriptOptions($("convert-target"), null, "convert");
+  updateLossyWarning();
+  updateSourceWarning();
+  toast("Converted to " + formatLabel(target) + ". Save to keep it.");
+});
 $("btn-save").addEventListener("click", saveEditor);
 $("btn-delete").addEventListener("click", deleteCurrent);
 

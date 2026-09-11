@@ -149,6 +149,70 @@ console.log("\n-- latin display --");
     /[^\x00-\x7F]/.test(plain.join("\n")), false);
 }
 
+console.log("\n-- a master written in a latin notation --");
+{
+  // The author's text is the master whatever notation it is in: kept verbatim,
+  // and shown untouched when the reader asks for that same notation.
+  const master = "harE kRRiShNa";
+  const item = { original: master, sourceScript: "ITRANS" };
+  item.pivotItrans = ctx.toPivot(master, "ITRANS");
+  check("ITRANS master shown as ITRANS is the master itself",
+    ctx.renderContent(item, "ITRANS", false), master);
+  check("ITRANS master renders into Devanagari",
+    ctx.renderContent(item, "Devanagari", false), "\u0939\u0930\u0947 \u0915\u0943\u0937\u094D\u0923");
+  check("ITRANS master renders into plain english",
+    ctx.renderContent(item, "Plain", false), "hare krishna");
+
+  // All three notations of the same passage must reach one pivot, or the same
+  // text would convert differently depending on how it was typed.
+  const pivots = [["ITRANS", "harE kRRiShNa"], ["IAST", "hare k\u1E5B\u1E63\u1E47a"],
+                  ["ISO", "har\u0113 kr\u0325\u1E63\u1E47a"]]
+    .map(([fmt, txt]) => ctx.toPivot(txt, fmt));
+  check("the three notations normalise to one pivot",
+    new Set(pivots).size, 1);
+}
+
+console.log("\n-- declared source is validated, never guessed --");
+{
+  const err = (t, d) => { const v = ctx.validateSource(t, d); return v && v.level; };
+  check("well-formed ITRANS passes", ctx.validateSource("harE kRRiShNa", "ITRANS"), null);
+  check("well-formed IAST passes", ctx.validateSource("hare k\u1E5B\u1E63\u1E47a", "IAST"), null);
+  // The trap: ordinary romanisation accepted as a notation converts to
+  // plausible nonsense, and the reader who needs this feature cannot tell.
+  check("ordinary english spelling declared as ITRANS warns",
+    err("hare rama krishna", "ITRANS"), "warning");
+  check("iast marks declared as ISO warns", err("hare k\u1E5B\u1E63\u1E47a", "ISO"), "warning");
+  check("indic text declared as a notation is an error",
+    err("\u0936\u094D\u0930\u0940 \u0930\u093E\u092E", "ITRANS"), "error");
+  // The live bug this was built for: re-declaring the script without changing
+  // the text left the item showing one script whatever the reader chose.
+  check("telugu text declared as Devanagari is an error",
+    err("\u0c36\u0c4d\u0c30\u0c40 \u0c30\u0c3e\u0c2e", "Devanagari"), "error");
+  check("latin text declared as an indian script is an error",
+    err("hare rama", "Devanagari"), "error");
+  check("correctly declared indic text passes",
+    ctx.validateSource("\u0c36\u0c4d\u0c30\u0c40 \u0c30\u0c3e\u0c2e", "Telugu"), null);
+}
+
+console.log("\n-- converting the master --");
+{
+  const item = { pivotItrans: ctx.toPivot("harE kRRiShNa", "ITRANS") };
+  check("master converts to an indian script",
+    ctx.convertMaster(item, "Telugu"), "\u0c39\u0c30\u0c47 \u0c15\u0c43\u0c37\u0c4d\u0c23");
+  check("master converts to ISO", ctx.convertMaster(item, "ISO"), "har\u0113 kr\u0325\u1E63\u1E47a");
+  // Plain english and IAST are readable and enterable respectively, but neither
+  // can be generated as a master - plain has lost vowel length for good.
+  check("plain english is not a conversion target",
+    ctx.convertTargets().indexOf("Plain"), -1);
+  check("IAST is not a conversion target", ctx.convertTargets().indexOf("IAST"), -1);
+  check("IAST is still a source format", ctx.sourceFormats().indexOf("IAST") >= 0, true);
+
+  // Round trip: convert the master to a script and back, and the pivot holds.
+  const toTelugu = ctx.convertMaster(item, "Telugu");
+  check("pivot survives a master conversion",
+    ctx.toPivot(toTelugu, "Telugu"), item.pivotItrans);
+}
+
 console.log("\n-- shipped default content --");
 // These are national symbols reproduced from the Government of India's own
 // order, so the checks are about fidelity, not formatting: the stored text must

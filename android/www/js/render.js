@@ -22,12 +22,43 @@
 //   Plain - the same with the marks removed, which is how devotional text is
 //           normally printed in Latin letters.
 var ROMAN_SCHEMES = {
-  ISO:   "English (ISO 15919)",
-  Plain: "English (plain)"
+  ISO:    "English (ISO 15919)",
+  Plain:  "English (plain)",
+  ITRANS: "English (ITRANS)"
+};
+
+// Latin notations content can be WRITTEN in. Not the same list as the reading
+// options above: IAST can be entered, because people have texts in it, but the
+// engine has no generator for it, so it is not offered as a reading or as a
+// conversion target. Plain English is the reverse - readable but too lossy to
+// be a master, since vowel length is gone and cannot be recovered.
+var LATIN_FORMATS = {
+  ITRANS: "ITRANS",
+  ISO:    "ISO 15919",
+  IAST:   "IAST"
 };
 
 function isRoman(script) {
   return Object.prototype.hasOwnProperty.call(ROMAN_SCHEMES, script);
+}
+
+function isLatinFormat(script) {
+  return Object.prototype.hasOwnProperty.call(LATIN_FORMATS, script);
+}
+
+// What content can be written in.
+function sourceFormats() {
+  return INDIC_SCRIPTS.concat(Object.keys(LATIN_FORMATS));
+}
+
+// What the master can be rewritten into. Excludes IAST and plain English for
+// the reasons above.
+function convertTargets() {
+  return INDIC_SCRIPTS.concat(["ITRANS", "ISO"]);
+}
+
+function formatLabel(name) {
+  return ROMAN_SCHEMES[name] || LATIN_FORMATS[name] || name;
 }
 
 var INDIC_SCRIPTS = [
@@ -90,7 +121,86 @@ function detectScript(text) {
 // digits regardless of the flag, so the stored pivot is digit-canonical and
 // the digit preference stays purely a display-time concern.
 function toPivot(original, sourceScript) {
+  if (isLatinFormat(sourceScript)) {
+    // Route through Devanagari so a master written in any notation lands on the
+    // same normalised ITRANS an Indic master produces - otherwise the pivot
+    // would carry whichever spelling the author happened to type and the same
+    // passage would convert differently depending on how it was entered.
+    var dev = Parivartan.convert2IndicScript(original, sourceScript, "Devanagari", 1, 0, true);
+    return Parivartan.convert2IndicScript(dev, "ITRANS", "Devanagari", 1, 1, true);
+  }
   return Parivartan.convert2IndicScript(original, "ITRANS", sourceScript, 1, 1, true);
+}
+
+// Checks that text is what it has been declared to be.
+//
+// Detection is used here to CONTRADICT a declaration, never to make one. For
+// the Indian scripts it is reliable and a wrong choice is visible to the reader
+// anyway; for the Latin notations it cannot tell them apart at all, and a wrong
+// choice is silent - the text converts to plausible-looking nonsense. So the
+// declaration is the user's, and this only objects when the text disagrees.
+//
+// Returns null, or {level: "error" | "warning", message}.
+function validateSource(body, declared) {
+  var text = (body || "").trim();
+  if (!text) return null;
+
+  var hasIndic = /[\u0900-\u0D7F]/.test(text);
+  var detected = Parivartan.detectLanguage(text);
+
+  if (isLatinFormat(declared)) {
+    if (hasIndic) {
+      return { level: "error",
+        message: "This is " + detected + " text, not " + LATIN_FORMATS[declared] + "." };
+    }
+    var diacritic = /[\u00C0-\u024F\u1E00-\u1EFF]|[\u0300-\u036F]/.test(text);
+    var isoMark   = /[\u0113\u014D\u1E41]|r\u0325|l\u0325/.test(text);  // ē ō ṁ r̥ l̥
+    var iastMark  = /[\u1E43\u1E5B\u1E37]/.test(text);                  // ṃ ṛ ḷ
+    // The spellings only ITRANS uses: its digraphs, its dotted forms, and a
+    // capital inside a word, which is how it encodes the retroflex and long
+    // letters. A capital starting a word is just a capital.
+    var itransMark = /RRi|RRI|LLi|LLI|~[nN]|\^n|\.[hnmNa]|[a-z][AEIOUTDNSM]|aa|ii|uu|ee|oo|chh|shh/.test(text);
+
+    if (declared === "ITRANS" && diacritic) {
+      return { level: "warning",
+        message: "This has diacritics, which ITRANS does not use. It may be ISO 15919 or IAST." };
+    }
+    if (declared === "ISO" && iastMark && !isoMark) {
+      return { level: "warning", message: "These marks look like IAST rather than ISO 15919." };
+    }
+    if (declared === "IAST" && isoMark && !iastMark) {
+      return { level: "warning", message: "These marks look like ISO 15919 rather than IAST." };
+    }
+    if (!diacritic && !itransMark) {
+      return { level: "warning",
+        message: "This looks like ordinary English spelling rather than " + LATIN_FORMATS[declared] +
+                 ". Vowel lengths and retroflex letters will come out wrong." };
+    }
+    return null;
+  }
+
+  // An Indian script was declared.
+  if (!hasIndic) {
+    return { level: "error",
+      message: "No Indian script here. If this is transliterated text, choose the notation it is written in." };
+  }
+  if (detected !== declared) {
+    return { level: "error",
+      message: "This looks like " + detected + ", not " + declared +
+               ". Saved as " + declared + " it would show the same text in every script." };
+  }
+  return null;
+}
+
+// Rewrites the master into another script or notation.
+//
+// Destructive: the words the author entered are replaced by a conversion of
+// them, so the caller confirms first. Everything downstream is recomputed from
+// the new master by the store.
+function convertMaster(content, target) {
+  if (target === "ITRANS") return content.pivotItrans;
+  if (isRoman(target)) return Parivartan.convert2Roman(content.pivotItrans, target);
+  return Parivartan.convert2IndicScript(content.pivotItrans, "ITRANS", target, 1, 0, true);
 }
 
 // A romanised, lowercased key so a title in any script is findable by typing
@@ -117,6 +227,10 @@ function renderContent(content, displayScript, nativeDigits) {
   // numerals regardless of the setting: the setting picks an INDIAN script's
   // digits, which would look wrong embedded in Latin text.
   if (isRoman(displayScript)) {
+    // The master itself when the reader asks for the notation it was written
+    // in; otherwise derived from the pivot.
+    if (displayScript === content.sourceScript) return content.original;
+    if (displayScript === "ITRANS") return content.pivotItrans;
     return Parivartan.convert2Roman(content.pivotItrans, displayScript);
   }
   if (displayScript === content.sourceScript) {
@@ -136,7 +250,14 @@ if (typeof module !== "undefined" && module.exports) {
   module.exports = {
     INDIC_SCRIPTS: INDIC_SCRIPTS,
     ROMAN_SCHEMES: ROMAN_SCHEMES,
+    LATIN_FORMATS: LATIN_FORMATS,
     isRoman: isRoman,
+    isLatinFormat: isLatinFormat,
+    sourceFormats: sourceFormats,
+    convertTargets: convertTargets,
+    formatLabel: formatLabel,
+    validateSource: validateSource,
+    convertMaster: convertMaster,
     LOSSY_SOURCE_SCRIPTS: LOSSY_SOURCE_SCRIPTS,
     digitPass: digitPass,
     detectScript: detectScript,

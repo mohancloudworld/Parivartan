@@ -58,10 +58,21 @@
     <label for="edit-body">Content</label>
     <textarea id="edit-body" rows="10" placeholder="Paste or type the passage here"></textarea>
 
-    <label for="edit-script">Script of this content</label>
+    <label for="edit-script">Written in</label>
     <select id="edit-script"></select>
     <p id="detect-hint" class="hint"></p>
+    <p id="source-warning" class="warning hidden"></p>
     <p id="lossy-warning" class="warning hidden"></p>
+
+    <div id="convert-block" class="hidden">
+      <label for="convert-target">Convert this text to</label>
+      <div class="row-inline">
+        <select id="convert-target"></select>
+        <button id="btn-convert" class="inline">Convert</button>
+      </div>
+      <p class="hint">Rewrites the text above. What you typed is replaced by a
+      conversion of it, so keep your own copy if you may want it back.</p>
+    </div>
 
     <button id="btn-delete" class="danger hidden">Delete this content</button>
   </div>
