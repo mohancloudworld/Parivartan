@@ -11,12 +11,13 @@ var reorderMode = false;
 
 function $(id) { return document.getElementById(id); }
 
-// "system" leaves the attribute off, so the stylesheet's own light/dark pair
-// applies; any other choice stamps the root and overrides it.
+// Every theme is stamped on the root, "system" included - that is what the
+// stylesheet's light/dark pair is keyed on. Bare :root carries the default
+// theme, so the first paint is already right and nothing flashes before this
+// runs.
 function applyReadingTheme() {
-  var theme = settings.readingTheme || "system";
-  if (theme === "system") document.documentElement.removeAttribute("data-reading-theme");
-  else document.documentElement.setAttribute("data-reading-theme", theme);
+  var theme = settings.readingTheme || "sepia";
+  document.documentElement.setAttribute("data-reading-theme", theme);
   var buttons = document.querySelectorAll("[data-theme-choice]");
   Array.prototype.forEach.call(buttons, function (b) {
     b.setAttribute("aria-pressed", String(b.dataset.themeChoice === theme));

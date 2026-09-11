@@ -10,24 +10,31 @@
  * the most readable, and it glares over a long passage. Muted text and the
  * accent still clear 4.5:1 everywhere.
  *
- * Bare :root is Paper and the media query is Night, so following the system
- * gives the same comfortable pair. An explicit choice carries a
- * data-reading-theme attribute, whose higher specificity beats both - the
- * media query is guarded as well, so the intent is stated rather than implied.
+ * Bare :root is Sepia, which is also the stored default, so the first paint
+ * already matches the theme the script is about to apply and the app does not
+ * flash a different colour on the way up. Every theme, "System" included, is
+ * selected by a data-reading-theme attribute; following the system is a choice
+ * like any other rather than the absence of one.
  */
 :root {
-  --bg: #f7f3e8;
-  --surface: #fffdf7;
-  --ink: #3a332b;
-  --ink-soft: #6a6157;
-  --line: #e3dccb;
-  --accent: #8c5a2b;
-  --warn-bg: #fdf3e3;
-  --warn-ink: #7a5320;
+  --bg: #efe2c8;
+  --surface: #f7ecd8;
+  --ink: #3a2e1c;
+  --ink-soft: #6e5c40;
+  --line: #dccbaa;
+  --accent: #8a4f1e;
+  --warn-bg: #f7e6c4;
+  --warn-ink: #6b431a;
   --danger: #a33;
 }
+
+/* Follow the device: the light and dark pair, chosen only when asked for. */
+:root[data-reading-theme="system"] {
+  --bg: #f7f3e8; --surface: #fffdf7; --ink: #3a332b; --ink-soft: #6a6157;
+  --line: #e3dccb; --accent: #8c5a2b; --warn-bg: #fdf3e3; --warn-ink: #7a5320;
+}
 @media (prefers-color-scheme: dark) {
-  :root:not([data-reading-theme]) {
+  :root[data-reading-theme="system"] {
     --bg: #181b1f; --surface: #21252a; --ink: #d6d2c9; --ink-soft: #8e8a82;
     --line: #2b2f35; --accent: #d69b5e; --warn-bg: #2a2114; --warn-ink: #e0b877;
   }

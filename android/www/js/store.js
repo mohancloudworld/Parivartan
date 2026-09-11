@@ -19,7 +19,11 @@ var DEFAULT_SETTINGS = {
   displayScript: "Devanagari",  // preferred script for all content
   nativeDigits: false,          // false = roman digits, matching the extension
   fontOffset: 0,                // px, added to each script's tuned base size
-  readingTheme: "system"        // system | paper | sepia | night | black
+  // Sepia by default rather than following the device: these are texts read at
+  // length, and the warm ground is the easier of the two to sit with. The
+  // stylesheet's bare :root carries the same values so there is no flash of
+  // another theme before this is applied.
+  readingTheme: "sepia"         // sepia | paper | night | black | system
 };
 
 function loadSettings() {
