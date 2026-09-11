@@ -85,6 +85,23 @@
     <h1>Settings</h1>
   </header>
   <div class="pad form">
+    <label id="lab-theme">Reading theme</label>
+    <div class="themes" id="themes" role="group" aria-labelledby="lab-theme">
+      <button type="button" class="swatch" data-theme-choice="system">
+        <span class="sample">अ</span><span class="name">System</span></button>
+      <button type="button" class="swatch" data-theme-choice="paper">
+        <span class="sample">अ</span><span class="name">Paper</span></button>
+      <button type="button" class="swatch" data-theme-choice="sepia">
+        <span class="sample">अ</span><span class="name">Sepia</span></button>
+      <button type="button" class="swatch" data-theme-choice="night">
+        <span class="sample">अ</span><span class="name">Night</span></button>
+      <button type="button" class="swatch" data-theme-choice="black">
+        <span class="sample">अ</span><span class="name">Black</span></button>
+    </div>
+    <p class="hint">Sepia is easiest on the eyes in dim light; Black leaves an
+    OLED screen unlit. All of them keep text well clear of the contrast
+    minimum without the glare of pure black on white.</p>
+
     <label for="set-script">Display all content in</label>
     <select id="set-script"></select>
     <p class="hint">Content written in this script is shown exactly as saved; everything else is converted for display.</p>

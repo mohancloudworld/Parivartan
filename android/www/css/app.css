@@ -2,22 +2,57 @@
    Per-script font size and line height are set on #reader-body from
    js/typography.js at render time; everything here is chrome around it. */
 
+/* Reading themes.
+ *
+ * Body text sits between 10:1 and 11.5:1 against its ground in every theme.
+ * That is well past the 4.5:1 floor but deliberately short of the 16:1 the
+ * first version shipped: near-black on near-white is the most contrast, not
+ * the most readable, and it glares over a long passage. Muted text and the
+ * accent still clear 4.5:1 everywhere.
+ *
+ * Bare :root is Paper and the media query is Night, so following the system
+ * gives the same comfortable pair. An explicit choice carries a
+ * data-reading-theme attribute, whose higher specificity beats both - the
+ * media query is guarded as well, so the intent is stated rather than implied.
+ */
 :root {
-  --bg: #fbf9f4;
-  --surface: #ffffff;
-  --ink: #1f1b16;
-  --ink-soft: #6b6257;
-  --line: #e6e0d5;
+  --bg: #f7f3e8;
+  --surface: #fffdf7;
+  --ink: #3a332b;
+  --ink-soft: #6a6157;
+  --line: #e3dccb;
   --accent: #8c5a2b;
   --warn-bg: #fdf3e3;
   --warn-ink: #7a5320;
   --danger: #a33;
 }
 @media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #16130f; --surface: #1f1b16; --ink: #f0eae0; --ink-soft: #a89e90;
-    --line: #332c24; --accent: #d69b5e; --warn-bg: #2a2114; --warn-ink: #e0b877;
+  :root:not([data-reading-theme]) {
+    --bg: #181b1f; --surface: #21252a; --ink: #d6d2c9; --ink-soft: #8e8a82;
+    --line: #2b2f35; --accent: #d69b5e; --warn-bg: #2a2114; --warn-ink: #e0b877;
   }
+}
+
+/* Warm off-white, for daylight. */
+:root[data-reading-theme="paper"] {
+  --bg: #f7f3e8; --surface: #fffdf7; --ink: #3a332b; --ink-soft: #6a6157;
+  --line: #e3dccb; --accent: #8c5a2b; --warn-bg: #fdf3e3; --warn-ink: #7a5320;
+}
+/* Deeper cream and brown ink: less glare in dim light, and the closest of
+   these to how these texts appear in print. */
+:root[data-reading-theme="sepia"] {
+  --bg: #efe2c8; --surface: #f7ecd8; --ink: #3a2e1c; --ink-soft: #6e5c40;
+  --line: #dccbaa; --accent: #8a4f1e; --warn-bg: #f7e6c4; --warn-ink: #6b431a;
+}
+/* Dimmed ink on a soft dark ground rather than white on black. */
+:root[data-reading-theme="night"] {
+  --bg: #181b1f; --surface: #21252a; --ink: #d6d2c9; --ink-soft: #8e8a82;
+  --line: #2b2f35; --accent: #d69b5e; --warn-bg: #2a2114; --warn-ink: #e0b877;
+}
+/* True black, which an OLED screen leaves unlit - for reading in the dark. */
+:root[data-reading-theme="black"] {
+  --bg: #000000; --surface: #121212; --ink: #bdb8af; --ink-soft: #7c7871;
+  --line: #1c1c1c; --accent: #d69b5e; --warn-bg: #1f1a10; --warn-ink: #d6ab6a;
 }
 
 * { box-sizing: border-box; }
@@ -124,6 +159,24 @@ body {
   border: 1px solid var(--line); border-radius: 10px;
   background: var(--surface); color: var(--ink); cursor: pointer;
 }
+/* Theme picker: each swatch is painted in the theme it selects, so the choice
+   is made by looking rather than by reading a name. */
+.themes { display: flex; flex-wrap: wrap; gap: 8px; }
+.swatch {
+  flex: 1 1 84px; min-width: 84px; cursor: pointer;
+  border: 1px solid var(--line); border-radius: 10px;
+  padding: 12px 8px 8px; font-family: inherit;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+.swatch .sample { font-size: 19px; line-height: 1; font-family: "Noto Serif", Georgia, serif; }
+.swatch .name { font-size: 11.5px; letter-spacing: .02em; }
+.swatch[aria-pressed="true"] { outline: 2px solid var(--accent); outline-offset: 1px; }
+.swatch[data-theme-choice="system"] { background: var(--surface); color: var(--ink); }
+.swatch[data-theme-choice="paper"]  { background: #f7f3e8; color: #3a332b; border-color: #e3dccb; }
+.swatch[data-theme-choice="sepia"]  { background: #efe2c8; color: #3a2e1c; border-color: #dccbaa; }
+.swatch[data-theme-choice="night"]  { background: #181b1f; color: #d6d2c9; border-color: #2b2f35; }
+.swatch[data-theme-choice="black"]  { background: #000000; color: #bdb8af; border-color: #2a2a2a; }
+
 .row-inline { display: flex; gap: 8px; align-items: stretch; }
 .row-inline select { flex: 1; }
 .form button.inline { width: auto; margin-top: 0; padding: 12px 20px; flex-shrink: 0; }

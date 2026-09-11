@@ -11,6 +11,18 @@ var reorderMode = false;
 
 function $(id) { return document.getElementById(id); }
 
+// "system" leaves the attribute off, so the stylesheet's own light/dark pair
+// applies; any other choice stamps the root and overrides it.
+function applyReadingTheme() {
+  var theme = settings.readingTheme || "system";
+  if (theme === "system") document.documentElement.removeAttribute("data-reading-theme");
+  else document.documentElement.setAttribute("data-reading-theme", theme);
+  var buttons = document.querySelectorAll("[data-theme-choice]");
+  Array.prototype.forEach.call(buttons, function (b) {
+    b.setAttribute("aria-pressed", String(b.dataset.themeChoice === theme));
+  });
+}
+
 function showView(name) {
   ["library", "reader", "edit", "settings"].forEach(function (v) {
     $("view-" + v).classList.toggle("hidden", v !== name);
@@ -253,6 +265,7 @@ function deleteCurrent() {
 // --- Settings --------------------------------------------------------------
 
 function openSettings() {
+  applyReadingTheme();
   scriptOptions($("set-script"), settings.displayScript, "display");
   $("set-digits").checked = settings.nativeDigits;
   showView("settings");
@@ -311,6 +324,14 @@ $("btn-convert").addEventListener("click", function () {
 $("btn-save").addEventListener("click", saveEditor);
 $("btn-delete").addEventListener("click", deleteCurrent);
 
+Array.prototype.forEach.call(document.querySelectorAll("[data-theme-choice]"), function (b) {
+  b.addEventListener("click", function () {
+    settings.readingTheme = b.dataset.themeChoice;
+    saveSettings(settings);
+    applyReadingTheme();
+  });
+});
+
 $("set-script").addEventListener("change", function () {
   settings.displayScript = this.value;
   saveSettings(settings);
@@ -347,6 +368,7 @@ Array.prototype.forEach.call(document.querySelectorAll("[data-back]"), function 
   b.addEventListener("click", function () { showView(this.getAttribute("data-back")); });
 });
 
+applyReadingTheme();
 Parivartan.init();
 // After init(), so the pivot can be computed for the shipped passages.
 contents = seedDefaultsIfNeeded();

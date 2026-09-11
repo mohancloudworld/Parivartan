@@ -18,7 +18,8 @@ var SEEDED_KEY = "parivartan.seeded";
 var DEFAULT_SETTINGS = {
   displayScript: "Devanagari",  // preferred script for all content
   nativeDigits: false,          // false = roman digits, matching the extension
-  fontOffset: 0                 // px, added to each script's tuned base size
+  fontOffset: 0,                // px, added to each script's tuned base size
+  readingTheme: "system"        // system | paper | sepia | night | black
 };
 
 function loadSettings() {
