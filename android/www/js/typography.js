@@ -26,7 +26,13 @@ var PARIVARTAN_TYPOGRAPHY = {
   Tamil:      { size: 21, lineHeight: 1.80 },
   Telugu:     { size: 22, lineHeight: 1.90 },
   Kannada:    { size: 22, lineHeight: 1.90 },
-  Malayalam:  { size: 22, lineHeight: 1.95 }
+  Malayalam:  { size: 22, lineHeight: 1.95 },
+  // Latin needs neither the leading of a headstroke script nor the size that
+  // subscript conjuncts demand, so it reads well smaller and tighter. ISO is
+  // given slightly more room than plain text because its marks sit above and
+  // below the line.
+  ISO:        { size: 19, lineHeight: 1.80 },
+  Plain:      { size: 19, lineHeight: 1.70 }
 };
 
 // Reader font offset bounds, in px, applied to the per-script base above.
@@ -48,6 +54,11 @@ function sizeFor(script, offset) {
 // text; the bundled Sans is the fallback, then the platform default so the
 // app still renders before any font files are dropped into www/fonts/.
 function fontStackFor(script) {
+  // The Latin options are not a script with a bundled face; they want a serif
+  // with good Latin Extended Additional coverage, which the platform provides.
+  if (script === "ISO" || script === "Plain") {
+    return '"Noto Serif", Georgia, "Times New Roman", serif';
+  }
   return '"Noto Serif ' + script + '", "Noto Sans ' + script + '", serif';
 }
 

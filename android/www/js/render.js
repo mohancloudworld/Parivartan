@@ -15,6 +15,21 @@
 // preference uniformly - including on the verbatim-original path, where no
 // transliteration runs at all and the engine's own digit flag never fires.
 
+// Latin-script display options. These are display-only: content is always
+// stored in an Indian script, so they never appear as a source script.
+//   ISO   - ISO 15919, diacritics kept: exact, and still recitable if the
+//           reader ignores every mark.
+//   Plain - the same with the marks removed, which is how devotional text is
+//           normally printed in Latin letters.
+var ROMAN_SCHEMES = {
+  ISO:   "English (ISO 15919)",
+  Plain: "English (plain)"
+};
+
+function isRoman(script) {
+  return Object.prototype.hasOwnProperty.call(ROMAN_SCHEMES, script);
+}
+
 var INDIC_SCRIPTS = [
   "Devanagari", "Telugu", "Kannada", "Gujarati", "Tamil",
   "Bengali", "Gurmukhi", "Malayalam", "Oriya"
@@ -97,6 +112,13 @@ function titleSearchKey(title) {
 //   content: { original, sourceScript, pivotItrans }
 function renderContent(content, displayScript, nativeDigits) {
   var text;
+  // Latin display always goes through the pivot - there is no "same script"
+  // shortcut, since content is never stored in Latin. Digits stay as roman
+  // numerals regardless of the setting: the setting picks an INDIAN script's
+  // digits, which would look wrong embedded in Latin text.
+  if (isRoman(displayScript)) {
+    return Parivartan.convert2Roman(content.pivotItrans, displayScript);
+  }
   if (displayScript === content.sourceScript) {
     // Same script: show exactly what was saved. No round-trip, no loss.
     text = content.original;
@@ -113,6 +135,8 @@ function renderContent(content, displayScript, nativeDigits) {
 if (typeof module !== "undefined" && module.exports) {
   module.exports = {
     INDIC_SCRIPTS: INDIC_SCRIPTS,
+    ROMAN_SCHEMES: ROMAN_SCHEMES,
+    isRoman: isRoman,
     LOSSY_SOURCE_SCRIPTS: LOSSY_SOURCE_SCRIPTS,
     digitPass: digitPass,
     detectScript: detectScript,

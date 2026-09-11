@@ -42,10 +42,69 @@ function run(mode, target, input, opts) {
   const preferASCIIDigits = (opts && "preferASCIIDigits" in opts)
     ? opts.preferASCIIDigits
     : true;
+  // "roman" is not a menu mode: it exercises convert2Roman directly, taking
+  // Indic input through the ITRANS pivot the way the reader does. The engine
+  // lives in src/, so it belongs in this suite even though only the Android
+  // app currently offers Latin output in its UI.
+  if (mode === "roman") {
+    const P = context.Parivartan;
+    const script = P.detectLanguage(text);
+    const pivot = P.convert2IndicScript(text, "ITRANS", script, 1, 1, preferASCIIDigits);
+    return P.convert2Roman(pivot, target);
+  }
   return context.parivartanRunConversion(mode, target, html, text, preferASCIIDigits);
 }
 
 const tests = [
+  // ----- Latin output (ISO 15919 and plain) -----
+  {
+    name: "ISO 15919: vowel length, retroflexion and anusvara all marked",
+    mode: "roman", target: "ISO",
+    input: "शुक्लांबरधरं विष्णुं शशिवर्णं चतुर्भुजम्",
+    expected: "śuklāṁbaradharaṁ viṣṇuṁ śaśivarṇaṁ caturbhujam",
+  },
+  {
+    name: "plain: no diacritics survive",
+    mode: "roman", target: "Plain",
+    input: "शुक्लांबरधरं विष्णुं शशिवर्णं चतुर्भुजम्",
+    expected: "shuklambaradharam vishnum shashivarnam chaturbhujam",
+  },
+  {
+    name: "ISO: vocalic R uses the ring below",
+    mode: "roman", target: "ISO",
+    input: "हृदि", expected: "hr̥di",
+  },
+  {
+    name: "plain: vocalic R reads as ri, not a bare r",
+    mode: "roman", target: "Plain",
+    input: "हृदि", expected: "hridi",
+  },
+  {
+    name: "plain: anusvara takes the nasal of what follows it",
+    mode: "roman", target: "Plain",
+    input: "मांगे", expected: "mange",
+  },
+  {
+    name: "plain: anusvara before a labial stays m",
+    mode: "roman", target: "Plain",
+    input: "अंबर", expected: "ambara",
+  },
+  {
+    name: "ISO: decomposed nukta does not stack a second dot",
+    mode: "roman", target: "ISO",
+    input: "द्राविड़", expected: "drāviṛa",
+  },
+  {
+    name: "plain: retroflex flap reads as d, matching common romanisation",
+    mode: "roman", target: "Plain",
+    input: "द्राविड़", expected: "dravida",
+  },
+  {
+    name: "ISO: Telugu source romanises the same way",
+    mode: "roman", target: "ISO",
+    input: "శ్రీ రామ", expected: "śrī rāma",
+  },
+
   // ----- Fallbacks for signs a script does not have -----
   // Each of these produced raw ITRANS in the output before the forward
   // dictionaries gained fallbacks: ".c" surfaced as a danda plus a Latin "c",

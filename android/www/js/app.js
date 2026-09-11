@@ -31,12 +31,22 @@ function findContent(id) {
   return contents.filter(function (c) { return c.id === id; })[0] || null;
 }
 
-function scriptOptions(select, selected) {
+// `withRoman` is false for the add/edit screen: content is always stored in an
+// Indian script, so Latin is a way to read it, never a way to enter it.
+function scriptOptions(select, selected, withRoman) {
   select.textContent = "";
-  INDIC_SCRIPTS.forEach(function (s) {
+  var values = INDIC_SCRIPTS.slice();
+  var labels = {};
+  if (withRoman) {
+    Object.keys(ROMAN_SCHEMES).forEach(function (k) {
+      values.push(k);
+      labels[k] = ROMAN_SCHEMES[k];
+    });
+  }
+  values.forEach(function (s) {
     var opt = document.createElement("option");
     opt.value = s;
-    opt.textContent = s;
+    opt.textContent = labels[s] || s;
     if (s === selected) opt.selected = true;
     select.appendChild(opt);
   });
@@ -59,9 +69,10 @@ function renderLibrary() {
     t.textContent = item.title || "(untitled)";
     var meta = document.createElement("div");
     meta.className = "meta";
+    var target = ROMAN_SCHEMES[settings.displayScript] || settings.displayScript;
     meta.textContent = item.sourceScript === settings.displayScript
       ? item.sourceScript
-      : item.sourceScript + " → shown in " + settings.displayScript;
+      : item.sourceScript + " → shown in " + target;
     titleWrap.appendChild(t);
     titleWrap.appendChild(meta);
     titleWrap.addEventListener("click", function () { openReader(item.id); });
@@ -140,7 +151,9 @@ function openEditor(id) {
   $("edit-heading").textContent = item ? "Edit content" : "Add content";
   $("edit-title").value = item ? item.title : "";
   $("edit-body").value = item ? item.original : "";
-  scriptOptions($("edit-script"), item ? item.sourceScript : settings.displayScript);
+  var editScript = item ? item.sourceScript
+    : (isRoman(settings.displayScript) ? "Devanagari" : settings.displayScript);
+  scriptOptions($("edit-script"), editScript, false);
   $("btn-delete").classList.toggle("hidden", !item);
   $("detect-hint").textContent = "";
   updateLossyWarning();
@@ -207,7 +220,7 @@ function deleteCurrent() {
 // --- Settings --------------------------------------------------------------
 
 function openSettings() {
-  scriptOptions($("set-script"), settings.displayScript);
+  scriptOptions($("set-script"), settings.displayScript, true);
   $("set-digits").checked = settings.nativeDigits;
   showView("settings");
 }

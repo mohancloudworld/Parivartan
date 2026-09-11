@@ -2043,10 +2043,119 @@ var katapayadi_dict = [
      "\u0b4D"] // VIRAMA
 ];
 
+// ITRANS -> ISO 15919. Used to show Indic text in Latin letters.
+//
+// The keys are exactly the tokens the reverse pass emits into the ITRANS pivot,
+// enumerated from the Devanagari table rather than assumed - a mechanical
+// inversion of iso2itrans_dict below does NOT work, because that mapping is
+// many-to-one (both the anusvara and the underdot forms collapse onto "M") and
+// inverting it picks an arbitrary winner.
+//
+// Matching is longest-key-first, so "chh" wins over "ch" and "shh" over "sh".
+//
+// ISO is chosen over IAST because it can write the short/long e and o that the
+// Dravidian scripts distinguish; IAST treats e and o as always long and cannot
+// represent Telugu, Tamil or Malayalam correctly.
+var itrans2iso_dict = {
+    // Vowels
+    "a"      :   "a",
+    "aa"     :   "\u0101",          // ā
+    "i"      :   "i",
+    "ii"     :   "\u012B",          // ī
+    "u"      :   "u",
+    "uu"     :   "\u016B",          // ū
+    "RRi"    :   "r\u0325",         // r̥  vocalic R
+    "RRI"    :   "r\u0325\u0304",   // r̥̄  long vocalic R
+    "LLi"    :   "l\u0325",         // l̥  vocalic L
+    "LLI"    :   "l\u0325\u0304",   // l̥̄  long vocalic L
+    "e"      :   "e",               // short e (Dravidian)
+    "ee"     :   "\u0113",          // ē
+    "ai"     :   "ai",
+    "o"      :   "o",               // short o (Dravidian)
+    "oo"     :   "\u014D",          // ō
+    "au"     :   "au",
+    "a.c"    :   "\u00EA",          // ê  candra e
+    "aa.c"   :   "\u00F4",          // ô  candra o
+    "AUM"    :   "\u014Dm\u0310",   // ōm̐
+
+    // Consonants
+    "k"      :   "k",
+    "kh"     :   "kh",
+    "g"      :   "g",
+    "gh"     :   "gh",
+    "N^"     :   "\u1E45",          // ṅ
+    "ch"     :   "c",
+    "chh"    :   "ch",
+    "j"      :   "j",
+    "jh"     :   "jh",
+    "JN"     :   "\u00F1",          // ñ
+    "T"      :   "\u1E6D",          // ṭ
+    "Th"     :   "\u1E6Dh",         // ṭh
+    "D"      :   "\u1E0D",          // ḍ
+    "Dh"     :   "\u1E0Dh",         // ḍh
+    "N"      :   "\u1E47",          // ṇ
+    "t"      :   "t",
+    "th"     :   "th",
+    "d"      :   "d",
+    "dh"     :   "dh",
+    "n"      :   "n",
+    "^n"     :   "\u1E49",          // ṉ
+    "p"      :   "p",
+    "ph"     :   "ph",
+    "b"      :   "b",
+    "bh"     :   "bh",
+    "m"      :   "m",
+    "y"      :   "y",
+    "r"      :   "r",
+    "R"      :   "\u1E5F",          // ṟ
+    "l"      :   "l",
+    "L"      :   "\u1E37",          // ḷ
+    "v"      :   "v",
+    "sh"     :   "\u015B",          // ś
+    "shh"    :   "\u1E63",          // ṣ
+    "s"      :   "s",
+    "h"      :   "h",
+    "x"      :   "k\u1E63",         // kṣ
+    "GY"     :   "j\u00F1",         // jñ
+    // Perso-Arabic letters used in Hindi/Urdu loanwords
+    "q"      :   "q",
+    "K"      :   "\u1E35\u1E96",    // ḵẖ - the ISO form that renders reliably
+    "G"      :   "\u0121",          // ġ
+    "J"      :   "z",
+    ".D"     :   "\u1E5B",          // ṛ
+    ".Dh"    :   "\u1E5Bh",         // ṛh
+    "f"      :   "f",
+    // The same letters written decomposed, as base consonant + nukta. Indic
+    // text uses both forms, and the reverse pass turns the nukta into the
+    // generic combining dot below, so without these the dot would stack on top
+    // of a diacritic the consonant already carries.
+    "k\u0323"   :   "q",
+    "kh\u0323"  :   "\u1E35\u1E96",    // ḵẖ
+    "g\u0323"   :   "\u0121",          // ġ
+    "j\u0323"   :   "z",
+    "D\u0323"   :   "\u1E5B",          // ṛ
+    "Dh\u0323"  :   "\u1E5Bh",         // ṛh
+    "ph\u0323"  :   "f",
+    // A nukta left over on any other consonant is dropped rather than stacked.
+    "\u0323"    :   "",
+
+    // Marks
+    ".N"     :   "m\u0310",         // m̐  candrabindu
+    "M"      :   "\u1E41",          // ṁ  anusvara
+    "H"      :   "\u1E25",          // ḥ  visarga
+    ".a"     :   "\u2019",          // ’  avagraha
+    ".h"     :   "",                // virama: absence of a vowel
+    ".c"     :   "\u00EA"           // ê  candra e vowel sign
+    // Danda and double danda arrive as "," and "." and pass through unchanged:
+    // a real comma in the source reaches the pivot as "," too, so rewriting it
+    // to a verse bar would corrupt ordinary punctuation.
+};
+
 // Exposed as a global within the content script's isolated world.
 var PARIVARTAN_TABLES = {
     iso2itrans_dict:  iso2itrans_dict,
     iast2itrans_dict: iast2itrans_dict,
+    itrans2iso_dict:  itrans2iso_dict,
     devanagari_dict:  devanagari_dict,
     telugu_dict:      telugu_dict,
     kannada_dict:     kannada_dict,

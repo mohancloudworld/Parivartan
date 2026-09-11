@@ -39,6 +39,10 @@ var english_dict_rev    = {};
 
 var katapayadi_dict = myTable.katapayadi_dict;
 
+// ITRANS tokens ordered longest-first, so maximal-munch matching prefers
+// "chh" over "ch" and "shh" over "sh". Built once by init().
+var itrans2iso_keys = [];
+
 function init()
 {
     // forward dictionaries: the tables plus candra-vowel fallbacks
@@ -77,6 +81,10 @@ function init()
     malayalam_dict_rev  = reverse(myTable.malayalam_dict);
     oriya_dict_rev      = reverse(myTable.oriya_dict);
     english_dict_rev    = reverse(myTable.english_dict);
+
+    itrans2iso_keys = Object.keys(myTable.itrans2iso_dict).sort(function (a, b) {
+        return b.length - a.length;
+    });
 }
 
 function detectLanguage(inp_txt){
@@ -579,6 +587,113 @@ function isASCIIDigit(n) {
   return ((n>=0) && (n<=9));
 }
 
+// Renders an ITRANS pivot in Latin script.
+//
+//   scheme "ISO"   - ISO 15919, diacritics and all: precise, and a reader who
+//                    ignores every mark still gets a recitable approximation.
+//   scheme "Plain" - the same thing with the marks removed, which is how
+//                    devotional text is normally printed in Latin letters.
+//
+// Plain is derived from ISO rather than tabulated separately, so there is one
+// mapping to keep correct. Dropping a combining mark is right for most letters
+// (ā becomes a, ṭ becomes t), but five would become misleading or unreadable,
+// and those are rewritten before the marks are stripped.
+function convert2Roman(inp_txt, scheme) {
+    var dict = myTable.itrans2iso_dict;
+    var out = "";
+    var indx = 0;
+    var insideTag = false;
+
+    while (indx < inp_txt.length) {
+        // Leave markup alone, as the rest of the engine does.
+        if (!insideTag && inp_txt.charAt(indx) == "<") {
+            insideTag = true;
+            out += inp_txt.charAt(indx);
+            ++indx;
+            continue;
+        }
+        if (insideTag) {
+            if (inp_txt.charAt(indx) == ">") insideTag = false;
+            out += inp_txt.charAt(indx);
+            ++indx;
+            continue;
+        }
+        if (inp_txt.substring(indx, indx + 6) == "&nbsp;") {
+            out += "&nbsp;";
+            indx += 6;
+            continue;
+        }
+
+        var matched = false;
+        for (var k = 0; k < itrans2iso_keys.length; k++) {
+            var key = itrans2iso_keys[k];
+            if (key && inp_txt.substr(indx, key.length) === key) {
+                out += dict[key];
+                indx += key.length;
+                matched = true;
+                break;
+            }
+        }
+        if (!matched) {
+            // Punctuation, digits and spaces pass through untouched.
+            out += inp_txt.charAt(indx);
+            ++indx;
+        }
+    }
+
+    if (scheme === "Plain") return roman2Plain(out);
+    return out;
+}
+
+// Strips ISO's diacritics for readability. The five rewrites below come first
+// because simply dropping the mark would mislead: the sibilants are read as
+// "sh" by anyone not using the marks, ISO writes the palatal as a bare "c"
+// where English expects "ch", and the vocalic vowels would otherwise leave a
+// consonant cluster with no vowel in it at all.
+function roman2Plain(iso) {
+    var s = iso;
+    s = s.replace(/r\u0325\u0304|r\u0325/g, "ri");   // r̥̄ r̥ -> ri
+    s = s.replace(/l\u0325\u0304|l\u0325/g, "li");   // l̥̄ l̥ -> li
+    s = s.replace(/\u015B|\u1E63/g, "sh");           // ś ṣ -> sh
+    // The retroflex flap, before the marks are stripped: decomposing it would
+    // leave a bare "r", but it is conventionally written with the base
+    // consonant in ordinary romanisation, which is also how the Home Ministry's
+    // own English text spells it.
+    s = s.replace(/\u1E5Bh/g, "dh");                 // ṛh -> dh
+    s = s.replace(/\u1E5B/g, "d");                   // ṛ  -> d
+    // Anusvara takes the nasal of whatever follows it, which is how the word is
+    // actually said and written: "m" before the labials, "n" before everything
+    // else, and "m" when it ends the word. Leaving it as a flat "m" produces
+    // spellings no one would read aloud correctly.
+    s = s.replace(/\u1E41(?=[pbm])/g, "m");
+    s = s.replace(/\u1E41(?=[a-zA-Z\u0100-\u1EFF])/g, "n");
+    s = s.replace(/\u1E41/g, "m");
+    s = s.replace(/m\u0310(?=[pbm])/g, "m");          // candrabindu, same rule
+    s = s.replace(/m\u0310(?=[a-zA-Z\u0100-\u1EFF])/g, "n");
+    s = s.replace(/m\u0310/g, "m");
+    s = s.replace(/ch/g, "\u0001");                  // protect ch before c->ch
+    s = s.replace(/c/g, "ch");
+    s = s.replace(/\u0001/g, "chh");
+    // Everything else: decompose and drop the combining marks.
+    if (typeof s.normalize === "function") {
+        s = s.normalize("NFD").replace(/[\u0300-\u036F]/g, "").normalize("NFC");
+    }
+    // Precomposed letters that NFD does not split, and the standalone marks.
+    var leftovers = {
+        "\u0101": "a", "\u012B": "i", "\u016B": "u", "\u0113": "e", "\u014D": "o",
+        "\u1E6D": "t", "\u1E0D": "d", "\u1E47": "n", "\u1E45": "n", "\u00F1": "n",
+        "\u1E49": "n", "\u1E37": "l", "\u1E5F": "r", "\u1E5B": "d", "\u1E41": "m",
+        "\u1E25": "h", "\u1E35": "k", "\u1E96": "h", "\u0121": "g",
+        "\u00EA": "e", "\u00F4": "o", "\u2019": ""
+    };
+    var res = "";
+    for (var i = 0; i < s.length; i++) {
+        var ch = s.charAt(i);
+        res += (leftovers[ch] !== undefined) ? leftovers[ch] : ch;
+    }
+    return res;
+}
+
 function convert2Katapayadi(inp_txt) {
     var indx=0, dict_indx;
     var out = "";
@@ -626,5 +741,6 @@ var Parivartan = {
     init: init,
     detectLanguage: detectLanguage,
     convert2IndicScript: convert2IndicScript,
-    convert2Katapayadi: convert2Katapayadi
+    convert2Katapayadi: convert2Katapayadi,
+    convert2Roman: convert2Roman
 };

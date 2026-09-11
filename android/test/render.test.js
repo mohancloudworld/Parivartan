@@ -116,6 +116,39 @@ for (const s of ctx.INDIC_SCRIPTS) {
   check(s + ": typography + native digits present", hasType && hasDigits, true);
 }
 
+console.log("\n-- latin display --");
+{
+  const item = add("శ్రీ రామ ౧౦౮ నామ");
+  check("ISO keeps the marks",
+    ctx.renderContent(item, "ISO", false), "\u015Br\u012B r\u0101ma 108 n\u0101ma");
+  check("Plain drops the marks",
+    ctx.renderContent(item, "Plain", false), "shri rama 108 nama");
+  // Latin ignores the digit preference: the setting chooses an Indian script's
+  // digits, which have no place inside Latin text.
+  check("ISO ignores the native-digit setting",
+    ctx.renderContent(item, "ISO", true), ctx.renderContent(item, "ISO", false));
+  check("ISO and Plain are recognised as latin targets",
+    ctx.isRoman("ISO") && ctx.isRoman("Plain"), true);
+  check("an Indian script is not a latin target", ctx.isRoman("Telugu"), false);
+}
+{
+  // Independently derived, this should land on the Home Ministry's own English
+  // spelling of the anthem's opening - a useful outside check on the mapping.
+  const anthem = ctx.PARIVARTAN_DEFAULT_CONTENT[0];
+  const item = {
+    original: anthem.body,
+    sourceScript: anthem.sourceScript,
+    pivotItrans: ctx.toPivot(anthem.body, anthem.sourceScript),
+  };
+  const plain = ctx.renderContent(item, "Plain", false).split("\n");
+  check("anthem line 1 in plain english",
+    plain[0], "jana-gana-mana adhinayaka jaya he");
+  check("anthem line 4 in plain english (retroflex flap reads as d)",
+    plain[3], "dravida-utkala-banga");
+  check("anthem has no leftover diacritics in plain english",
+    /[^\x00-\x7F]/.test(plain.join("\n")), false);
+}
+
 console.log("\n-- shipped default content --");
 // These are national symbols reproduced from the Government of India's own
 // order, so the checks are about fidelity, not formatting: the stored text must
