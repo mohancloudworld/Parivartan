@@ -56,6 +56,62 @@ function run(mode, target, input, opts) {
 }
 
 const tests = [
+  // ----- Latin output through the menu router -----
+  // The reverse path used to offer one Latin reading, in the notation meant for
+  // typing. These are the other two, reached the way the menu reaches them.
+  {
+    name: "menu: Indic source to English (ITRANS) unchanged from before",
+    mode: "indic", target: "English",
+    input: "शुक्लांबरधरं विष्णुं",
+    expected: "shuklaaMbaradharaM vishhNuM",
+  },
+  {
+    name: "menu: Indic source to English (ISO 15919)",
+    mode: "indic", target: "EnglishISO",
+    input: "शुक्लांबरधरं विष्णुं",
+    expected: "śuklāṁbaradharaṁ viṣṇuṁ",
+  },
+  {
+    name: "menu: Indic source to English (plain)",
+    mode: "indic", target: "EnglishPlain",
+    input: "शुक्लांबरधरं विष्णुं",
+    expected: "shuklambaradharam vishnum",
+  },
+  // One notation rewritten as another, which the menu could not do at all.
+  {
+    name: "menu: IAST input to ISO 15919 output",
+    mode: "iast", target: "EnglishISO",
+    input: "hare kṛṣṇa", expected: "harē kr̥ṣṇa",
+  },
+  {
+    name: "menu: ITRANS input to ISO 15919 output",
+    mode: "itrans", target: "EnglishISO",
+    input: "harE kRRiShNa", expected: "harē kr̥ṣṇa",
+  },
+  {
+    name: "menu: ISO input to plain English output",
+    mode: "iso", target: "EnglishPlain",
+    input: "harē kr̥ṣṇa", expected: "hare krishna",
+  },
+  // Converting a notation into itself is not offered, and returns nothing if
+  // asked for, the same way an Indic script already in the target does.
+  {
+    name: "menu: ITRANS input to ITRANS output is a no-op",
+    mode: "itrans", target: "English",
+    input: "harE kRRiShNa", expected: null,
+  },
+  {
+    name: "menu: ISO input to ISO output is a no-op",
+    mode: "iso", target: "EnglishISO",
+    input: "harē kr̥ṣṇa", expected: null,
+  },
+  {
+    name: "menu: HTML survives a Latin output conversion",
+    mode: "indic", target: "EnglishPlain",
+    input: "विष्णुं", opts: { html: "<b>विष्णुं</b>", text: "विष्णुं" },
+    expected: "<b>vishnum</b>",
+  },
+
   // ----- Latin output (ISO 15919 and plain) -----
   {
     name: "ISO 15919: vowel length, retroflexion and anusvara all marked",

@@ -10,7 +10,7 @@ Parivartan is a Manifest V3 WebExtension and runs on any Chromium-based browser 
 
 <b>Supported formats:</b><ul>
 <li>Indian: Devanagari (Sanskrit/Hindi/Marathi), Telugu, Kannada, Gujarati, Tamil, Bengali, Gurmukhi (Punjabi), Malayalam and Oriya (Odia).</li>
-<li>English: ITRANS, ISO-15919 and IAST.</li>
+<li>English: ITRANS, ISO-15919 and IAST as input; ITRANS, ISO-15919 and a plain no-diacritics form as output.</li>
 <li>Other: Katapayadi sankhya system.</li></ul>
 
 <b>Purpose:</b>
@@ -29,10 +29,10 @@ This add-on converts the text in the text-boxes also, so this can be used to typ
 <b>Menu layout:</b>
 <ol>
 <li>The "Parivartan" menu has one submenu per input format, each listing the available target scripts:<ul>
-<li><b>"From any Indian script to"</b> &mdash; auto-detects the input Indian language. Targets: another Indian language, English (ITRANS) or Katapayadi sankhya. <i>Detection assumes the whole selection is in one script; if a selection mixes scripts, only the first detected script is converted and text in other scripts is left unchanged.</i></li>
-<li><b>"From English (ITRANS) to"</b> &rarr; the selected Indian language or Katapayadi sankhya.</li>
-<li><b>"From English (ISO 15919) to"</b> &rarr; the selected Indian language or Katapayadi sankhya.</li>
-<li><b>"From English (IAST) to"</b> &rarr; the selected Indian language or Katapayadi sankhya.</li>
+<li><b>"From any Indian script to"</b> &mdash; auto-detects the input Indian language. Targets: another Indian language, one of the English notations (ITRANS, ISO 15919 or plain) or Katapayadi sankhya. <i>Detection assumes the whole selection is in one script; if a selection mixes scripts, only the first detected script is converted and text in other scripts is left unchanged.</i></li>
+<li><b>"From English (ITRANS) to"</b> &rarr; the selected Indian language, Katapayadi sankhya, or another English notation.</li>
+<li><b>"From English (ISO 15919) to"</b> &rarr; the selected Indian language, Katapayadi sankhya, or another English notation.</li>
+<li><b>"From English (IAST) to"</b> &rarr; the selected Indian language, Katapayadi sankhya, or another English notation.</li>
 <li><b>"From General English to"</b> &mdash; also converts text that is not strictly ITRANS, ISO-15919 or IAST. Conversion in this mode may be less precise, so prefer the matching ITRANS/ISO-15919/IAST option for accurate results.</li></ul></li>
 <li>After your first conversion, the targets for that input format are also <b>hoisted flat to the top</b> of the Parivartan menu under a greyed-out header that names the format (for example, "From English (ITRANS) to"). Subsequent conversions in the same category take one click less; switching to a different input format from one of the submenus updates the hoisted list.</li>
 </ol>
@@ -46,7 +46,7 @@ This add-on converts the text in the text-boxes also, so this can be used to typ
 <b>Technical Details:</b>
 
 1. <a href="https://en.wikipedia.org/wiki/ITRANS" target="_blank">ITRANS</a> Tables: <a href="http://www.aczoom.com/itrans/html/dvng/node3.html" target="_blank">Devanagari/Sanskrit/Hindi/Marahti</a>, <a href="http://www.aczoom.com/itrans/html/tlgutx/node3.html" target="_blank">Telugu</a>, <a href="http://www.aczoom.com/itrans/html/kantex/node2.html" target="_blank">Kannada</a>, <a href="http://www.aczoom.com/itrans/html/gujdoc/node4.html" target="_blank">Gujarati</a>, <a href="http://www.aczoom.com/itrans/html/tamil/node5.html" target="_blank">Tamil</a>, <a href="http://www.aczoom.com/itrans/html/beng/node4.html" target="_blank">Bengali</a>, <a href="http://www.aczoom.com/itrans/html/pundoc/node5.html" target="_blank">Gurmukhi (Punjabi)</a>
-2. <a href="https://en.wikipedia.org/wiki/Wikipedia:Indic_transliteration" target="_blank">ISO-15919</a>
+2. <a href="https://en.wikipedia.org/wiki/Wikipedia:Indic_transliteration" target="_blank">ISO-15919</a> &mdash; also available as an output format. Preferred over IAST for output because it can write the short/long <i>e</i> and <i>o</i> that the Dravidian scripts distinguish. The <b>plain</b> output is ISO with the diacritics removed, for reading rather than precision.
 3. <a href="https://en.wikipedia.org/wiki/IAST" target="_blank">IAST</a>
 4. <a href="https://en.wikipedia.org/wiki/Katapayadi_system" target="_blank">Katapayadi sankhya</a>
 

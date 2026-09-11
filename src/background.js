@@ -34,13 +34,21 @@ const LANGUAGES = [
   ["Oriya", "Oriya (ଓଡ଼ିଆ)"],
 ];
 const KATAPAYADI = ["Katapayadi", "Katapayadi sankhya"];
-const ENGLISH_TARGET = ["English", "English"];
+// Latin outputs. ITRANS is precise but built for typing, not reading; ISO 15919
+// is readable and still exact; plain drops the marks for someone who only wants
+// to say the words. The first id is unchanged from earlier versions so stored
+// menu preferences still resolve.
+const ENGLISH_TARGETS = [
+  ["English", "English (ITRANS)"],
+  ["EnglishISO", "English (ISO 15919)"],
+  ["EnglishPlain", "English (plain)"],
+];
 
-// Targets for English-input formats: all Indic scripts + Katapayadi.
-const SCRIPT_TARGETS = [...LANGUAGES, KATAPAYADI];
-// Targets for the "any Indian script" reverse path: any other Indic script,
-// English (ITRANS), or Katapayadi.
-const INDIC_TARGETS = [ENGLISH_TARGET, ...LANGUAGES, KATAPAYADI];
+// Targets for English-input formats: the Indic scripts, Katapayadi, and the
+// other Latin notations - which makes this a notation converter too.
+const SCRIPT_TARGETS = [...LANGUAGES, KATAPAYADI, ...ENGLISH_TARGETS];
+// Targets for the "any Indian script" reverse path.
+const INDIC_TARGETS = [...ENGLISH_TARGETS, ...LANGUAGES, KATAPAYADI];
 
 // Full hierarchy: one submenu per input format, in display order.
 // The same label is used both as the submenu title and as the hoisted-shortcut

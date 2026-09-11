@@ -22,7 +22,16 @@ const LANGUAGE_TARGETS = [
   ["Oriya", "Oriya (ଓଡ଼ିଆ)"],
   ["Katapayadi", "Katapayadi sankhya"],
 ];
-const ENGLISH_TARGET = ["English", "English"];
+// Latin outputs, offered for every input format: from an Indian script they
+// are a reading of it, and from one notation they rewrite it as another.
+const ENGLISH_TARGETS = [
+  ["English", "English (ITRANS)"],
+  ["EnglishISO", "English (ISO 15919)"],
+  ["EnglishPlain", "English (plain)"],
+];
+// The Latin output matching each Latin input, which is dropped rather than
+// offering to convert a notation into itself.
+const SAME_NOTATION = { itrans: "English", iso: "EnglishISO" };
 const DEFAULT_TARGET = "Devanagari";
 
 const formatSel = document.getElementById("format");
@@ -37,11 +46,12 @@ let preferASCIIDigits = true;
 
 function rebuildTargetOptions() {
   const previous = targetSel.value || DEFAULT_TARGET;
-  // English is a valid target only for the reverse "any Indian script" path.
+  const same = SAME_NOTATION[formatSel.value];
+  const english = ENGLISH_TARGETS.filter(([value]) => value !== same);
   const targets =
     formatSel.value === "indic"
-      ? [ENGLISH_TARGET, ...LANGUAGE_TARGETS]
-      : LANGUAGE_TARGETS;
+      ? [...english, ...LANGUAGE_TARGETS]
+      : [...LANGUAGE_TARGETS, ...english];
 
   targetSel.textContent = "";
   for (const [value, label] of targets) {
